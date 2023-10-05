@@ -10,9 +10,9 @@ route.get("/admin",(req,res)=>{
 })
 
 
-// route.get("/admin",(req,res)=>{
-//     res.render('adminSignup')
-// })
+route.get("/admin",(req,res)=>{
+    res.render('adminSignup')
+})
 
 // route.post("/Admin_login",async(req,res)=>{
 //     try {
