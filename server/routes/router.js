@@ -6,7 +6,7 @@ const route = express.Router()
 route.get("/",(req,res)=>res.render("index"))
 
 route.get("/admin",(req,res)=>{
-    
+    res.render("dashboard")
 })
 
 
