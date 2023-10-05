@@ -22,6 +22,7 @@ app.use("/js",express.static(path.resolve(__dirname,"assets/js")))
 
 app.use('/',require('./server/routes/router'))
 app.use("/admin",require('./server/routes/router'))
+app.use('/admin_login',require("./server/routes/router"))
 
 
 app.listen(PORT,()=>console.log(`server is running on ${PORT}`))
