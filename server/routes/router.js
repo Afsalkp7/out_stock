@@ -3,6 +3,9 @@ const adminCollection = require("../model/adminModel")
 const route = express.Router()
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const secretKey = process.env.secretKey
+const auth = require("../controller/auth")
+const session = require('express-session');
 
 // route.get("/admin",(req,res)=>{
 //     res.render('adminSignup')
@@ -34,7 +37,11 @@ const jwt = require('jsonwebtoken');
 route.get("/",(req,res)=>res.render("index"))
 
 route.get("/admin",(req,res)=>{
-    res.render("adminlog")
+    token = req.cookies.session
+    if(token){
+        res.render("dashboard")
+    }else
+        res.render("adminlog")
 })
 
 route.post("/admin_login",async(req,res)=>{
@@ -43,21 +50,16 @@ route.post("/admin_login",async(req,res)=>{
     try {
         const adminProfile = await adminCollection.findOne({ email });
         if (adminProfile && await bcrypt.compare(loginPassword, adminProfile.password)){
-            const token = jwt.sign({ adminId: adminProfile._id }, 'your-secret-key', {
-                expiresIn: '3h',
-            });
-            res.json({ token });
+            const token = jwt.sign({ adminId: adminProfile._id }, secretKey);
+            res.cookie("session",token)
+            return res.redirect("/admin")
         } else {
-            res.status(401).json({ message: 'Invalid email or password' });
+            res.render("adminlog",{emailMatch : true})
         }
     } catch (error) {
         console.log(error);
     }
 })
-
-
-
-
 
 
 

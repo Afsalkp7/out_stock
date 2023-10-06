@@ -21,14 +21,6 @@
             </button>
         </div>
       {{/if}}
-      {{#if emailPassMacth}}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Password not matching....!!!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-      {{/if}}
         <form action="/admin_login" method="POST">
             <div class="form-floating mt-3 mb-3">
               <input type="email" class="form-control" id="email" name="email" autocomplete="off"/>
