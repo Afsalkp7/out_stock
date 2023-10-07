@@ -1,16 +1,15 @@
 const express = require("express")
-const adminCollection = require("../model/adminModel")
 const route = express.Router()
+const adminCollection = require("../../model/adminModel")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.secretKey
-const auth = require("../controller/auth")
+const auth = require("../../middlewere/auth")
 const session = require('express-session');
 
 // route.get("/admin",(req,res)=>{
 //     res.render('adminSignup')
 // })
-
 // route.post("/admin_login",async(req,res)=>{
 //     try {
 //         const {password,cpassword} = req.body
@@ -29,14 +28,10 @@ const session = require('express-session');
 //         }
 //     } catch (error) {
 //         res.send(error)
-//     }
-    
+//     } 
 // })
 
-
-route.get("/",(req,res)=>res.render("index"))
-
-route.get("/admin",(req,res)=>{
+route.get("/",(req,res)=>{
     token = req.cookies.session
     if(token){
         res.render("dashboard")
@@ -46,7 +41,6 @@ route.get("/admin",(req,res)=>{
 
 route.post("/admin_login",async(req,res)=>{
     const { email,loginPassword } = req.body;
-
     try {
         const adminProfile = await adminCollection.findOne({ email });
         if (adminProfile && await bcrypt.compare(loginPassword, adminProfile.password)){
@@ -61,7 +55,8 @@ route.post("/admin_login",async(req,res)=>{
     }
 })
 
-
-
+route.get("/products",auth,(req,res)=>{
+    res.render("product")
+})
 
 module.exports = route

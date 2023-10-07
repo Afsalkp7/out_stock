@@ -22,9 +22,15 @@ app.use("/css",express.static(path.resolve(__dirname,"assets/css")))
 app.use("/img",express.static(path.resolve(__dirname,"assets/img")))
 app.use("/js",express.static(path.resolve(__dirname,"assets/js")))
 
-app.use('/',require('./server/routes/router'))
-app.use("/admin",require('./server/routes/router'))
-app.use('/admin_login',require("./server/routes/router"))
 
+app.use('/',require("./server/routes/user/indexRouter"))
+app.use('/admin',require('./server/routes/admin/router'))
+
+
+
+
+// app.use((req, res, next) => {
+//     res.status(404).send("Page not found");
+//   });
 
 app.listen(PORT,()=>console.log(`server is running on ${PORT}`))
