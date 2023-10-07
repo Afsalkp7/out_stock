@@ -31,9 +31,12 @@ const session = require('express-session');
 //     } 
 // })
 
-route.get("/",(req,res)=>{
+route.get("/",auth,(req,res)=>{
     token = req.cookies.session
     if(token){
+        console.log(req.adminId);
+        const admin = adminCollection.findOne({_id:req.adminId})
+        console.log(admin);
         res.render("dashboard")
     }else
         res.render("adminlog")

@@ -10,8 +10,8 @@
         return res.status(401).render("error",{error:error});
       }
       try {
-        const decoded = jwt.verify(token, secretKey);
-        req.userId = decoded.userId;
+        const decoded =  jwt.verify  (token, secretKey);
+        req.adminId = decoded.adminId;
         next();
       } catch (error) {
         res.status(401).render("error",{error:error});
