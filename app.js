@@ -14,6 +14,8 @@ dotenv.config({path:"config.env"})
 app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set("view engine",'hbs')
 app.set("views",path.join(__dirname,'views'))

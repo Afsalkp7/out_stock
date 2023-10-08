@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const secretKey = process.env.secretKey
 const auth = require("../../middlewere/auth")
 const session = require('express-session');
+const { token } = require("morgan");
+
 
 // route.get("/admin",(req,res)=>{
 //     res.render('adminSignup')
@@ -31,15 +33,23 @@ const session = require('express-session');
 //     } 
 // })
 
-route.get("/",auth,(req,res)=>{
-    token = req.cookies.session
+route.get("/",async (req,res)=>{
+    const token = req.cookies.session
     if(token){
-        console.log(req.adminId);
-        const admin = adminCollection.findOne({_id:req.adminId})
-        console.log(admin);
-        res.render("dashboard")
+        res.redirect("/admin/index")
     }else
         res.render("adminlog")
+})
+
+route.get("/index",auth,async(req,res)=>{
+    const token = req.cookies.session
+    if(token){
+        const _id = req.adminId
+        const admin = await adminCollection.findOne({ _id })
+        res.render("dashboard",{admin})
+    }else{
+        res.render("adminlog")
+    }
 })
 
 route.post("/admin_login",async(req,res)=>{
@@ -60,6 +70,24 @@ route.post("/admin_login",async(req,res)=>{
 
 route.get("/products",auth,(req,res)=>{
     res.render("product")
+})
+
+route.put("/update",auth,async (req,res)=>{
+    const admin_id = req.body._id
+    const updatedData  = await adminCollection.updateOne({ _id: admin_id }, { $set: req.body });
+    if(updatedData){
+        res.redirect("/admin")
+    }
+})
+
+route.get("/logout",(req,res)=>{
+    const token = req.cookies.session
+    if(token){
+        res.clearCookie('session');
+        res.render("adminlog")
+    }else{
+        res.render("adminlog")
+    }
 })
 
 module.exports = route
