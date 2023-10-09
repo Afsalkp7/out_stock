@@ -34,10 +34,23 @@
         </nav>
     </div>
 	<div id="mainDiv" class="container mt-5">
-        <img src="/img/login.jpg" width="100%" alt="login.jpg">
-        <span id="heading">Login</span>
-        <form id="fillingForm" class="col-4" action="/user_login" method="POST">
-           
+        <img src="/img/registration.jpg" width="100%" alt="registration.jpg">
+        <span id="heading">Create Account</span>
+        {{#if alert}}
+          <p>{{alert}}</p>
+        {{/if}}
+        {{#if notMatch}}
+          <p>Password are not match</p>
+        {{/if}}
+        <form id="fillingForm" class="col-4" action="/register" method="POST">
+            <div class="form-floating mb-3 mt-3">
+              <input type="text" class="form-control" id="userName" placeholder="Enter userName" name="userName">
+              <label for="userName">User Name</label>
+            </div>
+            <div class="form-floating mb-3 mt-3">
+              <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone">
+              <label for="phone">Mobile Number</label>
+            </div>
             <div class="form-floating mb-3 mt-3">
               <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
               <label for="email">Email</label>
@@ -46,13 +59,12 @@
               <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
               <label for="pwd">Password</label>
             </div>
-            <button type="submit" class="btn btn-dark">Login</button>
+            <div class="form-floating mt-3 mb-3">
+              <input type="password" class="form-control" id="cpwd" placeholder="Enter password" name="cpassword">
+              <label for="cpwd">Confirm Password</label>
+            </div>
+            <button type="submit" class="btn btn-dark">Creat Account</button>
         </form>
     </div>
-    {{#if notfound}}
-        <script>
-            alert("user didnt found")
-        </script>
-    {{/if}}
 </body>
 </html>
