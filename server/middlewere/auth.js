@@ -7,7 +7,7 @@
   function auth(req, res, next) {
       const token = req.cookies.session;
       if (!token) {
-        return res.status(401).render("error",{error:error});
+        return res.redirect("/admin");
       }
       try {
         const decoded =  jwt.verify  (token, secretKey);

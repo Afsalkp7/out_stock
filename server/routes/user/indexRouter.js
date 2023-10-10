@@ -20,7 +20,9 @@ router.get("/user",(req,res)=>{
         res.render("userlogin")
     }
 })
-
+router.get("/registration",(req,res)=>{
+    res.render("userregister")
+})
 router.post("/register",urlencodedParser,[
     check('userName',"User name must be 3 characters")
         .exists()
@@ -102,9 +104,7 @@ router.put("/update",auth,async(req,res)=>{
     const user_id = req.body._id
     console.log((user_id));
     const updatedData  = await userCollection.updateOne({ _id: user_id }, { $set: req.body });
-    if(updatedData){
-        res.redirect("/user_data")
-    }
+    res.json({message:"ok"})
 })
 
 router.get("/logout",(req,res)=>{
@@ -116,8 +116,6 @@ router.get("/logout",(req,res)=>{
         res.render("userlogin")
     }
 })
-
-
 
 
 module.exports = router;

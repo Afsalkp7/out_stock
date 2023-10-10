@@ -9,6 +9,7 @@ const session = require('express-session');
 const { token } = require("morgan");
 
 
+
 // route.get("/admin",(req,res)=>{
 //     res.render('adminSignup')
 // })
@@ -42,13 +43,12 @@ route.get("/",async (req,res)=>{
 })
 
 route.get("/index",auth,async(req,res)=>{
-    const token = req.cookies.session
-    if(token){
+    if(req.cookies.session){
         const _id = req.adminId
         const admin = await adminCollection.findOne({ _id })
         res.render("dashboard",{admin})
     }else{
-        res.render("adminlog")
+        res.redirect("/admin")
     }
 })
 
@@ -58,7 +58,8 @@ route.post("/admin_login",async(req,res)=>{
         const adminProfile = await adminCollection.findOne({ email });
         if (adminProfile && await bcrypt.compare(loginPassword, adminProfile.password)){
             const token = jwt.sign({ adminId: adminProfile._id }, secretKey);
-            res.cookie("session",token)
+            // req.session.adminId = adminProfile._id;
+            res.cookie("session",token)  
             return res.redirect("/admin")
         } else {
             res.render("adminlog",{emailMatch : true})
@@ -74,20 +75,21 @@ route.get("/products",auth,(req,res)=>{
 
 route.put("/update",auth,async (req,res)=>{
     const admin_id = req.body._id
+    console.log(admin_id);
     const updatedData  = await adminCollection.updateOne({ _id: admin_id }, { $set: req.body });
-    if(updatedData){
-        res.redirect("/admin")
-    }
+    // console.log(updatedData);
+    res.cookie("editse",updatedData)
+    res.json(updatedData)
 })
 
 route.get("/logout",(req,res)=>{
-    const token = req.cookies.session
-    if(token){
-        res.clearCookie('session');
-        res.render("adminlog")
+    if(req.cookies.session){
+        res.clearCookie('session')
+        res.redirect("/admin")
     }else{
         res.render("adminlog")
-    }
-})
+        }
+
+    })
 
 module.exports = route
