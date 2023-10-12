@@ -34,7 +34,7 @@ const { token } = require("morgan");
 //     } 
 // })
 
-route.get("/",async (req,res)=>{
+route.get("/",(req,res)=>{
     const token = req.cookies.session
     if(token){
         res.redirect("/admin/index")
@@ -81,6 +81,7 @@ route.put("/update",auth,async (req,res)=>{
     res.cookie("editse",updatedData)
     res.json(updatedData)
 })
+
 
 route.get("/logout",(req,res)=>{
     if(req.cookies.session){

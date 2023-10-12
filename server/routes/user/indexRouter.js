@@ -10,6 +10,7 @@ const {check,validationResult} = require("express-validator");
 const { token } = require("morgan");
 const session = require('express-session');
 const urlencodedParser = bodyParser.urlencoded({ extended:false })
+
 router.get("/",(req,res)=>res.render("index"))
 
 router.get("/user",(req,res)=>{
@@ -57,7 +58,8 @@ router.post("/register",urlencodedParser,[
             email : req.body.email,
             phone : req.body.phone,
             password : req.body.password,
-            cpassword : req.body.cpassword
+            cpassword : req.body.cpassword,
+            status : req.body.status
         })
         const postData = await userData.save()
         res.render("userlogin")
