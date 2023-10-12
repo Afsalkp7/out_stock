@@ -87,19 +87,27 @@ router.get("/user_data",auth,async(req,res)=>{
 
 router.post("/user_login",async(req,res)=>{
     const { email,password } = req.body;
-    try {
-        const userProfile = await userCollection.findOne({ email });
-        if (userProfile && await bcrypt.compare(password, userProfile.password)){
-
-            const token = jwt.sign({ userId: userProfile._id }, secretKey);
-            res.cookie("usersession",token)
-            return res.redirect("/user")
-        } else {
-            res.render("userlogin")
+    
+        try {
+            const userProfile = await userCollection.findOne({ email });
+            if(userProfile.status == "active"){
+                if (userProfile && await bcrypt.compare(password, userProfile.password)){
+    
+                const token = jwt.sign({ userId: userProfile._id }, secretKey);
+                res.cookie("usersession",token)
+                return res.redirect("/user")
+            } else {
+                res.render("userlogin")
+            }
+            }else{
+                res.render("userlogin",{blocked:true})
+            }
+            
+        } catch (error) {
+            console.log(error);
         }
-    } catch (error) {
-        console.log(error);
-    }
+    
+    
 })
 
 router.put("/update",auth,async(req,res)=>{

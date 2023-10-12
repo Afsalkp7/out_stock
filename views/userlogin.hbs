@@ -9,6 +9,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+    {{#if blocked}}
+    <script>
+        alert("Your account was blocked by admin...")
+    </script>
+    {{/if}}
     <div id="content">
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-4 ">
           <div class="container-fluid">
@@ -56,5 +61,6 @@
             alert("user didnt found")
         </script>
     {{/if}}
+    
 </body>
 </html>
