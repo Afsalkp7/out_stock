@@ -28,7 +28,7 @@ function submitForm() {
 
 document.querySelectorAll('.showUser').forEach(btn => {
   btn.addEventListener('click', async (event) => {
-    const userId = event.target.getAttribute('data-user-id');
+    const userId = await event.target.getAttribute('data-user-id');
 
     try {
       const response = await fetch(`/admin/users/${userId}`);
@@ -59,7 +59,7 @@ document.querySelectorAll('.showUser').forEach(btn => {
 
 document.querySelectorAll('.editUser').forEach(btn => {
   btn.addEventListener('click', async (event) => {
-    const userId = event.target.getAttribute('data-user-id');
+    const userId = await event.target.getAttribute('data-user-id');
 
     try {
       const response = await fetch(`/admin/users/update/${userId}`); // Send a request to the server
@@ -117,19 +117,20 @@ function submitForm() {
 
 document.querySelectorAll('.deleteUser').forEach(btn => {
   btn.addEventListener('click', async (event) => {
-    const userId = event.target.getAttribute('data-user-id');
+    const userId = await event.target.getAttribute('data-user-id');
 
     try {
-      const response = await fetch(`/admin/users/delete/${userId}`); // Send a request to the server
+      const response = await fetch(`/admin/users/delete/${userId}`);
       if (response.ok) {
-        const userData = await response.json();
-
-
-        // Show the modal
-        const userModal = new bootstrap.Modal(document.getElementById('usershow'));
-        userModal.show();
-      } else {
-        console.error('Error fetching user data');
+      //   const userData = await response.json();
+        window.location.href = "/admin/users"
+      //   // const userDetailsElement = document.getElementById('userDetails');
+      //   // userDetailsElement.innerHTML =`<p>are you confirm delete the user with user name${userData.userName}</p><br>
+      //   // <button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-user-id="${userData._id}" class="deleteConfirm btn btn-dark text-light mt-3">Delete Now</button>`
+      //   // const userModal = new bootstrap.Modal(document.getElementById('usershow'));
+      //   // userModal.show();
+      // } else {
+      //   console.error('Error fetching user data');
       }
     } catch (error) {
       console.error('Error:', error);
