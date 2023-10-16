@@ -28,6 +28,8 @@ app.use("/js",express.static(path.resolve(__dirname,"assets/js")))
 app.use('/',require("./server/routes/user/indexRouter"))
 app.use('/admin',require('./server/routes/admin/router'))
 app.use('/admin/users',require('./server/routes/admin/userRouter'))
+app.use("/admin/products",require('./server/routes/admin/productRouter'))
+app.use("/admin/brands",require('./server/routes/admin/brandRouter'))
 
 // app.use((req, res, next) => {*/
 //     res.status(404).send("Page not found");

@@ -13,3 +13,37 @@
     font-weight: bolder;
     font-size: 15px;
 }
+
+#hero{
+    text-align: center;
+}
+
+#hero h4{
+    color: #9E6209;
+}
+
+#hero h1{
+    font-weight: bold;
+}
+
+#hero p{
+    opacity: 0.6;
+}
+
+@media only screen and (max-width: 934px) {
+    #carouselExampleFade{
+        padding-top: 75px;
+    }
+}
+@media only screen and (max-width: 327px) {
+    #carouselExampleFade{
+        padding-top: 100px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    
+}
+
+#bannerReport h1{
+    font-weight: bold;
+}

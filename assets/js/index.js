@@ -120,17 +120,11 @@ document.querySelectorAll('.deleteUser').forEach(btn => {
     const userId = await event.target.getAttribute('data-user-id');
 
     try {
-      const response = await fetch(`/admin/users/delete/${userId}`);
+      const response = await fetch(`/admin/users/delete/${userId}`,{
+        method:'DELETE'
+      });
       if (response.ok) {
-      //   const userData = await response.json();
         window.location.href = "/admin/users"
-      //   // const userDetailsElement = document.getElementById('userDetails');
-      //   // userDetailsElement.innerHTML =`<p>are you confirm delete the user with user name${userData.userName}</p><br>
-      //   // <button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-user-id="${userData._id}" class="deleteConfirm btn btn-dark text-light mt-3">Delete Now</button>`
-      //   // const userModal = new bootstrap.Modal(document.getElementById('usershow'));
-      //   // userModal.show();
-      // } else {
-      //   console.error('Error fetching user data');
       }
     } catch (error) {
       console.error('Error:', error);

@@ -69,9 +69,6 @@ route.post("/admin_login",async(req,res)=>{
     }
 })
 
-route.get("/products",auth,(req,res)=>{
-    res.render("product")
-})
 
 route.put("/update",auth,async (req,res)=>{
     const admin_id = req.body._id

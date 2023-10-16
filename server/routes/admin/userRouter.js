@@ -60,21 +60,10 @@ route.put("/update/:userId", async(req,res) => {
     }
 })
 
-route.get("/delete/:userId", async (req,res)=>{
+route.delete("/delete/:userId", async (req,res)=>{
   const userId = req.params.userId;
   await userCollection.findByIdAndRemove(userId);
-  res.redirect("/admin/users")  
-    // try {
-    //   const user = await userCollection.findOne({ _id: userId });
-    //   if (user) {
-    //     res.json(user);
-    //   } else {
-    //     res.status(404).json({ error: 'User not found' });
-    //   }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   res.status(500).json({ error: 'Internal server error' });
-    // }
+  res.redirect(303,"/admin/users") 
 })
 
 
