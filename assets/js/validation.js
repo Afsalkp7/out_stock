@@ -20,3 +20,18 @@ function validateForm() {
         return true;
     }
   }
+
+ function validateCategoryForm(){
+    let name = document.forms["categoryForm"]["categoryName"].value;
+    let desc = document.forms["categoryForm"]["description"].value;
+
+    if (name == "") {
+        alert("category Name must be filled out");
+        return false;
+      }else if( desc == ""){
+          alert("description must be filled out")
+          return false;
+      }else{
+        return true;
+      }
+ }

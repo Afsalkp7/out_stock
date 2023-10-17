@@ -8,7 +8,6 @@ const path = require("path")
 const mongoose = require("./server/database/db")
 const cookieParser = require('cookie-parser');
 
-
 dotenv.config({path:"config.env"})
 
 app.use(morgan('tiny'))
@@ -16,6 +15,7 @@ app.use(bodyParser.urlencoded({extended : true}))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({extended : false}))
 
 app.set("view engine",'hbs')
 app.set("views",path.join(__dirname,'views'))
@@ -30,6 +30,8 @@ app.use('/admin',require('./server/routes/admin/router'))
 app.use('/admin/users',require('./server/routes/admin/userRouter'))
 app.use("/admin/products",require('./server/routes/admin/productRouter'))
 app.use("/admin/brands",require('./server/routes/admin/brandRouter'))
+app.use("/admin/categories",require('./server/routes/admin/categoryRouter'))
+
 
 // app.use((req, res, next) => {*/
 //     res.status(404).send("Page not found");

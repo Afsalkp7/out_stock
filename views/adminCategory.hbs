@@ -42,10 +42,10 @@
                 <li>
                     <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/admin/brands"><span class="fa fa-trophy mr-3"></span>Brands</a>
                 </li>
                 <li>
@@ -88,8 +88,39 @@
                     </div>
                 </div>
             </nav>
-            <div class="ms-auto d-flex justify-content-end w-100 mt-3"><a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addBrandModal">Add Brand</a></div>
-            
+            <div class="ms-auto d-flex justify-content-end w-100 mt-3"><a class="btn btn-dark text-light"
+                    data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</a></div>
+            <div class="container ">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col"> Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Created At</th>
+                            <th>Updated At</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each categories}}
+                        <tr>
+                            <td>-</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.description}}</td>
+                            <td>{{this.createdAt}}</td>
+                            <td>{{this.updatedAt}}</td>
+                            <td><a class="showCat btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/eye.png" width="15px" alt=""></a><a
+                                    class="editCat btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/editIcon.png" width="15px" alt=""></a><a
+                                    class="deleteCategory btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -195,44 +226,72 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="addBrandModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">BRANDS</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="myForm" action="/admin/brands" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data" >
+                    <form name="categoryForm" action="/admin/categories" onsubmit="return validateCategoryForm()"
+                        method="POST">
                         <div class="mb-3 mt-3">
-                            <label for="brandName">Brand Name</label>
-                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="brandName" placeholder="Enter brand name" name="brandName">
-                            
-                        </div>
-                        <div class=" mb-3">
-                            <label for="logo">Logo</label>
-                            <input type="file" class="form-control" style="background-color: rgb(226, 226, 226);;" id="logo" placeholder="Enter password" name="brandLogo">
+                            <label for="categoryName">category Name</label>
+                            <input type="text" class="form-control text-dark"
+                                style="background-color: rgb(226, 226, 226);" id="categoryName"
+                                placeholder="Enter category name" name="categoryName">
 
                         </div>
                         <div class=" mb-3">
-                            <label for="date">Date</label>
-                            <input type="date" class="form-control" style="background-color: rgb(226, 226, 226);" id="date" placeholder="Enter Today Date" name="date">
-                        </div>
-                        <div class=" mb-3">
                             <label for="description">Description</label><br>
-                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description" rows="2"></textarea>
+                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;"
+                                name="description" rows="2"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
+                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO CATEGORY</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
     </div>
 
+<div class="modal fade" id="catshow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userTitle"></h5>
+        <a href="/admin/categories" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body" id="catDetails">
+        ...
+      </div>
+      <div class="modal-footer">
+        <a href="/admin/categories" class="btn btn-dark text-light"data-bs-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>  
+<div class="modal fade" id="catEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userTitle"></h5>
+        <a href="/admin/categories" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body" id="catUpdateDetails">
+        ...
+      </div>
+      <div class="modal-footer">
+        <a href="/admin/categories" class="btn btn-dark text-light"data-bs-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>  
 
 
+    <script src="/js/categoryMgt.js"></script>
     <script src="/js/validation.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/jquery.min.js"></script>
