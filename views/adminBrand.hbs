@@ -88,8 +88,45 @@
                     </div>
                 </div>
             </nav>
-            <div class="ms-auto d-flex justify-content-end w-100 mt-3"><a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addBrandModal">Add Brand</a></div>
-            
+            <div class="ms-auto d-flex justify-content-end w-100 mt-3">
+                <a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addBrandModal">Add Brand</a>
+            </div>
+            <div class="container ">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Logo</th>
+                            <th scope="col"> Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Last update</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each brands}}
+
+
+                        <tr>
+                            <td>-</td>
+                            <td><img src="/img/uploads/{{this.logo.data}}" width="30px" alt="logo"></td>
+                            <td>{{this.brandName}}</td>
+                            <td>{{this.description}}</td>
+                            <td>{{this.date}}</td>
+                            <td>{{this.updateAt}}</td>
+
+                            <td><a class="showBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/eye.png" width="15px" alt=""></a><a class="editBrand btn btn-light ms-2"
+                                    data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a
+                                    class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 
@@ -204,35 +241,54 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="myForm" action="/admin/brands" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data" >
+                    <form name="myForm" action="/admin/brands" onsubmit="return validateForm()" method="POST"
+                        enctype="multipart/form-data">
                         <div class="mb-3 mt-3">
                             <label for="brandName">Brand Name</label>
-                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="brandName" placeholder="Enter brand name" name="brandName">
-                            
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="brandName" name="brandName">
                         </div>
                         <div class=" mb-3">
                             <label for="logo">Logo</label>
-                            <input type="file" class="form-control" style="background-color: rgb(226, 226, 226);;" id="logo" placeholder="Enter password" name="brandLogo">
+                            <input type="file" class="form-control" style="background-color: rgb(226, 226, 226);;"
+                                id="logo" name="brandLogo">
 
                         </div>
                         <div class=" mb-3">
-                            <label for="date">Date</label>
-                            <input type="date" class="form-control" style="background-color: rgb(226, 226, 226);" id="date" placeholder="Enter Today Date" name="date">
+                            <input type="date" hidden class="form-control" id="date" name="date">
                         </div>
                         <div class=" mb-3">
                             <label for="description">Description</label><br>
-                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description" rows="2"></textarea>
+                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;"
+                                name="description" rows="2"></textarea>
                         </div>
                         <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="brandShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userTitle"></h5>
+        <a href="/admin/brands" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body" id="brandDetails">
+        ...
+      </div>
+      <div class="modal-footer">
+        <a href="/admin/brands" class="btn btn-dark text-light"data-bs-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+    <script src="/js/brandMgt.js"></script>
     <script src="/js/validation.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/jquery.min.js"></script>

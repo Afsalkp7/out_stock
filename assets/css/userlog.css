@@ -13,6 +13,14 @@
 #mainDiv{
     position: relative;
 }
+.create{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    
+    border: none;
+}
 input[type=text],input[type=password] {
     color: black;
     font-family: Arial, Helvetica, sans-serif;
@@ -30,4 +38,94 @@ label{
     position: absolute;
     top: 7vw;
     left: 4.392386530014641vw;
+}
+
+@media only screen and (max-width: 1199px)   {
+
+    #mobile{
+        top:-4.8vw;
+        left: 400px;
+    }
+    #email{
+        top:-4.8vw;
+    }
+    #password{
+        top:-9.6vw;
+        left: 400px;
+    }
+    #confirm{
+        top: -9.6vw;
+    }
+    #fillingForm{
+        left : 6vw;
+    }
+    #heading{
+        left: 300px;
+    }
+    .create{
+        position: absolute;
+        top: 200px;
+    }
+    #already{
+        position: absolute;
+        top: 240px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .create{
+        position: absolute;
+        top: 150px;
+        left: 0;
+    }
+    #already{
+        position: absolute;
+        top: 190px;
+    }
+    #confirm{
+        top: -9.6vw;
+        left: 400px;
+    }
+}
+@media only screen and (max-width: 767px){
+    #image{
+        display: none;
+
+    }
+    #mobile{
+        top:0;
+        left: 0px;
+    }
+    #email{
+        top:0;
+    }
+    #password{
+        top:0;
+        left:0;
+    }
+    #confirm{
+        top:0;
+        left: 0;
+    }
+    #fillingForm{
+        left :0;
+    }
+    #heading{
+        left: 0;
+    }
+    .create{
+        position: unset;
+        top: 0;
+    }
+    #already{
+        position: unset;
+        top: 0;
+    }
+    #heading{
+        font-size:  25px !important;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bolder;
+        position: unset;
+        top:0;
+        left: 0;
+    } 
 }

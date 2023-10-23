@@ -74,8 +74,6 @@ route.put("/update",auth,async (req,res)=>{
     const admin_id = req.body._id
     console.log(admin_id);
     const updatedData  = await adminCollection.updateOne({ _id: admin_id }, { $set: req.body });
-    // console.log(updatedData);
-    res.cookie("editse",updatedData)
     res.json(updatedData)
 })
 

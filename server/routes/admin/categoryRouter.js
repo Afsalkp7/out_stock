@@ -16,6 +16,7 @@ router.get("/",auth , async (req,res)=>{
 })
 
 router.get("/:id",async(req,res)=>{
+  if(req.cookies.session){
     const id = req.params.id;
 
     try {
@@ -29,6 +30,9 @@ router.get("/:id",async(req,res)=>{
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
       }
+    }else{
+      return res.redirect("/admin")
+    }
 })
 
 router.post("/", async (req,res)=>{
@@ -45,6 +49,7 @@ router.post("/", async (req,res)=>{
 })
 
 router.get("/update/:id",async (req,res)=>{
+  if(req.cookies.session){
     const catId = req.params.id;
   
     try {
@@ -59,6 +64,9 @@ router.get("/update/:id",async (req,res)=>{
       console.error('Error:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
+  }else{
+    return res.redirect("/admin")
+  }
 })
 
 router.put("/update",async (req,res)=>{
@@ -69,7 +77,7 @@ router.put("/update",async (req,res)=>{
 
 router.delete("/:id",async (req,res)=>{
     const userId = req.params.id;
-    const deleteCat = await Category.findByIdAndRemove({_id:userId});
+    const deleteCat = await Category.findByIdAndRemove(userId);
     return res.json(deleteCat)
 })
 

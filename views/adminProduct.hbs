@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="/css/style2.css">
   </head>
   <body>
-		
+		{{!-- Side nav bar  --}}
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="custom-menu">
@@ -63,7 +63,7 @@
         </ul>
     	</nav>
 
- <!-- Page Content  -->
+  {{!-- Page Content   --}}
       <div id="content" class="p-4 p-md-5 pt-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
@@ -78,11 +78,51 @@
               </div>
           </div>
         </nav>
+        <div class="ms-auto d-flex justify-content-end w-100 mt-3">
+            <a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Products</a>
+        </div>
+        <div class="container ">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Image</th>
+                            <th scope="col"> Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Brand</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+
+
+                        <tr>
+                            <td>-</td>
+                            <td><img src="/img/products/{{this.image.data}}" width="30px" alt="image"></td>
+                            <td>{{this.productName}}</td>
+                            <td>{{this.brand}}</td>
+                            <td>{{this.category}}</td>
+                            <td>₹{{this.price}}/-</td>
+                            <td>{{this.quantity}}</td>
+
+                            <td><a class="showProduct btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/eye.png" width="15px" alt=""></a><a class="editProduct btn btn-light ms-2"
+                                    data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a
+                                    class="deleteProduct btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
       </div>
 		</div>
 
-{{!-- modal --}}
-
+{{!-- Modals --}}
+{{!-- Admin details --}}
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -107,6 +147,9 @@
     </div>
   </div>
 </div>
+
+{{!-- Admin update  --}}
+
 <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -140,6 +183,8 @@
   </div>
 </div>
 
+{{!-- Admin sign out  --}}
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -158,9 +203,108 @@
   </div>
 </div>
 
+{{!-- Add products  --}}
+
+   <div class="modal fade" id="addProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">PRODUCTS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="ProductForm" action="/admin/products" onsubmit="return validateProductForm()" method="POST"
+                        enctype="multipart/form-data">
+                        <div class="mb-3 mt-3">
+                            <label for="productName"> Name</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="productName" name="productName">
+                        </div>
+                        <div class=" mb-3">
+                            <label for="image">Main Image</label>
+                            <input type="file" class="form-control" style="background-color: rgb(226, 226, 226);;"
+                                id="image" name="image">
+                        </div>
+                       <div class="mb-3 mt-3">
+                            <label for="price"> Price</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="price" name="price">
+                        </div>
+                       <div class="mb-3 mt-3">
+                            <label for="netPrice">Net Price</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="netPrice" name="netPrice">
+                        </div>
+                       <div class="mb-3 mt-3">
+                            <label for="category">Category</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="category" name="category">
+                        </div>
+                       <div class="mb-3 mt-3">
+                            <label for="brand">Brand</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="brand" name="brand">
+                        </div>
+                       <div class="mb-3 mt-3">
+                            <label for="quantity">Number of stock</label>
+                            <input type="number" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="quantity" name="quantity">
+                        </div>
+                        <div class=" mb-3">
+                            <label for="description">Description</label><br>
+                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;"
+                                name="description" rows="2"></textarea>
+                        </div>
+                        <div class=" mb-3">
+                            <label for="additional">Any additional info</label><br>
+                            <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;"
+                                name="additional" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      <div class="modal fade" id="productShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userTitle"></h5>
+        <a href="/admin/products" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body" id="productDetails">
+        ...
+      </div>
+      <div class="modal-footer">
+        <a href="/admin/products" class="btn btn-dark text-light"data-bs-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
+
+{{#if alert}}
+<script>
+  alert("category not found")
+</script>
+{{/if}}
+
+{{#if alertBrand}}
+<script>
+  alert("brand not found")
+</script>
+{{/if}}
+
+
+    <script src="/js/productMgt.js"></script>
+    <script src="/js/validation.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.js"></script>

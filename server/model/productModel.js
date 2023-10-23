@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const productSchema = mongoose.Schema({
-    name:{
+    productName:{
         type:String,
         required : true
     },
@@ -14,7 +14,7 @@ const productSchema = mongoose.Schema({
         default:""
     },
     image:{
-        type:String,
+        type:Object,
         default:""
     },
     images : [{
@@ -26,7 +26,6 @@ const productSchema = mongoose.Schema({
     },
     color:{
         type:String,
-        required:true
     },
     price:{
         type: Number,
@@ -36,7 +35,7 @@ const productSchema = mongoose.Schema({
         default:0
     },
     category:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"Category",
         required:true
     }
@@ -59,5 +58,6 @@ const productSchema = mongoose.Schema({
         default:Date.now
     }
 })
+const Product = mongoose.model("Product",productSchema);
 
-exports.Product = mongoose.model("Product",productSchema);
+module.exports = Product;  

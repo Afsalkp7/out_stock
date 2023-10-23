@@ -85,7 +85,23 @@ router.get("/user_data",auth,async(req,res)=>{
     }
 })
 
-router.post("/user_login",async(req,res)=>{
+router.post("/user_login",urlencodedParser,[
+    check("email","Email is not valid")
+        .exists()
+        .isEmail()
+        .normalizeEmail(),  
+    check("password","password must need alphanumeic,regex,and 8 character")
+        .exists()
+        .isLength({ min : 8 , max : 25 })
+        .isAlphanumeric()
+], async(req,res)=>{
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        const errorArray = errors.array()
+        const alert = errorArray[0] 
+        console.log(alert);
+        return res.render("userlogin",{alert : alert})
+    }
     const { email,password } = req.body;
     
         try {
@@ -95,9 +111,9 @@ router.post("/user_login",async(req,res)=>{
     
                 const token = jwt.sign({ userId: userProfile._id }, secretKey);
                 res.cookie("usersession",token)
-                return res.redirect("/user")
+                return res.redirect("/")
             } else {
-                res.render("userlogin")
+                res.render("userlogin",{valid:true})
             }
             }else{
                 res.render("userlogin",{blocked:true})
@@ -114,7 +130,7 @@ router.put("/update",auth,async(req,res)=>{
     const user_id = req.body._id
     console.log((user_id));
     const updatedData  = await userCollection.updateOne({ _id: user_id }, { $set: req.body });
-    res.json({message:"ok"})
+    res.json({updatedData})
 })
 
 router.get("/logout",(req,res)=>{
@@ -127,5 +143,42 @@ router.get("/logout",(req,res)=>{
     }
 })
 
+router.put("/change_password",auth,async(req,res)=>{
+    try {
+                const userId = req.body._id;
+                const currentPassword = req.body.oldPass;
+                const newPassword = req.body.newPass;
+                const confirmPassword = req.body.rePass;
+        
+                const user = await userCollection.findById(userId);
+                console.log(user);
+                if (!user) {
+                  return res.status(404).json({message:"User not found."});
+                }
+                const curPasswordMatch = await bcrypt.compare(currentPassword, user.password);
+                        if (!curPasswordMatch) {
+                            return res.status(401).send("Current password is incorrect.");
+                        }
+                if (newPassword !== confirmPassword) {
+                                return res.status(400).send("New passwords do not match.");
+                            }
+        
+                const newPasswordMatch = await bcrypt.compare(currentPassword, user.password);
+                if (!newPasswordMatch) {
+                    return res.status(401).send("Current password is incorrect.");
+                }
+     
+                const newPasswordHash = await bcrypt.hash(newPassword, 10);
+                user.password = newPasswordHash;
+                await user.save();
+                console.log(user);
+
+                res.clearCookie('usersession');
+                res.redirect("/");
+            } catch (error) {
+                console.log(error);
+                res.send("error identified...")
+            }
+})
 
 module.exports = router;
