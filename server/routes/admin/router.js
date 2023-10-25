@@ -1,14 +1,12 @@
-const express = require("express")
-const route = express.Router()
-const adminCollection = require("../../model/adminModel")
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const secretKey = process.env.secretKey
-const auth = require("../../middlewere/auth")
-const session = require('express-session');
+const express = require("express");
+const route = express.Router();
+const adminCollection = require("../../model/adminModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const secretKey = process.env.secretKey;
+const auth = require("../../middlewere/auth");
+const session = require("express-session");
 const { token } = require("morgan");
-
-
 
 // route.get("/admin",(req,res)=>{
 //     res.render('adminSignup')
@@ -31,61 +29,63 @@ const { token } = require("morgan");
 //         }
 //     } catch (error) {
 //         res.send(error)
-//     } 
+//     }
 // })
 
-route.get("/",(req,res)=>{
-    const token = req.cookies.session
-    if(token){
-        res.redirect("/admin/index")
-    }else
-        res.render("adminlog")
-})
+route.get("/", (req, res) => {
+  const token = req.cookies.session;
+  if (token) {
+    res.redirect("/admin/index");
+  } else res.render("adminlog");
+});
 
-route.get("/index",auth,async(req,res)=>{
-    if(req.cookies.session){
-        const _id = req.adminId
-        const admin = await adminCollection.findOne({ _id })
-        res.render("dashboard",{admin})
-    }else{
-        res.redirect("/admin")
+route.get("/index", auth, async (req, res) => {
+  if (req.cookies.session) {
+    const _id = req.adminId;
+    const admin = await adminCollection.findOne({ _id });
+    res.render("dashboard", { admin });
+  } else {
+    res.redirect("/admin");
+  }
+});
+
+route.post("/admin_login", async (req, res) => {
+  const { email, loginPassword } = req.body;
+  try {
+    const adminProfile = await adminCollection.findOne({ email });
+    if (
+      adminProfile &&
+      (await bcrypt.compare(loginPassword, adminProfile.password))
+    ) {
+      const token = jwt.sign({ adminId: adminProfile._id }, secretKey);
+      // req.session.adminId = adminProfile._id;
+      res.cookie("session", token);
+      return res.redirect("/admin");
+    } else {
+      res.render("adminlog", { emailMatch: true });
     }
-})
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-route.post("/admin_login",async(req,res)=>{
-    const { email,loginPassword } = req.body;
-    try {
-        const adminProfile = await adminCollection.findOne({ email });
-        if (adminProfile && await bcrypt.compare(loginPassword, adminProfile.password)){
-            const token = jwt.sign({ adminId: adminProfile._id }, secretKey);
-            // req.session.adminId = adminProfile._id;
-            res.cookie("session",token)  
-            return res.redirect("/admin")
-        } else {
-            res.render("adminlog",{emailMatch : true})
-        }
-    } catch (error) {
-        console.log(error);
-    }
-})
+route.put("/update", auth, async (req, res) => {
+  const admin_id = req.body._id;
+  console.log(admin_id);
+  const updatedData = await adminCollection.updateOne(
+    { _id: admin_id },
+    { $set: req.body }
+  );
+  res.json(updatedData);
+});
 
+route.get("/logout", (req, res) => {
+  if (req.cookies.session) {
+    res.clearCookie("session");
+    res.redirect("/admin");
+  } else {
+    res.render("adminlog");
+  }
+});
 
-route.put("/update",auth,async (req,res)=>{
-    const admin_id = req.body._id
-    console.log(admin_id);
-    const updatedData  = await adminCollection.updateOne({ _id: admin_id }, { $set: req.body });
-    res.json(updatedData)
-})
-
-
-route.get("/logout",(req,res)=>{
-    if(req.cookies.session){
-        res.clearCookie('session')
-        res.redirect("/admin")
-    }else{
-        res.render("adminlog")
-        }
-
-    })
-
-module.exports = route
+module.exports = route;
