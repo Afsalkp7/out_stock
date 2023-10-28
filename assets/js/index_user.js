@@ -28,16 +28,16 @@ function submitPassForm() {
     body: JSON.stringify(Object.fromEntries(formData)),
     headers: { "Content-Type": "application/json" },
   });
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error('Network response was not ok');
-  //   }
-  //   return response.json();
-  // })
-  // .then((data) => {
-  //   window.location.href="/user_data"
-  // })
-  // .catch((error) => {
-  //   console.error('Error:', error);
-  // });
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    window.location.href = "/user_data";
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
 }

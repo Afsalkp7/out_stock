@@ -10,8 +10,41 @@ const { check, validationResult } = require("express-validator");
 const { token } = require("morgan");
 const session = require("express-session");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const userOtpVerification = require("../../model/userOtpModel")
+const nodemailer = require("nodemailer")
+require("../../middlewere/googleAuth")
+const passport = require("passport");
+const isLogged = require('../../middlewere/user_auth')
 
 router.get("/", (req, res) => res.render("index"));
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] }
+));
+
+router.get( '/auth/google/callback',
+    passport.authenticate( 'google', {
+        successRedirect: '/auth/protected',
+        failureRedirect: '/auth/google/failure'
+}));
+
+
+router.get("/auth/google/failure",isLogged,(req,res)=>{
+  res.send("something error....!!!")
+})
+
+router.get("/auth/protected",isLogged,(req,res)=>{
+  // const name = req.userData.userName;
+  // res.send(`hello ${name}`)
+  console.log("hsrenwggcvggvgfwwu");
+  console.log("userId : ",req.user._id);
+  // const token = jwt.sign({ userId: req.user._id }, secretKey);
+  //         res.cookie("usersession", token);
+          // return res.redirect("/");
+  res.render("user_details",{user:req.user})
+})
 
 router.get("/user", (req, res) => {
   const token = req.cookies.usersession;
@@ -79,7 +112,6 @@ router.get("/user_data", auth, async (req, res) => {
     const _id = req.userId;
     console.log(_id);
     const user = await userCollection.findOne({ _id });
-
     res.render("user_details", { user });
   } else {
     res.render("userlogin", { notfound: true });
@@ -179,13 +211,11 @@ router.put("/change_password", auth, async (req, res) => {
       return res.status(401).send("Current password is incorrect.");
     }
 
-    const newPasswordHash = await bcrypt.hash(newPassword, 10);
-    user.password = newPasswordHash;
+    user.password = newPassword;
     await user.save();
     console.log(user);
-
     res.clearCookie("usersession");
-    res.redirect("/");
+    return res.json({message:"changed"})
   } catch (error) {
     console.log(error);
     res.send("error identified...");
