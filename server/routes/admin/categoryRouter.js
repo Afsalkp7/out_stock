@@ -75,8 +75,29 @@ router.put("/update",async (req,res)=>{
     return res.json(catUpdate)
 })
 
-router.delete("/:id",async (req,res)=>{
-    const userId = req.params.id;
+router.get("/delete/:id",auth,async(req,res)=>{
+  if(req.cookies.session){
+    const catId = req.params.id;
+  
+    try {
+      const category = await Category.findOne({ _id: catId });
+      
+      if (category) {
+        return res.json(category);
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }else{
+    return res.redirect("/admin")
+  }
+})
+
+router.delete("/delete",async (req,res)=>{
+    const userId = req.body.cat_id;
     const deleteCat = await Category.findByIdAndRemove(userId);
     return res.json(deleteCat)
 })

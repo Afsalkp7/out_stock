@@ -123,11 +123,38 @@ route.put("/update",async (req,res)=>{
     const brandUpdate = await Brand.findOneAndUpdate({_id:brand_id},{$set:req.body})
     return res.json(brandUpdate)
 })
-
-route.delete("/:id",async (req,res)=>{
+route.get("/delete/:id",auth,async (req,res)=>{
+  if(req.cookies.session){
     const brandId = req.params.id;
-    const deleteBrand = await Brand.findByIdAndRemove(brandId);
-    return res.json(deleteBrand)
+  
+    try {
+      const brand = await Brand.findOne({ _id: brandId });
+      
+      if (brand) {
+        return res.json(brand);
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }else{
+    return res.redirect("/admin")
+  }
 })
+// route.get("/delete/confirm/:id",async (req,res)=>{
+//     const brandId = req.params.id;
+//     const deleteBrand = await Brand.findByIdAndRemove(brandId);
+//     return res.json(deleteBrand)
+// })
+
+route.delete("/delete",async(req,res)=>{
+  const brand_id= req.body.brand_id;
+  console.log((brand_id));
+  const deleteBrand = await Brand.findByIdAndRemove(brand_id);
+  return res.json(deleteBrand)
+})
+
 
 module.exports = route

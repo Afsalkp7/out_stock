@@ -109,8 +109,30 @@ route.put("/update",async (req,res)=>{
     return res.json(productUpdate)
 })
 
-route.delete("/:id",async (req,res)=>{
-    const productId = req.params.id;
+route.get("/delete/:id",auth,async(req,res)=>{
+        if(req.cookies.session){
+          const proId = req.params.id;
+        
+          try {
+            const product = await Product.findOne({ _id: proId });
+            
+            if (product) {
+              return res.json(product);
+            } else {
+              res.status(404).json({ error: 'product not found' });
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+          }
+        }else{
+          return res.redirect("/admin")
+        }
+      })
+
+
+route.delete("/delete",async (req,res)=>{
+    const productId = req.body.pro_id;
     const deleteProduct = await Product.findByIdAndRemove(productId);
     return res.json(deleteProduct)
 })

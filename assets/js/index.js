@@ -129,23 +129,74 @@ function submitForm() {
 
 }
 
-document.querySelectorAll('.deleteUser').forEach(btn => {
-  btn.addEventListener('click', async (event) => {
-    const userId = await event.target.getAttribute('data-user-id');
+// document.querySelectorAll('.deleteUser').forEach(btn => {
+//   btn.addEventListener('click', async (event) => {
+//     const userId = await event.target.getAttribute('data-user-id');
+
+//     try {
+//       const response = await fetch(`/admin/users/delete/${userId}`,{
+//         method:'DELETE'
+//       });
+//       if (response.ok) {
+//         window.location.href = "/admin/users"
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   });
+// });
+
+document.querySelectorAll(".deleteUser").forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    const userId = await event.target.getAttribute("data-user-id");
 
     try {
-      const response = await fetch(`/admin/users/delete/${userId}`,{
-        method:'DELETE'
-      });
+      const response = await fetch(`/admin/users/delete/${userId}`);
       if (response.ok) {
-        window.location.href = "/admin/users"
+        const userData = await response.json();
+
+        const categoryElement = document.getElementById("userDetails");
+        categoryElement.innerHTML = `
+            <h4>Confirm Delete Category Data</h4><br>
+            <form id="deleteData">
+              <input type="hidden" name="user_id" value="${userData._id}">
+              <button type="button" onclick="deleteUser()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Confirm Delete</button>
+            </form>
+          `;
+
+        // Show the modal
+        const Modal = new bootstrap.Modal(document.getElementById("usershow"));
+        Modal.show();
+      } else {
+        console.error("Error fetching user data");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   });
 });
 
-
+function deleteUser() {
+  const form = document.getElementById("deleteData");
+  const formData = new FormData(form);
+  fetch("/admin/users/delete", {
+    method: "DELETE",
+    body: JSON.stringify(Object.fromEntries(formData)),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Success:", data);
+      window.location.href = "/admin/users";
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 
 

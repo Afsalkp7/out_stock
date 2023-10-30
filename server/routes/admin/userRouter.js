@@ -60,10 +60,31 @@ route.put("/update/:userId", async (req, res) => {
   }
 });
 
-route.delete("/delete/:userId", async (req, res) => {
-  const userId = req.params.userId;
-  await userCollection.findByIdAndRemove(userId);
-  res.redirect(303, "/admin/users");
+route.get("/delete/:id", async (req,res)=>{
+  if(req.cookies.session){
+    const userId = req.params.id;
+  
+    try {
+      const user = await userCollection.findOne({ _id: userId });
+      
+      if (user) {
+        return res.json(user);
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }else{
+    return res.redirect("/admin")
+  }
+})
+
+route.delete("/delete", async (req, res) => {
+  const userId = req.body.user_id;
+  const deleteUser = await userCollection.findByIdAndRemove(userId);
+  return res.json(deleteUser)
 });
 
 module.exports = route;
