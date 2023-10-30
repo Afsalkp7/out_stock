@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.secretKey;
 const userCollection = require("../../model/userModel");
-const auth = require("../../middlewere/user_auth");
+const {auth} = require("../../middlewere/user_auth");
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 const { token } = require("morgan");
@@ -14,7 +14,7 @@ const userOtpVerification = require("../../model/userOtpModel")
 const nodemailer = require("nodemailer")
 require("../../middlewere/googleAuth")
 const passport = require("passport");
-const isLogged = require('../../middlewere/user_auth')
+const {isLogged} = require('../../middlewere/user_auth')
 
 router.get("/", (req, res) => res.render("index"));
 
@@ -36,14 +36,11 @@ router.get("/auth/google/failure",isLogged,(req,res)=>{
 })
 
 router.get("/auth/protected",isLogged,(req,res)=>{
-  // const name = req.userData.userName;
-  // res.send(`hello ${name}`)
-  console.log("hsrenwggcvggvgfwwu");
-  console.log("userId : ",req.user._id);
-  // const token = jwt.sign({ userId: req.user._id }, secretKey);
-  //         res.cookie("usersession", token);
-          // return res.redirect("/");
-  res.render("user_details",{user:req.user})
+  const userId=req.user._id;
+  const token = jwt.sign({ userId }, secretKey);
+  res.cookie("usersession", token);
+  return res.redirect("/")
+  // res.render("user_details",{user:req.user})
 })
 
 router.get("/user", (req, res) => {

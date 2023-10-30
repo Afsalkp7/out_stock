@@ -1,4 +1,6 @@
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const secretKey = process.env.secretKey;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const userCollection = require("../model/userModel");
 require("dotenv").config();
@@ -23,16 +25,8 @@ passport.use(
         displayName: profile.displayName,
         email: profile.emails[0].value,
         status: "Active",
-        // Other fields as needed
       });
       await userData.save();
-
-    //   userCollection.findOrCreate(
-    //     { googleId: profile.id },
-    //     function (err, user) {
-    //       return done(err, user);
-    //     }
-    //   );
       done(null, userData);
     }
   )
@@ -43,9 +37,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user, done) => {
-    if (user) {
-      done(null, user);
-    } else {
-      done(new Error("User not found"));
-    }
-  });
+  if (user) {
+    done(null, user);
+  } else {
+    done(new Error("User not found"));
+  }
+});
