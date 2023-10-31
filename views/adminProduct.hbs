@@ -101,7 +101,7 @@
 
                         <tr>
                             <td>-</td>
-                            <td><img src="/img/products/{{this.image.data}}" width="30px" alt="image"></td>
+                            <td><img src="{{this.images.[0]}}" width="30px" alt="image"></td>
                             <td>{{this.productName}}</td>
                             <td>{{this.brand}}</td>
                             <td>{{this.category}}</td>
@@ -223,7 +223,7 @@
                         </div>
                         <div class=" mb-3">
                             <label for="image">Main Image</label>
-                            <input type="file" class="form-control" style="background-color: rgb(226, 226, 226);;"
+                            <input type="file" multiple class="form-control" style="background-color: rgb(226, 226, 226);;"
                                 id="image" name="image">
                         </div>
                        <div class="mb-3 mt-3">

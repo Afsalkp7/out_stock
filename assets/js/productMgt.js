@@ -10,8 +10,8 @@ document.querySelectorAll('.showProduct').forEach(btn => {
           
           const categoryElement = document.getElementById('productDetails');
           categoryElement.innerHTML = `
-          <img src="/img/uploads/${productData.image.data}" alt="logo">
-          <p>Name : ${productData.product}</p><br>
+          <img src="${productData.images[0]}" width="30%" alt="logo">
+          <p>Name : ${productData.productName}</p><br>
           <p>Description : ${productData.description}</p><br>
           <p>additional : ${productData.additional}</p><br>
           <p>brand : ${productData.brand}</p><br>
@@ -141,7 +141,6 @@ document.querySelectorAll('.showProduct').forEach(btn => {
         const response = await fetch(`/admin/products/delete/${proId}`);
         if (response.ok) {
           const productData = await response.json();
-  
           const categoryElement = document.getElementById("productDetails");
           categoryElement.innerHTML = `
               <h4>Confirm Delete Product Data</h4><br>

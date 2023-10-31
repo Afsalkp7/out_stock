@@ -81,9 +81,11 @@ router.get("/user", (req, res) => {
     res.render("userlogin");
   }
 });
+
 router.get("/registration", (req, res) => {
   res.render("userregister");
 });
+
 router.post(
   "/register",
   urlencodedParser,

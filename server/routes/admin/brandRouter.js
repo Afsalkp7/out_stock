@@ -5,19 +5,9 @@ const auth = require("../../middlewere/auth")
 const adminCollection = require("../../model/adminModel")
 const Brand = require('../../model/brandsModel')
 const multer = require('multer')
-const storage = multer.diskStorage({
-    destination : function (req,file,cb){
-        return cb(null, "assets/img/uploads")
-    },
-    filename : function (req,file,cb){
-        return cb(null, `${Date.now()}-${file.originalname}`)
-    } 
-});
-const upload = multer({ storage:storage }) 
+const upload = multer({ dest: 'assets/img/Brands' })
+const cloudinary = require("../../../cloudinary") 
 
-// const upload = require('../../../multer')
-// const cloudinary = require("../../../cloudinary")
-// const fs = require ("fs")
 route.get("/",auth,async(req,res)=>{
     if(req.cookies.session){
         const _id = req.adminId
@@ -30,42 +20,16 @@ route.get("/",auth,async(req,res)=>{
     }
 })
 
-
-// route.use("/",upload.array("image",async (req,res)=>{
-//   const uploader = async (path) => await cloudinary.uploads(path,"Images")
-
-//   if (req.method === 'post'){
-//     const urls = []
-//     const files = req.files
-
-//     for (const file of files){
-//       const {path} = file
-
-//       const newPath = await uploader.path
-
-//       urls.push(newPath)
-
-//       fs.unlinkSync(path)
-//     }
-
-//     return res.status(200).json({message : "image uploaded successfuly",data:urls})
-//   }else{
-//     return res.status(405).json({message : "not success"})
-//   }
-// }))
-
-// route.post("/", upload.single('brandLogo'), async(req,res)=>{
-  
-// })
   
 route.post("/",  upload.single('brandLogo'),async(req,res)=>{
+  const { brandName,description } = req.body;
+  const result = await cloudinary.uploader.upload(req.file.path);
+  console.log('Cloudinary result:', result);
+
     let brand = new Brand({
-        brandName: req.body.brandName,
-        description: req.body.description,
-        logo :{
-            data:req.file.filename,
-            contentType:'image/jpg'
-        }
+        brandName,
+        description,
+        logo : result.url,
     })
 
     brand = await brand.save();

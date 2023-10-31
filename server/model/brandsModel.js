@@ -6,8 +6,7 @@ const brandSchema = mongoose.Schema({
         required:true
     },
     logo:{
-        data:Buffer,
-        contentType:String
+        type:String
     },
     date:{
         type:Date,

@@ -3,11 +3,9 @@ const mongoose = require('mongoose');
 const productSchema = mongoose.Schema({
     productName:{
         type:String,
-        required : true
     },
     description:{
         type : String,
-        required : true
     },
     additional:{
         type:String,
@@ -17,9 +15,7 @@ const productSchema = mongoose.Schema({
         type:Object,
         default:""
     },
-    images : [{
-        type : String
-    }],
+    images : [String],
     brand:{
         type:String,
         default:""
@@ -37,11 +33,9 @@ const productSchema = mongoose.Schema({
     category:{
         type:String,
         ref:"Category",
-        required:true
     }
     ,quantity:{
         type : Number,
-        required:true,
         min:0,
         max:255
     },

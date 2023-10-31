@@ -9,7 +9,7 @@ document.querySelectorAll(".showBrand").forEach((btn) => {
 
         const categoryElement = document.getElementById("brandDetails");
         categoryElement.innerHTML = `
-          <img src="/img/uploads/${brandData.logo.data}" alt="logo"> 
+          <img src="${brandData.logo}" width="30%" alt="logo"> 
             <p>Name: ${brandData.brandName}</p>
             <p>Description: ${brandData.description}</p>
             <p>Creates At: ${brandData.date}</p>
@@ -96,22 +96,6 @@ function updateBrand() {
     });
 }
 
-// document.querySelectorAll('.deleteBrand').forEach(btn => {
-//   btn.addEventListener('click', async (event) => {
-//     const brandId = await event.target.getAttribute('data-user-id');
-
-//     try {
-//       const response = await fetch(`/admin/brands/${brandId}`,{
-//         method:'DELETE'
-//       });
-//       if (response.ok) {
-//         window.location.href = "/admin/brands"
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   });
-// });
 
 document.querySelectorAll(".deleteBrand").forEach((btn) => {
   btn.addEventListener("click", async (event) => {
