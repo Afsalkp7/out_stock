@@ -18,34 +18,33 @@ const { isLogged } = require("../../middlewere/user_auth");
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service:"Gmail",
-    // host: 'localhost',
-    // port: 465, // Port for SSL encryption
-    // secure: true, // Use SSL
-    // secureProtocol: 'TLSv1_2',
-    // ciphers: 'AES256-GCM-SHA384',
-    auth: {
-      user: 'afsalkpmanu31@gmail.com',
-      pass: 'hold thhr ucgt iaqu'
-    }
+  service: "Gmail",
+  auth: {
+    user: "afsalkpmanu31@gmail.com",
+    pass: "hold thhr ucgt iaqu",
+  },
 });
-const sendOTPByEmail = (email, otp) => {
-  const mailOptions = {
-    from: 'afsalkpmanu31@gmail.com',
-    to: email,
-    subject: 'Your OTP for Registration',
-    text: `Your OTP is: ${otp}`
-  };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+const sendOTPByEmail = (email, otp) => {
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: "afsalkpmanu31@gmail.com",
+      to: email,
+      subject: "Your OTP for Registration",
+      text: `Your OTP is: ${otp}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        reject(error);
+      } else {
+        console.log("Email sent: " + info.response);
+        resolve(info.response);
+      }
+    });
   });
 };
-
 
 router.get("/", (req, res) => res.render("index"));
 
@@ -166,7 +165,6 @@ router.post(
       return res.render("userlogin", { alert: alert });
     }
     const { email, password } = req.body;
-    
 
     try {
       const userProfile = await userCollection.findOne({ email });
@@ -243,38 +241,54 @@ router.put("/change_password", auth, async (req, res) => {
   }
 });
 
+router.get("/forgot", (req, res) => {
+  return res.render("forgot");
+});
 
-
-router.get("/forgot",(req,res)=>{
-  
-  return res.render("forgot")
-})
-
-router.post("/forgot",async(req,res)=>{
-  const email = req.body.email
-  console.log(email);
+router.post("/forgot", async (req, res) => {
+  const email = req.body.email;
   try {
     const userProfile = await userCollection.findOne({ email });
     if (userProfile.status == "active") {
       const generateOTP = () => {
         return Math.floor(1000 + Math.random() * 900000);
       };
-      const otp=(generateOTP());
-      const getOtp = sendOTPByEmail(email,otp)
-      if(getOtp){
-        
+      const otp = generateOTP();
+      const getOtp = sendOTPByEmail(email, otp);
+      if (getOtp) {
+        const otpUpdate = await userCollection.findOneAndUpdate(
+          { emai: email.email },
+          { $set: { otp: otp } }
+        );
+        if (otpUpdate) {
+          const email = await otpUpdate.email;
+          return res.render("otpcolumn", { email });
+        }
       }
-
     } else {
       res.render("userlogin", { valid: true });
     }
-    
   } catch (error) {
     console.log(error);
   }
+});
 
-  
-})
+router.post("/otp", async (req, res) => {
+  const { email, otp } = req.body;
+  reqUser = await userCollection.findOne({ email });
+  if (otp == reqUser.otp) {
+    res.render("changeForm", { id: reqUser._id });
+  }
+});
 
+router.post("/confirmPass", async (req, res) => {
+  const { password, confirmPassword, _id } = req.body;
+  const user = await userCollection.findById(_id);
+  if (password === confirmPassword) {
+    user.password = password;
+    await user.save();
+    return res.render("userlogin");
+  }
+});
 
 module.exports = router;

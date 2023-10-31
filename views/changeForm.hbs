@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
+        action="/confirmPass"
+        method="POST"
+      >
+
+        <div class="form-floating mb-3 mt-3">
+          <input
+            type="text"
+            class="form-control"
+            id="pass"
+            placeholder="Enter password"
+            name="password"
+          />
+          <label for="pass">New Password</label>
+        </div>
+        <div class="form-floating mb-3 mt-3">
+          <input
+            type="text"
+            class="form-control"
+            id="con"
+            placeholder="Enter passowrd again"
+            name="confirmPassword"
+          />
+          <label for="con">Confirm Password</label>
+        </div>
+        <input type="hidden" name="_id" value="{{id}}" />
+        <button type="submit" class="btn btn-dark">confirm password</button>
+
+      </form>
+    </div>
+  </body>
+</html>
