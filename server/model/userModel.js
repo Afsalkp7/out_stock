@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema({
   googleId: {
     type: String,
   },
+  otp:{
+    type : String,
+  }
 });
 
 userSchema.pre("save", async function (next) {

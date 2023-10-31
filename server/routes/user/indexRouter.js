@@ -4,44 +4,75 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.secretKey;
 const userCollection = require("../../model/userModel");
-const {auth} = require("../../middlewere/user_auth");
+const { auth } = require("../../middlewere/user_auth");
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 const { token } = require("morgan");
 const session = require("express-session");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const userOtpVerification = require("../../model/userOtpModel")
-const nodemailer = require("nodemailer")
-require("../../middlewere/googleAuth")
+const userOtpVerification = require("../../model/userOtpModel");
+require("../../middlewere/googleAuth");
 const passport = require("passport");
-const {isLogged} = require('../../middlewere/user_auth')
+const { isLogged } = require("../../middlewere/user_auth");
+
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service:"Gmail",
+    // host: 'localhost',
+    // port: 465, // Port for SSL encryption
+    // secure: true, // Use SSL
+    // secureProtocol: 'TLSv1_2',
+    // ciphers: 'AES256-GCM-SHA384',
+    auth: {
+      user: 'afsalkpmanu31@gmail.com',
+      pass: 'hold thhr ucgt iaqu'
+    }
+});
+const sendOTPByEmail = (email, otp) => {
+  const mailOptions = {
+    from: 'afsalkpmanu31@gmail.com',
+    to: email,
+    subject: 'Your OTP for Registration',
+    text: `Your OTP is: ${otp}`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+};
+
 
 router.get("/", (req, res) => res.render("index"));
 
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
 
-router.get('/auth/google',
-  passport.authenticate('google', { scope:
-      [ 'email', 'profile' ] }
-));
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/auth/protected",
+    failureRedirect: "/auth/google/failure",
+  })
+);
 
-router.get( '/auth/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/auth/protected',
-        failureRedirect: '/auth/google/failure'
-}));
+router.get("/auth/google/failure", isLogged, (req, res) => {
+  res.send("something error....!!!");
+});
 
-
-router.get("/auth/google/failure",isLogged,(req,res)=>{
-  res.send("something error....!!!")
-})
-
-router.get("/auth/protected",isLogged,(req,res)=>{
-  const userId=req.user._id;
+router.get("/auth/protected", isLogged, (req, res) => {
+  const userId = req.user._id;
   const token = jwt.sign({ userId }, secretKey);
   res.cookie("usersession", token);
-  return res.redirect("/")
+  return res.redirect("/");
   // res.render("user_details",{user:req.user})
-})
+});
 
 router.get("/user", (req, res) => {
   const token = req.cookies.usersession;
@@ -91,6 +122,7 @@ router.post(
           password: req.body.password,
           cpassword: req.body.cpassword,
           status: req.body.status,
+          verified: req.body.verified,
         });
         const postData = await userData.save();
         res.render("userlogin");
@@ -134,6 +166,7 @@ router.post(
       return res.render("userlogin", { alert: alert });
     }
     const { email, password } = req.body;
+    
 
     try {
       const userProfile = await userCollection.findOne({ email });
@@ -200,23 +233,48 @@ router.put("/change_password", auth, async (req, res) => {
       return res.status(400).send("New passwords do not match.....");
     }
 
-    const newPasswordMatch = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
-    if (!newPasswordMatch) {
-      return res.status(401).send("Current password is incorrect.");
-    }
-
     user.password = newPassword;
     await user.save();
-    console.log(user);
     res.clearCookie("usersession");
-    return res.json({message:"changed"})
+    return res.json({ message: "changed" });
   } catch (error) {
     console.log(error);
     res.send("error identified...");
   }
 });
+
+
+
+router.get("/forgot",(req,res)=>{
+  
+  return res.render("forgot")
+})
+
+router.post("/forgot",async(req,res)=>{
+  const email = req.body.email
+  console.log(email);
+  try {
+    const userProfile = await userCollection.findOne({ email });
+    if (userProfile.status == "active") {
+      const generateOTP = () => {
+        return Math.floor(1000 + Math.random() * 900000);
+      };
+      const otp=(generateOTP());
+      const getOtp = sendOTPByEmail(email,otp)
+      if(getOtp){
+        
+      }
+
+    } else {
+      res.render("userlogin", { valid: true });
+    }
+    
+  } catch (error) {
+    console.log(error);
+  }
+
+  
+})
+
 
 module.exports = router;
