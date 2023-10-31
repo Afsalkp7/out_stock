@@ -10,7 +10,8 @@ document.querySelectorAll('.showProduct').forEach(btn => {
           
           const categoryElement = document.getElementById('productDetails');
           categoryElement.innerHTML = `
-          <img src="${productData.images[0]}" width="30%" alt="logo">
+          <img src="${productData.images[0]}" width="30%" alt="logo"><img src="${productData.images[1]}" width="30%" alt="logo">
+          <img src="${productData.images[2]}" width="30%" alt="logo"><img src="${productData.images[3]}" width="30%" alt="logo">
           <p>Name : ${productData.productName}</p><br>
           <p>Description : ${productData.description}</p><br>
           <p>additional : ${productData.additional}</p><br>

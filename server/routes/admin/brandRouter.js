@@ -7,6 +7,7 @@ const Brand = require('../../model/brandsModel')
 const multer = require('multer')
 const upload = multer({ dest: 'assets/img/Brands' })
 const cloudinary = require("../../../cloudinary") 
+const path = require("path")
 
 route.get("/",auth,async(req,res)=>{
     if(req.cookies.session){

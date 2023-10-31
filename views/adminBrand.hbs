@@ -16,6 +16,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/style2.css">
+    <!-- Include Cropper.js library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -117,8 +123,9 @@
                             <td>{{this.updateAt}}</td>
 
                             <td><a class="showBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/eye.png" width="15px" alt=""></a><a class="editBrand btn btn-light ms-2"
-                                    data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a
+                                        src="/img/eye.png" width="15px" alt=""></a><a
+                                    class="editBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                                        src="/img/editIcon.png" width="15px" alt=""></a><a
                                     class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
                                         src="/img/delete.png" width="15px" alt=""></a></td>
                         </tr>
@@ -241,7 +248,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form name="myForm" action="/admin/brands" onsubmit="return validateForm()" method="POST"
+                    <form name="myForm" onsubmit="return validateForm()" method="POST"
                         enctype="multipart/form-data">
                         <div class="mb-3 mt-3">
                             <label for="brandName">Brand Name</label>
@@ -250,8 +257,12 @@
                         </div>
                         <div class=" mb-3">
                             <label for="logo">Logo</label>
-                            <input type="file" class="form-control" id="logo" name="brandLogo">
-
+                            <input type="file" class="form-control" id="logoInput" name="brandLogo">
+                        </div>
+                        <div class="mb-3">
+                            <div id="imageContainer">
+                                <img id="croppedImage" name="croppedImage" src="#" alt="Cropped Image">
+                            </div>
                         </div>
                         <div class=" mb-3">
                             <input type="date" hidden class="form-control" id="date" name="date">
@@ -269,24 +280,25 @@
         </div>
     </div>
 
-    <div class="modal fade" id="brandShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="userTitle"></h5>
-        <a href="/admin/brands" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
-      </div>
-      <div class="modal-body" id="brandDetails">
-        ...
-      </div>
-      <div class="modal-footer">
-        <a href="/admin/brands" class="btn btn-dark text-light"data-bs-dismiss="modal">Close</a>
-      </div>
+    <div class="modal fade" id="brandShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userTitle"></h5>
+                    <a href="/admin/brands" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                </div>
+                <div class="modal-body" id="brandDetails">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin/brands" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-
+    <script src="/js/cropper.js"></script>
     <script src="/js/brandMgt.js"></script>
     <script src="/js/validation.js"></script>
     <script src="/js/index.js"></script>
