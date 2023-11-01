@@ -117,23 +117,6 @@ document.querySelectorAll('.showProduct').forEach(btn => {
   }
 
 
-  // document.querySelectorAll('.deleteProduct').forEach(btn => {
-  //   btn.addEventListener('click', async (event) => {
-  //     const productId = await event.target.getAttribute('data-user-id');
-  
-  //     try {
-  //       const response = await fetch(`/admin/products/${productId}`,{
-  //         method:'DELETE'
-  //       });
-  //       if (response.ok) {
-  //         window.location.href = "/admin/products"
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //     }
-  //   });
-  // });
-
   document.querySelectorAll(".deleteProduct").forEach((btn) => {
     btn.addEventListener("click", async (event) => {
       const proId = await event.target.getAttribute("data-user-id");
@@ -185,4 +168,3 @@ document.querySelectorAll('.showProduct').forEach(btn => {
         console.error("Error:", error);
       });
   }
-  

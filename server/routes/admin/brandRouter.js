@@ -14,7 +14,6 @@ route.get("/",auth,async(req,res)=>{
         const _id = req.adminId
         const admin = await adminCollection.findOne({ _id })
         const brands = await Brand.find()
-        
         res.render("adminBrand",{admin,brands})
     }else{
         res.redirect("/admin")
