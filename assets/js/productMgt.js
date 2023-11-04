@@ -5,13 +5,12 @@ document.querySelectorAll('.showProduct').forEach(btn => {
       try {
         const response = await fetch(`/admin/products/${productId}`);
         if (response.ok) {
-          const productData = await response.json();
-  
-          
+          const productData = await response.json(); 
           const categoryElement = document.getElementById('productDetails');
           categoryElement.innerHTML = `
-          <img src="${productData.images[0]}" width="30%" alt="logo"><img src="${productData.images[1]}" width="30%" alt="logo">
-          <img src="${productData.images[2]}" width="30%" alt="logo"><img src="${productData.images[3]}" width="30%" alt="logo">
+          <img src="${productData.images[0]}" width="30%" alt="images">
+          <img src="${productData.images[1]}" width="30%" alt="images">
+          <img src="${productData.images[2]}" width="30%" alt="images">
           <p>Name : ${productData.productName}</p><br>
           <p>Description : ${productData.description}</p><br>
           <p>additional : ${productData.additional}</p><br>

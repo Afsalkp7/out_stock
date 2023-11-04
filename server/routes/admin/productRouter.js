@@ -23,7 +23,7 @@ route.get("/",auth,async(req,res)=>{
     }
 })
 
-route.post('/', upload.array('image', 5), async (req, res) => {
+route.post('/', upload.array('image', 3), async (req, res) => {
 
   const { productName, price, netPrice, category, brand, quantity, description, additional } = req.body;
   const imageUrls = req.files.map((file) => file.path);

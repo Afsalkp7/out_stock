@@ -211,10 +211,16 @@ router.post(
       const password = req.body.password;
       const cpassword = req.body.cpassword;
       if (password === cpassword) {
+        const phoneNumber = req.body.phone;
+        const parsedPhoneNumber = phoneUtil.parse(phoneNumber, "IN");
+          const phone = phoneUtil.format(
+            parsedPhoneNumber,
+            libphonenumber.PhoneNumberFormat.E164
+          );
         const userData = new userCollection({
           userName: req.body.userName,
           email: req.body.email,
-          phone: req.body.phone,
+          phone,
           password: req.body.password,
           cpassword: req.body.cpassword,
           status: req.body.status,
