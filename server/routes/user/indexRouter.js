@@ -13,9 +13,14 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const userOtpVerification = require("../../model/userOtpModel");
 require("../../middlewere/googleAuth");
 const passport = require("passport");
+const twilio = require("twilio");
+const OTPModel = require("../../model/otpModel");
 const { isLogged } = require("../../middlewere/user_auth");
-
+const libphonenumber = require("google-libphonenumber");
+const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv").config({ path: "config.env" });
+const { config } = require("dotenv");
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -45,6 +50,12 @@ const sendOTPByEmail = (email, otp) => {
     });
   });
 };
+console.log(process.env.accountSid);
+console.log(process.env.authToken);
+const serviseSid = process.env.serviseSid
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
+const client = new twilio(accountSid, authToken);
 
 router.get("/", (req, res) => res.render("index"));
 
@@ -85,6 +96,90 @@ router.get("/user", (req, res) => {
 router.get("/registration", (req, res) => {
   res.render("userregister");
 });
+
+// router.post(
+//   "/register",
+//   urlencodedParser,
+//   [
+//     check("userName", "User name must be 3 characters")
+//       .exists()
+//       .isLength({ min: 3 }),
+//     check("email", "Email is not valid").exists().isEmail().normalizeEmail(),
+//     check("phone", "entered phone number is not valid")
+//       .exists()
+//       .isLength({ min: 10 })
+//       .isMobilePhone(),
+//     check("password", "password must need alphanumeic,regex,and 8 character")
+//       .exists()
+//       .isLength({ min: 8, max: 25 })
+//       .isAlphanumeric(),
+//   ],
+//   async (req, res) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       const errorArray = errors.array();
+//       const alert = errorArray[0];
+//       console.log(alert);
+//       return res.render("userregister", { alert: alert });
+//     }
+//     try {
+//       const password = req.body.password;
+//       const cpassword = req.body.cpassword;
+//       if (password === cpassword) {
+//         const generateOTP = () => {
+//           return Math.floor(
+//             1000 + Math.random() * (900000 - 100000 + 1)
+//           ).toString();
+//         };
+//         const otp = generateOTP();
+//         console.log(otp);
+//         if (otp) {
+//           const userName = req.body.userName;
+//           const email = req.body.email;
+//           const phoneNumber = req.body.phone;
+//           const status = req.body.status;
+//           const verified = req.body.verified;
+//           console.log(process.env.twilioPhoneNumber);
+
+//           const parsedPhoneNumber = phoneUtil.parse(phoneNumber, "IN");
+//           const phone = phoneUtil.format(
+//             parsedPhoneNumber,
+//             libphonenumber.PhoneNumberFormat.E164
+//           );
+//           console.log("Formatted phone number:", phone);
+          
+//            await client.messages
+//               .create({
+//                 body: `Your OTP: ${otp}`,
+//                 to: phone,
+//                 from: process.env.twilioPhoneNumber,
+//               })
+//               .then(async (message) => {
+//                 console.log(`OTP sent with message SID: ${message.sid}`);
+//                 const otpData = new OTPModel({
+//                   userName,
+//                   email,
+//                   phone,
+//                   password,
+//                   otp,
+//                   status,
+//                   verified,
+//                 });
+//                 await otpData.save();
+//                 console.log(otpData);
+//                 res.render("verifyotp");
+//               });
+//         } else {
+//           res.render("userregister", { notMatch: true });
+//         }
+//       } else {
+//         res.render("userregister", { notMatch: true });
+//       }
+//     } catch (error) {
+//       res.send(error);
+//     }
+//   }
+// );
 
 router.post(
   "/register",
@@ -244,6 +339,9 @@ router.put("/change_password", auth, async (req, res) => {
 });
 
 router.get("/forgot", (req, res) => {
+  if(req.cookies.usersession){
+    return res.redirect("/")
+  }
   return res.render("forgot");
 });
 
@@ -251,22 +349,25 @@ router.post("/forgot", async (req, res) => {
   const email = req.body.email;
   try {
     const userProfile = await userCollection.findOne({ email });
-    if (userProfile.status == "active") {
-      const generateOTP = () => {
-        return Math.floor(1000 + Math.random() * 900000);
-      };
-      const otp = generateOTP();
-      const getOtp = sendOTPByEmail(email, otp);
-      if (getOtp) {
-        const otpUpdate = await userCollection.findOneAndUpdate(
-          { emai: email.email },
-          { $set: { otp: otp } }
-        );
-        if (otpUpdate) {
-          const email = await otpUpdate.email;
-          return res.render("otpcolumn", { email });
+    if (userProfile){
+      if (userProfile.status == "active") {
+        const generateOTP = () => {
+          return Math.floor(1000 + Math.random() * 900000);
+        };
+        const otp = generateOTP();
+        const getOtp = sendOTPByEmail(email, otp);
+        if (getOtp) {
+          const otpUpdate = await userCollection.findOneAndUpdate(
+            { email },
+            { $set: { otp: otp } }
+          );
+          if (otpUpdate) {
+            const email = await otpUpdate.email;
+            return res.render("otpcolumn", { email });
+          }
         }
-      }
+    }
+    
     } else {
       res.render("userlogin", { valid: true });
     }
@@ -277,20 +378,39 @@ router.post("/forgot", async (req, res) => {
 
 router.post("/otp", async (req, res) => {
   const { email, otp } = req.body;
-  reqUser = await userCollection.findOne({ email });
+  const reqUser = await userCollection.findOne({ email });
   if (otp == reqUser.otp) {
     res.render("changeForm", { id: reqUser._id });
+  }else{
+    console.log(email);
+    res.render("otpcolumn",{email, notMatch:true})
   }
 });
 
-router.post("/confirmPass", async (req, res) => {
+router.post("/confirmPass",urlencodedParser,[check("password", "password must need alphanumeic,regex,and 8 character")
+.exists()
+.isLength({ min: 8, max: 25 })
+.isAlphanumeric(),], async (req, res) => {
   const { password, confirmPassword, _id } = req.body;
-  const user = await userCollection.findById(_id);
-  if (password === confirmPassword) {
-    user.password = password;
-    await user.save();
-    return res.render("userlogin");
-  }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorArray = errors.array();
+    const alert = errorArray[0];
+    console.log(alert);
+    return res.render("changeForm", { id:_id , alert: alert });
+    }
+    try {
+      if (password === confirmPassword) {
+        const user = await userCollection.findById(_id);
+        user.password = password;
+        await user.save();
+        return res.render("userlogin");
+      }else{
+        return res.render("changeForm",{id : _id,incorrect : true})
+      }
+    } catch (error) {
+      return res.send(error)
+    }
 });
 
 module.exports = router;

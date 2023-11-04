@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+   
     <div id="content">
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-4 ">
             <div class="container-fluid">
@@ -49,11 +50,19 @@
                 <input type="hidden" name="email" value="{{email}}">
                 <input type="number" class="form-control" id="otp" placeholder="Enter otp" name="otp" maxlength="6">
                 <label for="email">TYPE OTP</label>
+                <p id="notValid"></p>
             </div>
 
             <button type="submit" class="btn btn-dark">submit otp</button>
     </form>
     </div>
     </div>
+{{#if notMatch}}
+        <script>
+            console.log("jswbd")
+            document.getElementById("notValid").innerHTML = 'Entered <b>OTP</b> is invalid';
+        </script>
+{{/if}}
+    
 </body>
 </html>

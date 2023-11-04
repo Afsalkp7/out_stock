@@ -22,10 +22,9 @@ route.get("/",auth,async(req,res)=>{
 
   
 route.post("/",  upload.single('brandLogo'),async(req,res)=>{
-  const { brandName,description } = req.body;
-  const result = await cloudinary.uploader.upload(req.file.path);
+  const { brandName,description,croppedImage } = req.body;
+  const result = await cloudinary.uploader.upload(croppedImage);
   console.log('Cloudinary result:', result);
-
     let brand = new Brand({
         brandName,
         description,
