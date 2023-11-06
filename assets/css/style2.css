@@ -46,10 +46,42 @@
         padding-top: 100px;
     }
 }
-@media only screen and (max-width: 575px) {
-    
+.Shopimg{
+    /* margin-top: 80px; */
 }
-
+@media only screen and (max-width: 1330px) {
+    .Shopimg{
+        margin-top: 80px;
+    }
+}
+@media only screen and (max-width: 475px) {
+    .shopItem{
+        font-size: 3vw;
+    }
+    .Shopimg{
+        display: none;
+    }
+    .mainShop{
+        position: unset;
+        padding-top: 250px;
+    }
+    .shopHead{
+        
+    }
+}
+@media only screen and (max-width: 375px) {
+    
+    .Shopimg{
+        /* display: none; */
+    }
+    .shopHead{
+        /* position: unset; */
+    }
+    .mainShop{
+        /* position: unset; */
+        padding-top: 300px;
+    }
+}
 #bannerReport h1{
     font-weight: bold;
 }

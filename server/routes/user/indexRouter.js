@@ -50,8 +50,7 @@ const sendOTPByEmail = (email, otp) => {
     });
   });
 };
-console.log(process.env.accountSid);
-console.log(process.env.authToken);
+
 const serviseSid = process.env.serviseSid
 const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
