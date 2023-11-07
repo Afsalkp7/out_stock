@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../../model/productModel")
-
+const Category = require("../../model/category")
+const Brand = require("../../model/brandsModel")
 
 router.get("/",async(req,res)=>{
     const products = await Product.find()
-    res.render("shop",{products})
+    const category = await Category.find()
+    const brands = await Brand.find()
+    res.render("shop",{products,category,brands})
 })
 
 router.get("/:id",async(req,res)=>{

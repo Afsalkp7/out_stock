@@ -52,15 +52,19 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 bg-dark">Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Rerum fugit, quam aliquam dolores assumenda maiores quibusdam voluptatem
-                quos voluptates, libero neque sequi corrupti blanditiis sed illo quod eaque earum corporis?
-                Laborum ullam fugiat, necessitatibus odio libero recusandae doloribus quaerat, veritatis dolorum eaque
-                suscipit dicta facere vitae repellat cum saepe enim earum nulla ratione iure dolorem odit vel. Ex,
-                magnam dicta.
-                Atque mollitia dicta quo, quis aliquid deleniti aperiam sapiente odio non suscipit natus similique
-                veritatis error ipsum tenetur minus molestias modi pariatur blanditiis consequatur ipsa quia facilis?
-                Harum, totam. Dolores!</div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 p-5" style="position: sticky; top:70px; height: 100vh" >
+            <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY CATEGORIES</span>
+            {{#each category}}
+                <a style="text-decoration: none; font-size: 15px; color: black;" href=""><li style="list-style: none; margin-top: 10px;">{{this.name}}</li></a>
+            {{/each}}
+            <br>
+            <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY BRANDS</span>
+            {{#each brands}}
+                <a style="text-decoration: none; font-size: 15px; color: black;" href=""><li style="list-style: none; margin-top: 10px;">{{this.brandName}}</li></a>
+            {{/each}}
+            <br>
+            <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY PRICE</span>
+            </div>
             <div class="col-8 col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9 ">
                 <div class="container">
                     <div class="row">
