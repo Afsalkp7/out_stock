@@ -21,6 +21,10 @@ const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv").config({ path: "config.env" });
 const { config } = require("dotenv");
+const Banner = require("../../model/bannerModel")
+
+
+
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -56,7 +60,14 @@ const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
 const client = new twilio(accountSid, authToken);
 
-router.get("/", (req, res) => res.render("index"));
+router.get("/", async(req, res) =>{ 
+  const topBanner = await Banner.find({place:"top",status:"Enable"})
+  console.log(topBanner[0]);
+  if(topBanner.length>0){
+    return res.render("index",{topBanner})
+  }
+   res.render("index")
+});
 
 router.get(
   "/auth/google",
@@ -146,7 +157,7 @@ router.get("/registration", (req, res) => {
 //             libphonenumber.PhoneNumberFormat.E164
 //           );
 //           console.log("Formatted phone number:", phone);
-          
+//           console.log(process.env.twilioPhoneNumber);
 //            await client.messages
 //               .create({
 //                 body: `Your OTP: ${otp}`,

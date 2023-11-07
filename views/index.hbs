@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -39,18 +39,21 @@
     </nav>
   </div>
   </div>
+  {{#if topBanner}}
+
 
   <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="/img/slide1.jpg" class="d-block w-100" alt="...">
+
+      {{#each topBanner}}
+      <div class="carousel-item {{#if @first }}active{{/if}}" style="position: relative;">
+        <img src="{{this.bannerImage}}" class="d-block w-100" alt="...">
+        <div style="position: absolute; top: 18.532vw; left: 200px; font-size: 5.189vw; font-weight: bolder; width:50%; line-height: 2.224vw;">
+          {{this.bannerName}}<br><span style="font-size: 1.853vw; font-weight: bold;">{{this.description}}</span><br>
+          <div class="btn btn-dark">EXPLORE</div>
+        </div>
       </div>
-      <div class="carousel-item">
-        <img src="/img/slide2.jpg" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="/img/slide3.jpg" class="d-block w-100" alt="...">
-      </div>
+      {{/each}}
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -61,6 +64,9 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+
+  {{/if}}
+
 
   <div class="container-fluid">
     <div id="hero" class="container pt-4">
@@ -136,10 +142,10 @@
               <img src="/img/star.jpg" alt="star">
             </div>
           </div>
-          </div>
+        </div>
 
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-            <div class="card" style="width: 18rem;">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="card" style="width: 18rem;">
             <img src="/img/product3.jpg" class="card-img-top" alt="product1">
             <div class="card-body">
               <p class="card-text">
@@ -150,9 +156,9 @@
               <img src="/img/star.jpg" alt="star">
             </div>
           </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-            <div class="card" style="width: 18rem;">
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="card" style="width: 18rem;">
             <img src="/img/product4.jpg" class="card-img-top" alt="product1">
             <div class="card-body">
               <p class="card-text">
@@ -163,7 +169,7 @@
               <img src="/img/star.jpg" alt="star">
             </div>
           </div>
-          </div>
+        </div>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
           <div class="card" style="width: 18rem;">
             <img src="/img/product5.jpg" class="card-img-top" alt="product1">
@@ -189,10 +195,10 @@
               <img src="/img/star.jpg" alt="star">
             </div>
           </div>
-          </div>
+        </div>
 
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-            <div class="card" style="width: 18rem;">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="card" style="width: 18rem;">
             <img src="/img/product7.jpg" class="card-img-top" alt="product1">
             <div class="card-body">
               <p class="card-text">
@@ -203,9 +209,9 @@
               <img src="/img/star.jpg" alt="star">
             </div>
           </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-            <div class="card" style="width: 18rem;">
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="card" style="width: 18rem;">
             <img src="/img/product8.jpg" class="card-img-top" alt="product1">
             <div class="card-body">
               <p class="card-text">
@@ -216,12 +222,12 @@
               <img src="/img/star.jpg" alt="star">
             </div>
           </div>
-          </div>
-        </div>
-        <div class="container mt-3" style="display: flex; justify-content: center;">
-          <div class="btn btn-light text-dark" style="border: 0.5px solid black;">SHOW ALL PRODUCTS</div>
         </div>
       </div>
+      <div class="container mt-3" style="display: flex; justify-content: center;">
+        <div class="btn btn-light text-dark" style="border: 0.5px solid black;">SHOW ALL PRODUCTS</div>
+      </div>
+    </div>
   </div>
 
   <div class="container mt-5">

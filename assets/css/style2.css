@@ -85,3 +85,6 @@
 #bannerReport h1{
     font-weight: bold;
 }
+#shopImage{
+    object-fit: cover;
+}
