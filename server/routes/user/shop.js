@@ -11,6 +11,6 @@ router.get("/",async(req,res)=>{
 router.get("/:id",async(req,res)=>{
     const _id = await req.params.id;
     const item = await Product.findById(_id);
-    res.render("product")
+    res.render("product",{item})
 })
 module.exports = router;
