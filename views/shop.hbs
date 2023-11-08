@@ -52,18 +52,25 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 p-5" style="position: sticky; top:70px; height: 100vh" >
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 p-5" style="position: sticky; top:70px; height: 800px" >
             <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY CATEGORIES</span>
+            <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?category=all"><li style="list-style: none; margin-top: 10px;">ALL</li></a>
             {{#each category}}
-                <a style="text-decoration: none; font-size: 15px; color: black;" href=""><li style="list-style: none; margin-top: 10px;">{{this.name}}</li></a>
+                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?category={{this.name}}"><li style="list-style: none; margin-top: 10px;">{{this.name}}</li></a>
             {{/each}}
             <br>
             <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY BRANDS</span>
+            <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand=all"><li style="list-style: none; margin-top: 10px;">ALL</li></a>
             {{#each brands}}
-                <a style="text-decoration: none; font-size: 15px; color: black;" href=""><li style="list-style: none; margin-top: 10px;">{{this.brandName}}</li></a>
+                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand={{this.brandName}}"><li style="list-style: none; margin-top: 10px;">{{this.brandName}}</li></a>
             {{/each}}
             <br>
             <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY PRICE</span>
+            <br><label for="minPrice">Min Price:</label>
+  <input type="number" id="minPrice">
+  <label for="maxPrice">Max Price:</label>
+  <input type="number" id="maxPrice">
+  <button style="background-color: black; color: white; margin-top: 20px; padding: 5px; border: 1px solid black; border-radius: 10px;" id="applyFilter">Apply Filter</button>
             </div>
             <div class="col-8 col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9 ">
                 <div class="container">
@@ -73,7 +80,7 @@
 
 
                                 {{#each products}}
-                                <div class="col hp">
+                                <div class="col hp"  data-category-name="{{this.category}}" data-brand-name="{{this.brand}}" data-price="{{this.price}}">
                                     <div class="card shadow-sm">
                                         <a href="/shop/{{this._id}}">
                                             <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}"

@@ -8,6 +8,7 @@ router.get("/",async(req,res)=>{
     const products = await Product.find()
     const category = await Category.find()
     const brands = await Brand.find()
+
     res.render("shop",{products,category,brands})
 })
 

@@ -54,7 +54,7 @@ document.querySelectorAll('.showProduct').forEach(btn => {
           <input type="text" class="form-control" id="name" value="${productData.productName}" name="productName">
           </div>
           <div class="form-floating mb-3 mt-3">
-          <input type="text" class="form-control" id="desc" value="${productData.description}" name="productName">
+          <input type="text" class="form-control" id="desc" value="${productData.description}" name="description">
           </div>
           <div class="form-floating mb-3 mt-3">
           <input type="text" class="form-control" id="additional" value="${productData.additional}" name="additional">

@@ -22,7 +22,7 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv").config({ path: "config.env" });
 const { config } = require("dotenv");
 const Banner = require("../../model/bannerModel")
-
+const Product = require("../../model/productModel")
 
 
 
@@ -62,9 +62,17 @@ const client = new twilio(accountSid, authToken);
 
 router.get("/", async(req, res) =>{ 
   const topBanner = await Banner.find({place:"top",status:"Enable"})
-  console.log(topBanner[0]);
+  const centerBanner = await Banner.find({place:"center",status:"Enable"})
+  const sortProduct = await Product.find().sort({ quantity: 1 });
+  const productArray = sortProduct.slice(0, 4);
+  const descentSort = await Product.find().sort({ quantity: -1 });
+  const trendingArray = descentSort.slice(0, 8);
+  const newArrivalSort = await Product.find().sort({ dateCreated: -1 });
+  const arrivalArray = newArrivalSort.slice(0, 8);
+  // console.log(sortProduct);
+  // console.log(topBanner[0]);
   if(topBanner.length>0){
-    return res.render("index",{topBanner})
+    return res.render("index",{topBanner,productArray,centerBanner,trendingArray,arrivalArray})
   }
    res.render("index")
 });

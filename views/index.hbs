@@ -48,7 +48,8 @@
       {{#each topBanner}}
       <div class="carousel-item {{#if @first }}active{{/if}}" style="position: relative;">
         <img src="{{this.bannerImage}}" class="d-block w-100" alt="...">
-        <div style="position: absolute; top: 18.532vw; left: 200px; font-size: 5.189vw; font-weight: bolder; width:50%; line-height: 2.224vw;">
+        <div
+          style="position: absolute; top: 18.532vw; left: 200px; font-size: 5.189vw; font-weight: bolder; width:50%; line-height: 2.224vw;">
           {{this.bannerName}}<br><span style="font-size: 1.853vw; font-weight: bold;">{{this.description}}</span><br>
           <div class="btn btn-dark">EXPLORE</div>
         </div>
@@ -109,135 +110,131 @@
     </div>
     <div class="container">
       <div class="row">
+         {{#each productArray}}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product1.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product2.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
+          <div class="card shadow-sm">
+            <a href="/shop/{{this._id}}">
+              <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
+                style="background-color: white;" alt="title" />
+              <div class="card-body bg-light">
+                <div class="clearfix">
+                  <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
+                  <h5 class="float-start badge rounded-pill text-dark">
+                    ₹{{this.price}}/-</h5>
+                  <small class="float-end  rounded-pill text-danger"
+                    style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
+                  <span class="text-warning">
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                  </span>
+                </div>
 
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product3.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
+              </div>
+            </a>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product4.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product5.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product6.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product7.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card" style="width: 18rem;">
-            <img src="/img/product8.jpg" class="card-img-top" alt="product1">
-            <div class="card-body">
-              <p class="card-text">
-                <span style="font-weight: bold; font-size:18px">Sacrificial Chair Design</span><br><br>
-                <span style="font-size: 15px;color:rgb(0, 161, 0)"> ₹1799/-</span><span
-                  style="font-size: 11px;color:rgba(245, 37, 30, 0.61)"><del>₹1999/-</del></span>
-              </p>
-              <img src="/img/star.jpg" alt="star">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container mt-3" style="display: flex; justify-content: center;">
-        <div class="btn btn-light text-dark" style="border: 0.5px solid black;">SHOW ALL PRODUCTS</div>
-      </div>
-    </div>
+        {{/each}}
   </div>
-
-  <div class="container mt-5">
+  </div>
+  </div>
+  <div class="container mt-3" style="display: flex; justify-content: center;">
+    <a href="/shop"><div class="btn btn-light text-dark" style="border: 0.5px solid black;">SHOW ALL PRODUCTS</div></a>
+  </div>
+  </div>
+  </div>
+{{#if centerBanner}}
+<div class="container mt-5">
     <div class="row">
-      <div class="col-6 col-sm-6 col-lg-6 col-xl-6 col-xxl-6">
-        <img src="/img/banner2.jpg" alt="banner2" style="width:40vw">
+      {{#each centerBanner}}
+      <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+        <img src="{{this.bannerImage}}" alt="banner2" width="100%">
       </div>
-      <div class="col-6 col-sm-6 col-lg-6 col-xl-6 col-xxl-6">
-        <img src="/img/banner3.jpg" alt="banner3" style="width:40vw">
-      </div>
+      {{/each}}
     </div>
   </div>
+{{/if}}
+  
 
   <div class="container-fluid">
     <div id="hero" class="container pt-4">
       <h4>EXPLORE THE LOOKOOK</h4>
       <h1>TRENDING PRODUCTS</h1>
       <p>Explore the trending items from Lookook on your own Outstock4</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      {{#each trendingArray}}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="card shadow-sm">
+            <a href="/shop/{{this._id}}">
+              <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
+                style="background-color: white;" alt="title" />
+              <div class="card-body bg-light">
+                <div class="clearfix">
+                  <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
+                  <h5 class="float-start badge rounded-pill text-dark">
+                    ₹{{this.price}}/-</h5>
+                  <small class="float-end  rounded-pill text-danger"
+                    style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
+                  <span class="text-warning">
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                  </span>
+                </div>
+
+              </div>
+            </a>
+          </div>
+        </div>
+        {{/each}}
+    </div>
+  </div>
+
+  <br>
+  <br>
+    <div class="container-fluid">
+    <div id="hero" class="container pt-4">
+      <h4>EXPLORE THE LOOKOOK</h4>
+      <h1>NEW ARRIVAL</h1>
+      <p>Explore the Newly arrived items from Lookook on your own Outstock4</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      {{#each arrivalArray}}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="card shadow-sm">
+            <a href="/shop/{{this._id}}">
+              <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
+                style="background-color: white;" alt="title" />
+              <div class="card-body bg-light">
+                <div class="clearfix">
+                  <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
+                  <h5 class="float-start badge rounded-pill text-dark">
+                    ₹{{this.price}}/-</h5>
+                  <small class="float-end  rounded-pill text-danger"
+                    style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
+                  <span class="text-warning">
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                    <div class="fa fa-star"></div>
+                  </span>
+                </div>
+
+              </div>
+            </a>
+          </div>
+        </div>
+        {{/each}}
     </div>
   </div>
 

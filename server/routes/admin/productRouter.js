@@ -134,6 +134,7 @@ route.get("/update/:id", async (req,res)=>{
 route.put("/update",async (req,res)=>{
     const productId=req.body.product_id;
     const productUpdate = await Product.findOneAndUpdate({_id:productId},{$set:req.body})
+    console.log(productUpdate);
     return res.json(productUpdate)
 })
 
