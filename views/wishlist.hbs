@@ -83,13 +83,12 @@
                     <div class="d-flex">
                       <p class="text-center text-success mt-2">₹{{this.price}}/-</p>
                       <p class="text-center text-danger ms-3 mt-2">₹{{this.net_price}}/-</p>  
-                      
-                      <p class="text-center text-danger ms-3 mt-2">₹/-</p>
-                      <div class="">
-                        <a class="deleteCartItem btn btn-light ms-5" data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a>
+
+                      <div class="ms-auto">
+                        <a class="deleteWishItem btn btn-light ms-5" data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a>
                       </div>
-                      <div class="">
-                        <button class="btn btn-sm btn-dark ms-5 mt-2 w-100" id="addFromWishToCartButton" data-item-id="{{item._id}}">Add to cart</button>
+                      <div class="ms-auto">
+                        <button class="addFromWishToCartButton btn btn-sm btn-dark ms-5 mt-2 w-100"  data-item-id="{{this._id}}">Add to cart</button>
                       </div>
                     </div>
                   </div>
@@ -97,15 +96,7 @@
               </div>
 
               {{/each}}
-              {{/each}}
-              <div class="border-top pt-4 mx-4 mb-4">
-                <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
-                <p class="text-muted">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip
-                </p>
-              </div>
+              {{/each}}     
             </div>
           </div>
         </div>
@@ -131,7 +122,24 @@
       </div>
     </div>
   </div>
-  <script src="/js/cartMgt.js"></script>
+    <div class="modal fade" id="productShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userTitle"></h5>
+          <a href="/wish" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+        </div>
+        <div class="modal-body" id="productDetails">
+          ...
+        </div>
+        <div class="modal-footer">
+          <a href="/wish" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/wishMgt.js"></script>
 </body>
 
 </html>

@@ -14,10 +14,9 @@ router.get("/",authCart,async(req,res)=>{
 
     for (let wishItem of wishItems){
         const productId = wishItem.productId;
-
         const wishContent = await Product.find({_id:productId})
         if (wishContent){
-            wishProducts.push({wishContent})
+            wishProducts.push({wishContent,quantity:1})
         }
     }
     console.log(wishProducts); 
@@ -36,7 +35,6 @@ router.post('/',authCart,async(req,res)=>{
      if (wishAdded) {
          const _id = wishAdded.productId;
          const item = await Product.findById(_id);
- 
          res.render("product",{item})
      }else{
          const wrong  = {msg:"Product can't added to wishlist"}
@@ -48,8 +46,26 @@ router.post('/',authCart,async(req,res)=>{
  })
 
 
+ router.get("/delete/:id",authCart,async(req,res)=>{
+    const proId = req.params.id;
+    try {
+        const product = await WishItem.findOne({ productId: proId });
+        
+        if (product) {
+          return res.json(product);
+        } else {
+          res.status(404).json({ error: 'product not found' });
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    })
 
-
-
+    router.delete("/delete",async (req,res)=>{
+        const cartId = req.body.pro_id;
+        const deleteProduct = await WishItem.findByIdAndRemove(cartId);
+        return res.json(deleteProduct)
+    })
 
 module.exports = router;

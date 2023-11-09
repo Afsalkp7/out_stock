@@ -81,7 +81,7 @@
                   <button class="btn btn-white" type="button" id="decrement" data-mdb-ripple-color="dark">
                     <i style="font-size: 12px;" class="fas fa-minus"></i>
                   </button>
-                  <input type="text" id="quantity" class="form-control text-center" style="border: none;"
+                  <input type="text" id="quantity" class="form-control text-center qty" style="border: none;"
                     aria-label="Example text with button addon" aria-describedby="button-addon1"
                     value="{{../quantity}}" />
                   <button class="btn btn-white" type="button" id="increment" data-mdb-ripple-color="dark">
@@ -91,10 +91,10 @@
                 <div class="col-lg-5">
                   <div class="me-lg-5">
                     <div class="d-flex">
-                      <p class="text-center text-success mt-2">₹{{this.price}}/-</p>
-                      <p class="text-center text-danger ms-3 mt-2">₹{{this.net_price}}/-</p>  
+                      <span class="text-success mt-2">₹<span class="text-center text-success  price1">{{this.price}}</span>/-</span>
+                      <span class="text-danger ms-3 mt-2">₹<span class="text-center text-danger  price2 ">{{this.net_price}}</span>/-</span>  
                       
-                      <p class="text-center text-danger ms-3 mt-2">₹/-</p>
+                      <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"></span>/-</span>
                       <div class="">
                         <a class="deleteCartItem btn btn-light ms-5" data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a>
                       </div>
@@ -105,14 +105,14 @@
 
               {{/each}}
               {{/each}}
-              <div class="border-top pt-4 mx-4 mb-4">
+              {{!-- <div class="border-top pt-4 mx-4 mb-4">
                 <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
                 <p class="text-muted">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
                   et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                   aliquip
                 </p>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Discount:</p>
-                <p class="mb-2 text-success">-$60.00</p>
+                <p class="mb-2 text-success"></p>
               </div>
               <div class="d-flex justify-content-between">
                 <p class="mb-2"></p>
@@ -147,12 +147,12 @@
               <hr />
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Total price:</p>
-                <p class="mb-2 fw-bold">$283.00</p>
+                <p class="mb-2 fw-bold"></p>
               </div>
 
               <div class="mt-3">
-                <a href="#" class="btn btn-dark w-100 shadow-0 mb-2"> Make Purchase </a>
-                <a href="#" class="btn btn-light w-100 border mt-2"> Back to shop </a>
+                <a href="#" class="btn btn-dark w-100 shadow-0 mb-2"> Buy Now  </a>
+                <a href="/shop" class="btn btn-light w-100 border mt-2"> Back to shop </a>
               </div>
             </div>
           </div>
@@ -178,6 +178,17 @@
       </div>
     </div>
   </div>
+  {{#if cartProducts}}
+  <p id="ppp" style="display: none;">{{cartProducts.length}}</p>
+  {{/if}}
+  <script>
+    const length = (document.getElementById("ppp").textContent)
+
+    for (let i=0;i<= length ; i++){
+      document.getElementsByClassName("sum")[i].textContent = parseInt(document.getElementsByClassName("price1")[i].textContent )*parseInt(document.getElementsByClassName("qty")[i].value )
+      
+    }
+  </script>
   <script>
     const quantityInput = document.getElementById('quantity');
     const incrementButton = document.getElementById('increment');
@@ -195,7 +206,10 @@
       quantityInput.value = quantity;
     });
 
+    
+
   </script>
+
   <script src="/js/cartMgt.js"></script>
 </body>
 

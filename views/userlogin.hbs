@@ -37,7 +37,13 @@
                             style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav ms-auto">
+                        <div class="navbar-nav ms-auto me-3">
+                            <a id="userIcons" href="/wish"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/cart"><img src="/img/cart.png" alt="cart" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
                             <a href="/user"><img src="/img/person1.png" alt="admin" width="40px"></a>
                         </div>
                     </div>
@@ -54,11 +60,11 @@
         </div>
     </div>
     {{/if}}
-     {{#if alert}}
+    {{#if alert}}
     <div class="container">
         <div class="alert alert-dark alert-dismissible fade show" role="alert">
-            {{alert.msg}}    
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            {{alert.msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
     {{/if}}
@@ -66,7 +72,8 @@
     <div id="mainDiv" class="container mt-5">
         <img id="logImg" src="/img/login.jpg" width="100%" alt="login.jpg">
         <span id="heading">Login</span>
-        <form id="fillingForm" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4" action="/user_login" method="POST">
+        <form id="fillingForm" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4" action="/user_login"
+            method="POST">
 
             <div class="form-floating mb-3 mt-3">
                 <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
@@ -76,9 +83,10 @@
                 <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
                 <label for="pwd">Password</label>
             </div>
-            
-            <button type="submit" class="btn btn-dark">Login</button><br><a href="/forgot">Forgot your Password ??</a>  
-            <div id="toReg" style="color: black; font-size: 12px; font-family: Istok Web; font-weight: 400; word-wrap: break-word">
+
+            <button type="submit" class="btn btn-dark">Login</button><br><a href="/forgot">Forgot your Password ??</a>
+            <div id="toReg"
+                style="color: black; font-size: 12px; font-family: Istok Web; font-weight: 400; word-wrap: break-word">
                 Did'nt have an account ? <a href="/registration" class="text-dark"
                     style="font-weight: bolder; font-size: 15px;">Registration</a></div>
         </form>

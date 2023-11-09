@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 const quantityInput = document.getElementById('quantity');
 const addToCartButton = document.getElementById('addToCartButton');
-
-addToCartButton.addEventListener('click', () => {
+if (addToCartButton){
+  addToCartButton.addEventListener('click', () => {
     const quantityValue = quantityInput.value;
     const itemId = addToCartButton.getAttribute('data-item-id');
 
@@ -18,7 +18,9 @@ addToCartButton.addEventListener('click', () => {
         },
         body: JSON.stringify(cartItem)
       });
-    });
+    });  
+}
+
 });
 
 document.querySelectorAll(".deleteCartItem").forEach((btn) => {
@@ -76,8 +78,8 @@ function deleteCart() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const addToWishButton = document.getElementById('addToWishButton');
-  
-  addToWishButton.addEventListener('click', () => {
+  if(addToWishButton){
+    addToWishButton.addEventListener('click', () => {
       const itemId = addToWishButton.getAttribute('data-item-id');
       const wishItem = {
           itemId: itemId,
@@ -91,27 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(wishItem)
         });
       });
-  });
-  
+  }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const addToCartButton = document.getElementById('addFromWishToCartButton');
-    
-    addToCartButton.addEventListener('click', () => {
-        const quantityValue = 1;
-        const itemId = addToCartButton.getAttribute('data-item-id');
-    
-        const cartItem = {
-            itemId: itemId,
-            quantity: quantityValue
-          };
-    
-          fetch('/cart', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cartItem)
-          });
-        });
-    });
+  });
