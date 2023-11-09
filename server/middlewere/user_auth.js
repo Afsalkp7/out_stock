@@ -10,7 +10,7 @@ async function auth(req, res, next) {
       return res.redirect("/");
     }
     try {
-      console.log("pp");
+      
       const decoded = jwt.verify  (token, secretKey);
       console.log(decoded); 
       req.userId = decoded.userId;
@@ -27,4 +27,23 @@ async function auth(req, res, next) {
     }
     res.sendStatus(401)
   }
-module.exports = {auth, isLogged}
+
+  async function authCart(req, res, next) {
+    const token = req.cookies.usersession;
+    if (!token) {
+      return res.redirect("/user");
+    }
+    try {
+      
+      const decoded = jwt.verify  (token, secretKey);
+      console.log(decoded); 
+      req.userId = decoded.userId;
+      next();
+    } catch (error) {
+      res.status(401).render("error",{error:error});
+    }
+  }
+
+
+
+module.exports = {auth, isLogged ,authCart}

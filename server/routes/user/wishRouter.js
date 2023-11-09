@@ -1,0 +1,55 @@
+const express = require("express");
+const router = express.Router();
+const Product = require("../../model/productModel")
+const userCollection = require("../../model/userModel");
+const WishItem = require("../../model/wishModel")
+const { authCart } = require("../../middlewere/user_auth");
+
+
+router.get("/",authCart,async(req,res)=>{
+    const userId = req.userId
+    const wishItems = await WishItem.find({userId})
+
+    const wishProducts = [];
+
+    for (let wishItem of wishItems){
+        const productId = wishItem.productId;
+
+        const wishContent = await Product.find({_id:productId})
+        if (wishContent){
+            wishProducts.push({wishContent})
+        }
+    }
+    console.log(wishProducts); 
+    res.render("wishlist",{wishProducts})
+})
+
+router.post('/',authCart,async(req,res)=>{
+    try {
+     const userId = req.userId
+     const { itemId } = req.body;
+     const wishItem = new WishItem({
+         userId,
+         productId:itemId,
+     })
+     const wishAdded = await wishItem.save()
+     if (wishAdded) {
+         const _id = wishAdded.productId;
+         const item = await Product.findById(_id);
+ 
+         res.render("product",{item})
+     }else{
+         const wrong  = {msg:"Product can't added to wishlist"}
+         res.render("product",{wrong})
+     }
+    } catch (error) {
+     console.log(error);
+    }
+ })
+
+
+
+
+
+
+module.exports = router;

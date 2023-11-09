@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/css/productCard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -34,8 +36,14 @@
                             style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav ms-auto">
-                            <a id="userIcons" href="/user"><img src="/img/person1.png" alt="admin" width="40px"></a>
+                        <div class="navbar-nav ms-auto me-3">
+                            <a id="userIcons" href="/wish"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/cart"><img src="/img/cart.png" alt="cart" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/user"><img src="/img/person1.png" alt="admin" width="30px"></a>
                         </div>
                     </div>
                 </div>
@@ -52,25 +60,42 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 p-5" style="position: sticky; top:70px; height: 800px" >
-            <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY CATEGORIES</span>
-            <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?category=all"><li style="list-style: none; margin-top: 10px;">ALL</li></a>
-            {{#each category}}
-                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?category={{this.name}}"><li style="list-style: none; margin-top: 10px;">{{this.name}}</li></a>
-            {{/each}}
-            <br>
-            <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY BRANDS</span>
-            <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand=all"><li style="list-style: none; margin-top: 10px;">ALL</li></a>
-            {{#each brands}}
-                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand={{this.brandName}}"><li style="list-style: none; margin-top: 10px;">{{this.brandName}}</li></a>
-            {{/each}}
-            <br>
-            <span class="text-center" style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY PRICE</span>
-            <br><label for="minPrice">Min Price:</label>
-  <input type="number" id="minPrice">
-  <label for="maxPrice">Max Price:</label>
-  <input type="number" id="maxPrice">
-  <button style="background-color: black; color: white; margin-top: 20px; padding: 5px; border: 1px solid black; border-radius: 10px;" id="applyFilter">Apply Filter</button>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 p-5"
+                style="position: sticky; top:70px; height: 800px">
+                <span class="text-center"
+                    style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY
+                    CATEGORIES</span>
+                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?category=all">
+                    <li style="list-style: none; margin-top: 10px;">ALL</li>
+                </a>
+                {{#each category}}
+                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?category={{this.name}}">
+                    <li style="list-style: none; margin-top: 10px;">{{this.name}}</li>
+                </a>
+                {{/each}}
+                <br>
+                <span class="text-center"
+                    style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY
+                    BRANDS</span>
+                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand=all">
+                    <li style="list-style: none; margin-top: 10px;">ALL</li>
+                </a>
+                {{#each brands}}
+                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand={{this.brandName}}">
+                    <li style="list-style: none; margin-top: 10px;">{{this.brandName}}</li>
+                </a>
+                {{/each}}
+                <br>
+                <span class="text-center"
+                    style="font-size: 18px;font-weight: bold; font-family: Arial, Helvetica, sans-serif;">FILTER BY
+                    PRICE</span>
+                <br><label for="minPrice">Min Price:</label>
+                <input type="number" id="minPrice">
+                <label for="maxPrice">Max Price:</label>
+                <input type="number" id="maxPrice">
+                <button
+                    style="background-color: black; color: white; margin-top: 20px; padding: 5px; border: 1px solid black; border-radius: 10px;"
+                    id="applyFilter">Apply Filter</button>
             </div>
             <div class="col-8 col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9 ">
                 <div class="container">
@@ -80,7 +105,8 @@
 
 
                                 {{#each products}}
-                                <div class="col hp"  data-category-name="{{this.category}}" data-brand-name="{{this.brand}}" data-price="{{this.price}}">
+                                <div class="col hp" data-category-name="{{this.category}}"
+                                    data-brand-name="{{this.brand}}" data-price="{{this.price}}">
                                     <div class="card shadow-sm">
                                         <a href="/shop/{{this._id}}">
                                             <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}"

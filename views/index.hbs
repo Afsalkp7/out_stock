@@ -30,9 +30,17 @@
               style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
           </div>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto">
-              <a id="userIcons" href="/user"><img src="/img/person1.png" alt="admin" width="40px"></a>
+
+            <div class="navbar-nav ms-auto me-3">
+              <a id="userIcons" href="/wish"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
             </div>
+            <div class="navbar-nav me-3">
+              <a id="userIcons" href="/cart"><img src="/img/cart.png" alt="cart" width="30px"></a>
+            </div>
+            <div class="navbar-nav me-3">
+              <a id="userIcons" href="/user"><img src="/img/person1.png" alt="admin" width="30px"></a>
+            </div>
+
           </div>
         </div>
       </div>
@@ -51,7 +59,9 @@
         <div
           style="position: absolute; top: 18.532vw; left: 200px; font-size: 5.189vw; font-weight: bolder; width:50%; line-height: 2.224vw;">
           {{this.bannerName}}<br><span style="font-size: 1.853vw; font-weight: bold;">{{this.description}}</span><br>
-          <div class="btn btn-dark">EXPLORE</div>
+          <a href="/shop">
+            <div class="btn btn-dark">EXPLORE</div>
+          </a>
         </div>
       </div>
       {{/each}}
@@ -110,7 +120,7 @@
     </div>
     <div class="container">
       <div class="row">
-         {{#each productArray}}
+        {{#each productArray}}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
           <div class="card shadow-sm">
             <a href="/shop/{{this._id}}">
@@ -137,16 +147,18 @@
           </div>
         </div>
         {{/each}}
-  </div>
-  </div>
+      </div>
+    </div>
   </div>
   <div class="container mt-3" style="display: flex; justify-content: center;">
-    <a href="/shop"><div class="btn btn-light text-dark" style="border: 0.5px solid black;">SHOW ALL PRODUCTS</div></a>
+    <a href="/shop">
+      <div class="btn btn-light text-dark" style="border: 0.5px solid black;">SHOW ALL PRODUCTS</div>
+    </a>
   </div>
   </div>
   </div>
-{{#if centerBanner}}
-<div class="container mt-5">
+  {{#if centerBanner}}
+  <div class="container mt-5">
     <div class="row">
       {{#each centerBanner}}
       <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
@@ -155,51 +167,51 @@
       {{/each}}
     </div>
   </div>
-{{/if}}
-  
+  {{/if}}
+
 
   <div class="container-fluid">
     <div id="hero" class="container pt-4">
       <h4>EXPLORE THE LOOKOOK</h4>
       <h1>TRENDING PRODUCTS</h1>
-      <p>Explore the trending items from Lookook on your own Outstock4</p>
+      <p>Explore the trending items from Lookook on your own Outstock</p>
     </div>
   </div>
   <div class="container">
     <div class="row">
       {{#each trendingArray}}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card shadow-sm">
-            <a href="/shop/{{this._id}}">
-              <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
-                style="background-color: white;" alt="title" />
-              <div class="card-body bg-light">
-                <div class="clearfix">
-                  <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
-                  <h5 class="float-start badge rounded-pill text-dark">
-                    ₹{{this.price}}/-</h5>
-                  <small class="float-end  rounded-pill text-danger"
-                    style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
-                  <span class="text-warning">
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                  </span>
-                </div>
-
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+        <div class="card shadow-sm">
+          <a href="/shop/{{this._id}}">
+            <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
+              style="background-color: white;" alt="title" />
+            <div class="card-body bg-light">
+              <div class="clearfix">
+                <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
+                <h5 class="float-start badge rounded-pill text-dark">
+                  ₹{{this.price}}/-</h5>
+                <small class="float-end  rounded-pill text-danger"
+                  style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
+                <span class="text-warning">
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                </span>
               </div>
-            </a>
-          </div>
+
+            </div>
+          </a>
         </div>
-        {{/each}}
+      </div>
+      {{/each}}
     </div>
   </div>
 
   <br>
   <br>
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div id="hero" class="container pt-4">
       <h4>EXPLORE THE LOOKOOK</h4>
       <h1>NEW ARRIVAL</h1>
@@ -209,32 +221,32 @@
   <div class="container">
     <div class="row">
       {{#each arrivalArray}}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-          <div class="card shadow-sm">
-            <a href="/shop/{{this._id}}">
-              <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
-                style="background-color: white;" alt="title" />
-              <div class="card-body bg-light">
-                <div class="clearfix">
-                  <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
-                  <h5 class="float-start badge rounded-pill text-dark">
-                    ₹{{this.price}}/-</h5>
-                  <small class="float-end  rounded-pill text-danger"
-                    style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
-                  <span class="text-warning">
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                    <div class="fa fa-star"></div>
-                  </span>
-                </div>
-
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+        <div class="card shadow-sm">
+          <a href="/shop/{{this._id}}">
+            <img src="{{this.images.[0]}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
+              style="background-color: white;" alt="title" />
+            <div class="card-body bg-light">
+              <div class="clearfix">
+                <span class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
+                <h5 class="float-start badge rounded-pill text-dark">
+                  ₹{{this.price}}/-</h5>
+                <small class="float-end  rounded-pill text-danger"
+                  style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
+                <span class="text-warning">
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                  <div class="fa fa-star"></div>
+                </span>
               </div>
-            </a>
-          </div>
+
+            </div>
+          </a>
         </div>
-        {{/each}}
+      </div>
+      {{/each}}
     </div>
   </div>
 
