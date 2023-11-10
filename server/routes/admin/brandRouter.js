@@ -21,7 +21,7 @@ route.get("/",auth,async(req,res)=>{
 })
 
   
-route.post("/",  upload.single('brandLogo'),async(req,res)=>{
+route.post("/",upload.single('brandLogo'),async(req,res)=>{
   const { brandName,description,croppedImage } = req.body;
   const result = await cloudinary.uploader.upload(croppedImage);
   console.log('Cloudinary result:', result);

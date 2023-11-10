@@ -11,17 +11,4 @@ cloudinary.config({
 })
 
 module.exports = cloudinary;
-
-// exports.uploads = (file,folder)=>{
-//     return new Promise(resolve => {
-//         cloudinary.uploader.uploads(file,(result)=>{
-//             resolve({
-//                 url : result.url,
-//                 id : result.public_id
-//             })
-//         },{
-//             resource_type : "auto",
-//             folder : folder
-//         })
-//     })
-// }
+ 

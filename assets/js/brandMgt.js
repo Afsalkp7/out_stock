@@ -42,6 +42,10 @@ document.querySelectorAll(".editBrand").forEach((btn) => {
         catElement.innerHTML = `
           <form id="updateBrandForm">
           <div class="form-floating mb-3 mt-3">
+          <input type="file" class="form-control" id="imageFile" name="logo" accept="image/*">
+          <img id="previewImage" src="${brandData.logo}" alt="Current Image" style="max-width: 200px; max-height: 200px; margin-top: 10px;">
+      </div>
+          <div class="form-floating mb-3 mt-3">
           <input type="text" class="form-control" id="name" value="${
             brandData.brandName
           }" name="brandName">
@@ -64,6 +68,23 @@ document.querySelectorAll(".editBrand").forEach((btn) => {
           document.getElementById("brandShow")
         );
         catModal.show();
+        const imageFileInput = document.getElementById("imageFile");
+                const previewImage = document.getElementById("previewImage");
+
+                imageFileInput.addEventListener("change", (event) => {
+                    const file = event.target.files[0];
+
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            previewImage.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        // Reset preview if no file selected
+                        previewImage.src = brandData.logo;
+                    }
+                });
       } else {
         console.error("Error fetching user data");
       }
@@ -78,8 +99,7 @@ function updateBrand() {
   const formData = new FormData(form);
   fetch("/admin/brands/update", {
     method: "PUT",
-    body: JSON.stringify(Object.fromEntries(formData)),
-    headers: { "Content-Type": "application/json" },
+    body: formData,
   })
     .then((response) => {
       if (!response.ok) {
@@ -118,6 +138,7 @@ document.querySelectorAll(".deleteBrand").forEach((btn) => {
         // Show the modal
         const Modal = new bootstrap.Modal(document.getElementById("brandShow"));
         Modal.show();
+        
       } else {
         console.error("Error fetching user data");
       }
