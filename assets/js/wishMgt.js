@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addToCartButtons = document.querySelectorAll('.addFromWishToCartButton');
-    Array.from(addToCartButtons).forEach((button) => {
+    const addToWishButtons = document.querySelectorAll('.addFromWishToCartButton');
+    Array.from(addToWishButtons).forEach((button) => {
         button.addEventListener('click', async() => {
         const itemId = button.getAttribute('data-item-id');
     
@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(cartItem)
-          });
+          })
+          
         });
     });
 })

@@ -81,10 +81,21 @@ route.get("/update/:id",auth,async (req,res)=>{
   }
 })
 
-route.put("/update",async (req,res)=>{
-    const brand_id=req.body.brand_id;
-    const brandUpdate = await Brand.findOneAndUpdate({_id:brand_id},{$set:req.body})
-    return res.json(brandUpdate)
+route.put("/update",upload.single('brandLogo'),async (req,res)=>{
+    const brand_id=req.body.brand_id; 
+    const brandLogo = req.file.path
+    const result = await cloudinary.uploader.upload(brandLogo);
+    try {
+      const brandUpdate = await Brand.findOneAndUpdate({ _id: brand_id }, { $set: {
+        brandName:req.body.brandName,
+        description:req.body.description,
+        logo : result.url,
+      } });
+      return res.json(brandUpdate);
+  } catch (error) {
+      console.error('Error updating brand:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
 })
 route.get("/delete/:id",auth,async (req,res)=>{
   if(req.cookies.session){

@@ -24,17 +24,13 @@ route.get("/",auth,async(req,res)=>{
 })
 
 route.post('/', upload.array('image',5), async (req, res) => {
-
   const { productName, price, net_price, category, brand, quantity, description, additional } = req.body;
   const imageUrls = req.files.map((file) => file.path);
-
   const cloudinaryImageUrls = [];
   for (const imagePath of imageUrls) {
     const result = await cloudinary.uploader.upload(imagePath);
     cloudinaryImageUrls.push(result.secure_url);
   }
-
-
   const products = new Product({
     productName,
     price,

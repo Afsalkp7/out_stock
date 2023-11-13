@@ -36,10 +36,7 @@ router.post('/',authCart,async(req,res)=>{
     })
     const cartAdded = await cartItem.save()
     if (cartAdded) {
-        const _id = cartAdded.productId;
-        const item = await Product.findById(_id);
-
-        res.render("product",{item})
+        return res.json(cartAdded)
     }else{
         const wrong  = {msg:"Product can't added to cart"}
         res.render("product",{wrong})

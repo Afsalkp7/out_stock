@@ -58,9 +58,9 @@ const sendOTPByEmail = (email, otp) => {
 const serviseSid = process.env.serviceSid
 const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
-console.log("authToken",authToken);
-console.log("serviseSid",serviseSid);
-console.log("accountSid",accountSid);
+// console.log("authToken",authToken);
+// console.log("serviseSid",serviseSid);
+// console.log("accountSid",accountSid);
 const client = new twilio(accountSid, authToken);
 
 router.get("/", async(req, res) =>{ 

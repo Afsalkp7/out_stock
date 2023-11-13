@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 const quantityInput = document.getElementById('quantity');
 const addToCartButton = document.getElementById('addToCartButton');
@@ -17,7 +18,13 @@ if (addToCartButton){
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(cartItem)
-      });
+      })
+      .then((response)=>{
+        if(response.ok) {
+          alert("added to cart success")
+          window.location.href="#"
+        }
+      })
     });  
 }
 
