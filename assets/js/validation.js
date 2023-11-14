@@ -1,6 +1,6 @@
 function validateForm() {
   let brand = document.forms["myForm"]["brandName"].value;
-  let logo = document.forms["myForm"]["logo"].value;
+  let logo = document.forms["myForm"]["brandLogo"].value;
   let desc = document.forms["myForm"]["description"].value;
 
   if (brand == "") {

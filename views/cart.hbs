@@ -64,103 +64,64 @@
               <h4 class="card-title mb-4">Your shopping cart</h4>
               {{#each cartProducts}}
               {{#each cartContent}}
-
-
-              {{!-- <div class="row mb-4">
-                <div class="col-lg-5">
-                  <div class="me-lg-5">
-                    <div class="d-flex">
-                      <img src="{{this.images.[0]}}" class="border rounded me-3" style="width: 50px;" />
-                      <div class="">
-                        <span style="font-weight: bold; font-size: 16px;">{{this.productName}}</span>
-                        <p class="text-muted">{{this.brand}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="input-group mb-5" style="width: 130px;">
-                  <button class="btn btn-white" type="button" id="decrement" data-mdb-ripple-color="dark">
-                    <i style="font-size: 12px;" class="fas fa-minus"></i>
-                  </button>
-                  <input type="text" id="quantity" class="form-control text-center qty" style="border: none;"
-                    aria-label="Example text with button addon" aria-describedby="button-addon1"
-                    value="{{../quantity}}" />
-                  <button class="btn btn-white" type="button" id="increment" data-mdb-ripple-color="dark">
-                    <i style="font-size: 12px;" class="fas fa-plus"></i>
-                  </button>
-                </div>
-                <div class="col-lg-5">
-                  <div class="me-lg-5">
-                    <div class="d-flex">
-                      <span class="text-success mt-2">₹<span
-                          class="text-center text-success  price1">{{this.price}}</span>/-</span>
-                      <span class="text-danger ms-3 mt-2">₹<span
-                          class="text-center text-danger  price2 ">{{this.net_price}}</span>/-</span>
-
-                      <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"></span>/-</span>
-                      <div class="">
-                        <a class="deleteCartItem btn btn-light ms-5" data-user-id='{{this._id}}'><img
-                            src="/img/delete.png" width="15px" alt=""></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> --}}
               <div class="table-responsive">
-  <table class="table">
-    <tbody>
-      <tr class="row mb-4">
-        <td class="col-lg-5">
-          <div class="me-lg-5">
-            <div class="d-flex">
-              <img src="{{this.images.[0]}}" class="border rounded me-3" style="width: 50px;" />
-              <div class="">
-                <span style="font-weight: bold; font-size: 16px;">{{this.productName}}</span>
-                <p class="text-muted">{{this.brand}}</p>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td class="col-lg-2">
+                <table class="table">
+                  <tbody>
+                    <tr class="row mb-4">
+                      <td class="col-lg-5">
+                        <div class="me-lg-5">
+                          <div class="d-flex">
+                            <img src="{{this.images.[0]}}" class="border rounded me-3" style="width: 50px;" />
+                            <div class="">
+                              <span style="font-weight: bold; font-size: 16px;">{{this.productName}}</span>
+                              <p class="text-muted">{{this.brand}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="col-lg-2">
           <div class="input-group" style="width: 130px;">
-            <button class="btn btn-white" type="button" id="decrement" data-mdb-ripple-color="dark">
+            <button class="decrement btn btn-white" type="button" data-mdb-ripple-color="dark"
+              onclick="updateQuantity('{{this._id}}', -1)">
               <i style="font-size: 12px;" class="fas fa-minus"></i>
             </button>
-            <input type="text" id="quantity" class="form-control text-center qty" style="border: none;"
+            <input type="text" class="form-control text-center qty" style="border: none;"
               aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{../quantity}}" />
-            <button class="btn btn-white" type="button" id="increment" data-mdb-ripple-color="dark">
+            <button class="increment btn btn-white" type="button" data-mdb-ripple-color="dark"
+              onclick="updateQuantity('{{this._id}}', 1)">
               <i style="font-size: 12px;" class="fas fa-plus"></i>
             </button>
           </div>
         </td>
-        <td class="col-lg-5">
-          <div class="me-lg-5">
-            <div class="d-flex">
-              <span class="text-success mt-2">₹<span class="text-center text-success price1">{{this.price}}</span>/-</span>
-              <span class="text-danger ms-3 mt-2">₹<span
-                  class="text-center text-danger price2 ">{{this.net_price}}</span>/-</span>
+                      <td class="col-lg-5">
+                        <div class="me-lg-5">
+                          <div class="d-flex">
+                            <span class="text-success mt-2">₹<span
+                                class="text-center text-success price1">{{this.price}}</span>/-</span>
+                            <span class="text-danger ms-3 mt-2">₹<span
+                                class="text-center text-danger price2 ">{{this.net_price}}</span>/-</span>
 
-              <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"></span>/-</span>
-              <div class="">
-                <a class="deleteCartItem btn btn-light ms-5" data-user-id='{{this._id}}'><img
-                    src="/img/delete.png" width="15px" alt=""></a>
+                            <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"></span>/-</span>
+                            <div class="">
+                              <a class="deleteCartItem btn btn-light ms-5" data-user-id='{{this._id}}'><img
+                                  src="/img/delete.png" width="15px" alt=""></a>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
               {{/each}}
               {{/each}}
-              
+
             </div>
           </div>
         </div>
         <div class="col-lg-3">
-          
+
           <div class="card shadow-0 border">
             <div class="card-body">
               <div class="d-flex justify-content-between">
@@ -220,26 +181,9 @@
 
     }
   </script>
-  <script>
-    const quantityInput = document.getElementById('quantity');
-    const incrementButton = document.getElementById('increment');
-    const decrementButton = document.getElementById('decrement');
+ <script>
 
-    incrementButton.addEventListener('click', () => {
-      let quantity = parseInt(quantityInput.value) || 0;
-      quantity = Math.max(1, quantity + 1);
-      quantityInput.value = quantity;
-    });
-
-    decrementButton.addEventListener('click', () => {
-      let quantity = parseInt(quantityInput.value) || 0;
-      quantity = Math.max(1, quantity - 1);
-      quantityInput.value = quantity;
-    });
-
-
-
-  </script>
+</script>
 
   <script src="/js/cartMgt.js"></script>
 </body>

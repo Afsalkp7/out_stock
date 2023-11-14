@@ -20,7 +20,6 @@ route.get("/",auth,async(req,res)=>{
     }
 })
 
-  
 route.post("/",upload.single('brandLogo'),async(req,res)=>{
   const { brandName,description,croppedImage } = req.body;
   const result = await cloudinary.uploader.upload(croppedImage);
@@ -38,6 +37,7 @@ route.post("/",upload.single('brandLogo'),async(req,res)=>{
        return res.redirect("/admin/brands")
     }
 })
+
 
 
 route.get("/:id",auth, async (req,res)=>{

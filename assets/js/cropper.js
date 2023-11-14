@@ -1,3 +1,6 @@
+
+//BRAND CROPPER
+
 $(document).ready(function () {
   const myForm = document.forms.myForm;
   const logoInput = document.getElementById("logoInput");
@@ -45,6 +48,8 @@ $(document).ready(function () {
   });
 });
 
+//BANNER CROPPER
+
 $(document).ready(function () {
   const bannerForm = document.forms.bannerForm;
   const bannerImage = document.getElementById("bannerImage");
@@ -91,4 +96,6 @@ $(document).ready(function () {
     bannerForm.submit();
   });
 });
+
+
 
