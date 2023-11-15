@@ -16,6 +16,13 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/style2.css">
+  
+   <!-- Include Cropper.js library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -232,8 +239,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="ProductForm" name="ProductForm" onsubmit="return validateProductForm()" method="post" action="/admin/products"
-            enctype="multipart/form-data">
+          {{!-- <form id="ProductForm" name="ProductForm" onsubmit="return validateProductForm()" method="post"
+            action="/admin/products" enctype="multipart/form-data">
             <div class="mb-3 mt-3">
               <label for="productName"> Name</label>
               <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="productName"
@@ -243,51 +250,110 @@
               <label for="image">Product Images</label>
               <input type="file" multiple class="form-control" style="background-color: rgb(226, 226, 226);;" id="image"
                 name="image">
-            </div> 
-              <div class="mb-3 mt-3">
-                <label for="price"> Price</label>
-                <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="price"
-                  name="price">
-              </div>
-              <div class="mb-3 mt-3">
-                <label for="netPrice">Net Price</label>
-                <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="netPrice"
-                  name="net_price">
-              </div>
-              <div class="mb-3 mt-3">
-                <label for="category">Category</label>
-                <select class="form-control" style="background-color: rgb(226, 226, 226);" id="category"
-                  name="category">
-                  {{#each categories}}
-                  <option class="bg-dark text-light" value="{{this.name}}">{{this.name}}</option>
-                  {{/each}}
-                </select>
-              </div>
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="price"> Price</label>
+              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="price"
+                name="price">
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="netPrice">Net Price</label>
+              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="netPrice"
+                name="net_price">
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="category">Category</label>
+              <select class="form-control" style="background-color: rgb(226, 226, 226);" id="category" name="category">
+                {{#each categories}}
+                <option class="bg-dark text-light" value="{{this.name}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
 
-              <div class="mb-3 mt-3">
-                <label for="brand">Brand</label>
-                <select class="form-control" style="background-color: rgb(226, 226, 226);" id="brand" name="brand">
-                  {{#each brands}}
-                  <option class="bg-dark text-light" value="{{this.brandName}}">{{this.brandName}}</option>
-                  {{/each}}
-                </select>
+            <div class="mb-3 mt-3">
+              <label for="brand">Brand</label>
+              <select class="form-control" style="background-color: rgb(226, 226, 226);" id="brand" name="brand">
+                {{#each brands}}
+                <option class="bg-dark text-light" value="{{this.brandName}}">{{this.brandName}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="quantity">Number of stock</label>
+              <input type="number" class="form-control" style="background-color: rgb(226, 226, 226);" id="quantity"
+                name="quantity">
+            </div>
+            <div class=" mb-3">
+              <label for="description">Description</label><br>
+              <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description"
+                rows="2"></textarea>
+            </div>
+            <div class=" mb-3">
+              <label for="additional">Any additional info</label><br>
+              <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;" name="additional"
+                rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
+          </form> --}}
+          <form id="ProductForm" name="ProductForm" onsubmit="return validateProductForm()" method="post"
+            action="/admin/products" enctype="multipart/form-data">
+            <div class="mb-3 mt-3">
+              <label for="productName"> Name</label>
+              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="productName"
+                name="productName">
+            </div>
+            <div class=" mb-3">
+              <label for="mainImage">Main image</label>
+              <input type="file" class="form-control" id="mainImage" name="mainImage">
+            </div>
+            <div class="mb-3">
+              <div id="imageContainer">
+                <img id="croppedMainImage" name="croppedMainImage" src="#" alt="Cropped Image">
               </div>
-              <div class="mb-3 mt-3">
-                <label for="quantity">Number of stock</label>
-                <input type="number" class="form-control" style="background-color: rgb(226, 226, 226);" id="quantity"
-                  name="quantity">
-              </div>
-              <div class=" mb-3">
-                <label for="description">Description</label><br>
-                <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description"
-                  rows="2"></textarea>
-              </div>
-              <div class=" mb-3">
-                <label for="additional">Any additional info</label><br>
-                <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;" name="additional"
-                  rows="2"></textarea>
-              </div>
-              <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
+            </div>
+             <div class="mb-3 mt-3">
+              <label for="price"> Price</label>
+              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="price"
+                name="price">
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="netPrice">Net Price</label>
+              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="netPrice"
+                name="net_price">
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="category">Category</label>
+              <select class="form-control" style="background-color: rgb(226, 226, 226);" id="category" name="category">
+                {{#each categories}}
+                <option class="bg-dark text-light" value="{{this.name}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+
+            <div class="mb-3 mt-3">
+              <label for="brand">Brand</label>
+              <select class="form-control" style="background-color: rgb(226, 226, 226);" id="brand" name="brand">
+                {{#each brands}}
+                <option class="bg-dark text-light" value="{{this.brandName}}">{{this.brandName}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="mb-3 mt-3">
+              <label for="quantity">Number of stock</label>
+              <input type="number" class="form-control" style="background-color: rgb(226, 226, 226);" id="quantity"
+                name="quantity">
+            </div>
+            <div class=" mb-3">
+              <label for="description">Description</label><br>
+              <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description"
+                rows="2"></textarea>
+            </div>
+            <div class=" mb-3">
+              <label for="additional">Any additional info</label><br>
+              <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;" name="additional"
+                rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
           </form>
 
         </div>
@@ -340,8 +406,7 @@
   {{/if}}
 
 
-
-  <script src="/js/productCropper.js"></script>
+  <script src="/js/cropper.js"></script>
   <script src="/js/productMgt.js"></script>
   <script src="/js/validation.js"></script>
   <script src="/js/index.js"></script>

@@ -23,69 +23,73 @@ route.get("/",auth,async(req,res)=>{
     }
 })
 
-route.post('/', upload.array('image',5), async (req, res) => {
-  const { productName, price, net_price, category, brand, quantity, description, additional } = req.body;
-  const imageUrls = req.files.map((file) => file.path);
-  const cloudinaryImageUrls = [];
-  for (const imagePath of imageUrls) {
-    const result = await cloudinary.uploader.upload(imagePath);
-    cloudinaryImageUrls.push(result.secure_url);
-  }
+
+route.post("/",upload.single('mainImage'),async(req,res)=>{
+  try {
+    const { productName, price, net_price, category, brand, quantity, description, additional,croppedImage } = req.body;
+  const result = await cloudinary.uploader.upload(croppedImage);
+  console.log('Cloudinary result:', result);
   const products = new Product({
-    productName,
-    price,
-    net_price,
-    category,
-    brand,
-    quantity,
-    description,
-    additional,
-    images: cloudinaryImageUrls,
-  });
-
-  await products.save();
-
-  if(!products){
+        productName,
+        price,
+        net_price,
+        category,
+        brand,
+        quantity,
+        description,
+        additional,
+        image: result.url,
+      });
+    
+    const added =  await products.save();
+  if(!added){
                 return res.render(404,"error");
             }else{
                return res.redirect("/admin/products")
             }
+
+  } catch (error) {
+    return res.send(error)
+  }
+
+
 });
 
-// route.post("/",uploadProducts.single("image") , async(req,res)=>{
 
-//     const category = await Category.findOne({name : req.body.category})
-//     const brand = await Brand.findOne({brandName : req.body.brand})
-//     if(!category){
-//         return res.render('adminProduct',{alert : true});
-//     }else if(!brand){
-//         return res.render('adminProduct',{alertBrand : true});
-//     }
-//     else{
-//         let products = new Product({
-//             productName : req.body.productName,
-//             image : {
-//                 data : req.file.filename,
-//                 contentType :'image/jpg'
-//             },
-//             price : req.body.price,
-//             netPrice : req.body.netPrice,
-//             category : req.body.category,
-//             brand : req.body.brand,
-//             quantity : req.body.quantity,
-//             description : req.body.description,
-//             additional : req.body.additional,
-//         })
-    
-//         product = await products.save();
-//         if(!product){
-//             return res.render(404,"error");
-//         }else{
-//            return res.redirect("/admin/products")
-//         }
-//     }
-    
-// })
+// route.post('/', upload.array('image',5), async (req, res) => {
+//   const { productName, price, net_price, category, brand, quantity, description, additional } = req.body;
+//   const imageUrls = req.files.map((file) => file.path);
+//   const cloudinaryImageUrls = [];
+//   for (const imagePath of imageUrls) {
+//     const result = await cloudinary.uploader.upload(imagePath);
+//     cloudinaryImageUrls.push(result.secure_url);
+//   }
+//   const products = new Product({
+//     productName,
+//     price,
+//     net_price,
+//     category,
+//     brand,
+//     quantity,
+//     description,
+//     additional,
+//     images: cloudinaryImageUrls,
+//   });
+
+//   await products.save();
+
+//   if(!products){
+//                 return res.render(404,"error");
+//             }else{
+//                return res.redirect("/admin/products")
+//             }
+// });
+
+
+
+
+
+
 
 route.get("/:id",async (req,res)=>{
     if(req.cookies.session){
