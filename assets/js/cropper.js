@@ -105,7 +105,7 @@ $(document).ready(function () {
   const mainImage = document.getElementById("mainImage");
   const croppedMainImage = document.getElementById("croppedMainImage");
 
-  let cropper;
+  let cropperMain;
 
   mainImage.addEventListener("change", function (e) {
     const file = e.target.files[0];
@@ -115,7 +115,7 @@ $(document).ready(function () {
       reader.onload = function (e) {
 
         croppedMainImage.src = e.target.result;
-        cropper = new Cropper(croppedMainImage, {
+        cropperMain = new Cropper(croppedMainImage, {
           aspectRatio: 1, 
           viewMode: 2,
         });
@@ -127,7 +127,7 @@ $(document).ready(function () {
   ProductForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const croppedCanvas = cropper.getCroppedCanvas();
+    const croppedCanvas = cropperMain.getCroppedCanvas();
 
     if (!croppedCanvas) {
 
@@ -147,4 +147,54 @@ $(document).ready(function () {
   });
 });
 
+
+
+//PRODUCT SECOND CROPPER
+
+$(document).ready(function () {
+  const ProductForm = document.forms.ProductForm;
+  const secondImage = document.getElementById("secondImage");
+  const croppedSecondImage = document.getElementById("croppedSecondImage");
+
+  let cropperSecond;
+
+  secondImage.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+
+        croppedSecondImage.src = e.target.result;
+        cropperSecond = new Cropper(croppedSecondImage, {
+          aspectRatio: 1, 
+          viewMode: 2,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  ProductForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const croppedCanvas = cropperSecond.getCroppedCanvas();
+
+    if (!croppedCanvas) {
+
+      alert("Please crop the image before submitting.");
+      return;
+    }
+
+    const croppedDataUrl = croppedCanvas.toDataURL("image/jpeg");
+
+    const croppedImageInput = document.createElement("input");
+    croppedImageInput.type = "hidden";
+    croppedImageInput.name = "croppedSecondImage";
+    croppedImageInput.value = croppedDataUrl;
+    ProductForm.appendChild(croppedImageInput);
+
+    ProductForm.submit();
+  });
+});
 

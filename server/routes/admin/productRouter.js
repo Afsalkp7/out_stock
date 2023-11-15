@@ -24,11 +24,13 @@ route.get("/",auth,async(req,res)=>{
 })
 
 
-route.post("/",upload.single('mainImage'),async(req,res)=>{
+route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'secondImage', maxCount: 1 }]),async(req,res)=>{
   try {
-    const { productName, price, net_price, category, brand, quantity, description, additional,croppedImage } = req.body;
-  const result = await cloudinary.uploader.upload(croppedImage);
-  console.log('Cloudinary result:', result);
+    const { productName, price, net_price, category, brand, quantity, description, additional,croppedImage,croppedSecondImage } = req.body;
+  const mainImage = await cloudinary.uploader.upload(croppedImage);
+  console.log(croppedSecondImage);
+  const secondImage  =await cloudinary.uploader.upload(croppedSecondImage)
+  console.log('Cloudinary result:', mainImage,secondImage);
   const products = new Product({
         productName,
         price,
@@ -38,7 +40,8 @@ route.post("/",upload.single('mainImage'),async(req,res)=>{
         quantity,
         description,
         additional,
-        image: result.url,
+        image: mainImage.url,
+        secondImage:secondImage.url
       });
     
     const added =  await products.save();
