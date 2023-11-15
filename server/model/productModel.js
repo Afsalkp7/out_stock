@@ -12,11 +12,18 @@ const productSchema = mongoose.Schema({
         default:""
     },
     image:{
-        type:Object,
+        type:String,
         default:""
     },
-    images : [String],
     secondImage:{
+        type : String,
+        default : ""
+    },
+    thirdImage:{
+        type : String,
+        default : ""
+    },
+    fourthImage:{
         type : String,
         default : ""
     },

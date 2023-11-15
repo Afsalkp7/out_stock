@@ -24,13 +24,14 @@ route.get("/",auth,async(req,res)=>{
 })
 
 
-route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'secondImage', maxCount: 1 }]),async(req,res)=>{
+route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'secondImage', maxCount: 1 }, { name: 'thirdImage', maxCount: 1 }, { name: 'fourthImage', maxCount: 1 }]),async(req,res)=>{
   try {
-    const { productName, price, net_price, category, brand, quantity, description, additional,croppedImage,croppedSecondImage } = req.body;
+    const { productName, price, net_price, category, brand, quantity, description, additional,croppedImage,croppedSecondImage,croppedThirdImage,croppedFourthImage } = req.body;
   const mainImage = await cloudinary.uploader.upload(croppedImage);
-  console.log(croppedSecondImage);
   const secondImage  =await cloudinary.uploader.upload(croppedSecondImage)
-  console.log('Cloudinary result:', mainImage,secondImage);
+  const thirdImage  =await cloudinary.uploader.upload(croppedThirdImage)
+  const fourthImage  =await cloudinary.uploader.upload(croppedFourthImage)
+  console.log('Cloudinary result:', mainImage,secondImage,thirdImage,fourthImage);
   const products = new Product({
         productName,
         price,
@@ -41,7 +42,9 @@ route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'seco
         description,
         additional,
         image: mainImage.url,
-        secondImage:secondImage.url
+        secondImage:secondImage.url,
+        thirdImage:thirdImage.url,
+        fourthImage:fourthImage.url,
       });
     
     const added =  await products.save();
@@ -54,8 +57,6 @@ route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'seco
   } catch (error) {
     return res.send(error)
   }
-
-
 });
 
 
