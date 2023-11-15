@@ -117,6 +117,7 @@ document.querySelectorAll(".editBrand").forEach((btn) => {
         const catElement = document.getElementById("brandDetails");
         catElement.innerHTML = `
           <form id="updateBrandForm" enctype="multipart/form-data">
+          
           <div class=" mb-3">
           <label for="brandLogo">Logo</label>
           <input type="file" class="form-control" id="brandLogo" name="brandLogo">

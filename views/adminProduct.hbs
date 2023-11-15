@@ -119,12 +119,12 @@
 
             <tr>
               <td>-</td>
-              <td><img src="{{this.images.[0]}}" width="30px" alt="image"></td>
+              <td><img src="{{this.image}}" width="30px" alt="image"></td>
               <td>{{this.productName}}</td>
               <td>{{this.brand}}</td>
               <td>{{this.category}}</td>
               <td>₹{{this.price}}/-</td>
-              <td>{{this.quantity}}</td>
+              <td>{{this.quantity}}</td >
 
               <td><a class="showProduct btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/eye.png"
                     width="15px" alt=""></a><a class="editProduct btn btn-light ms-2" data-user-id='{{this._id}}'><img
@@ -308,34 +308,34 @@
             </div>
             <div class="mb-3">
               <div id="imageContainer">
-                <img id="croppedMainImage" name="croppedMainImage" src="#" alt="Cropped Image">
+                <img id="croppedMainImage" hidden name="croppedMainImage" src="#" alt="Cropped Image">
               </div>
             </div>
             <div class=" mb-3">
-              <label for="secondImage">Main image</label>
+              <label for="secondImage">Second image</label>
               <input type="file" class="form-control" id="secondImage" name="secondImage">
             </div>
             <div class="mb-3">
               <div id="secondImageContainer">
-                <img id="croppedSecondImage" name="croppedSecondImage" src="#" alt="Cropped Image">
+                <img id="croppedSecondImage" hidden name="croppedSecondImage" src="#" alt="Cropped Image">
               </div>
             </div>
             <div class=" mb-3">
-              <label for="thirdImage">Main image</label>
+              <label for="thirdImage">Third image</label>
               <input type="file" class="form-control" id="thirdImage" name="thirdImage">
             </div>
             <div class="mb-3">
               <div id="thirdImageContainer">
-                <img id="croppedThirdImage" name="croppedThirdImage" src="#" alt="Cropped Image">
+                <img id="croppedThirdImage" hidden name="croppedThirdImage" src="#" alt="Cropped Image">
               </div>
             </div>
             <div class=" mb-3">
-              <label for="fourthImage">Main image</label>
+              <label for="fourthImage">Fourth image</label>
               <input type="file" class="form-control" id="fourthImage" name="fourthImage">
             </div>
             <div class="mb-3">
               <div id="fourthImageContainer">
-                <img id="croppedFourthImage" name="croppedFourthImage" src="#" alt="Cropped Image">
+                <img id="croppedFourthImage" hidden name="croppedFourthImage" src="#" alt="Cropped Image">
               </div>
             </div>
              <div class="mb-3 mt-3">
@@ -380,7 +380,7 @@
               <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;" name="additional"
                 rows="2"></textarea>
             </div>
-            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO PRODUCTS</button>
           </form>
 
         </div>
@@ -431,7 +431,6 @@
     alert("brand not found")
   </script>
   {{/if}}
-
 
   <script src="/js/cropper.js"></script>
   <script src="/js/productMgt.js"></script>

@@ -6,11 +6,12 @@ document.querySelectorAll(".showProduct").forEach((btn) => {
       const response = await fetch(`/admin/products/${productId}`);
       if (response.ok) {
         const productData = await response.json();
+        console.log(productData);
         const categoryElement = document.getElementById("productDetails");
         categoryElement.innerHTML = `
-          <img src="${productData.images[0]}" width="30%" alt="images">
-          <img src="${productData.images[1]}" width="30%" alt="images">
-          <img src="${productData.images[2]}" width="30%" alt="images">
+          <img src="${productData.image}" width="30%" alt="images">
+          <img src="${productData.secondImage}" width="30%" alt="images">
+          <img src="${productData.thirdImage}" width="30%" alt="images">
           <p>Name : ${productData.productName}</p><br>
           <p>Description : ${productData.description}</p><br>
           <p>additional : ${productData.additional}</p><br>
@@ -50,7 +51,18 @@ document.querySelectorAll(".editProduct").forEach((btn) => {
         console.log(productData);
         const catElement = document.getElementById("productDetails");
         catElement.innerHTML = `
-          <form id="updateProductForm">
+          <form id="updateProductForm" name="updateProductForm">
+
+          <div class=" mb-3">
+            <label for="updMainImage">Fourth image</label>
+            <input type="file" class="form-control" id="updMainImage" name="updMainImage">
+          </div>
+          <div class="mb-3">
+            <div id="updMainImageContainer">
+              <img id="updCroppedMainImage" hidden name="updCroppedMainImage" src="#" alt="Cropped Image">
+            </div>
+          </div>
+
           <div class="form-floating mb-3 mt-3">
           <input type="text" class="form-control" id="name" value="${productData.productName}" name="productName">
           </div>
@@ -76,7 +88,7 @@ document.querySelectorAll(".editProduct").forEach((btn) => {
           <input type="text" class="form-control" id="quantity" value="${productData.quantity}" name="quantity">
           </div>
       <input type="hidden" name="product_id" value="${productData._id}">
-      <button type="button" onclick="updateProduct()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Submit</button>
+      <button type="submit" onclick="updateProduct()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Submit</button>
     </form>
           `;
 

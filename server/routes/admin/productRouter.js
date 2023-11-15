@@ -28,9 +28,9 @@ route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'seco
   try {
     const { productName, price, net_price, category, brand, quantity, description, additional,croppedImage,croppedSecondImage,croppedThirdImage,croppedFourthImage } = req.body;
   const mainImage = await cloudinary.uploader.upload(croppedImage);
-  const secondImage  =await cloudinary.uploader.upload(croppedSecondImage)
-  const thirdImage  =await cloudinary.uploader.upload(croppedThirdImage)
-  const fourthImage  =await cloudinary.uploader.upload(croppedFourthImage)
+  const secondImage  = croppedSecondImage ? await cloudinary.uploader.upload(croppedSecondImage):null;
+  const thirdImage  = croppedThirdImage ? await cloudinary.uploader.upload(croppedThirdImage):null;
+  const fourthImage  = croppedFourthImage ? await cloudinary.uploader.upload(croppedFourthImage):null;
   console.log('Cloudinary result:', mainImage,secondImage,thirdImage,fourthImage);
   const products = new Product({
         productName,
@@ -42,9 +42,9 @@ route.post("/", upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'seco
         description,
         additional,
         image: mainImage.url,
-        secondImage:secondImage.url,
-        thirdImage:thirdImage.url,
-        fourthImage:fourthImage.url,
+        ...(secondImage && { secondImage: secondImage.url }),
+        ...(thirdImage && { thirdImage: thirdImage.url }),
+        ...(fourthImage && { fourthImage: fourthImage.url })
       });
     
     const added =  await products.save();
@@ -101,7 +101,7 @@ route.get("/:id",async (req,res)=>{
     try {
         const product = await Product.findOne({ _id: productId });
         if (product) {
-          res.json(product);
+          return res.json(product);
         } else {
           res.status(404).json({ error: 'Product not found' });
         }

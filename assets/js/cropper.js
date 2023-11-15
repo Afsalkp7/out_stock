@@ -300,3 +300,6 @@ $(document).ready(function () {
   });
 });
 
+
+
+//PRODUCT UPDATE MAIN CROPPER
