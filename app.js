@@ -41,6 +41,7 @@ app.use("/", require("./server/routes/user/indexRouter"));
 app.use("/shop", require("./server/routes/user/shop"));
 app.use("/cart",(require('./server/routes/user/cartRouter')))
 app.use("/wish",(require('./server/routes/user/wishRouter')))
+app.use("/checkout",(require("./server/routes/user/checkoutRouter")))
 app.use("/admin", require("./server/routes/admin/router"));
 app.use("/admin/users", require("./server/routes/admin/userRouter"));
 app.use("/admin/products", require("./server/routes/admin/productRouter"));

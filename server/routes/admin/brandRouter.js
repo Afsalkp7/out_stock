@@ -83,13 +83,12 @@ route.get("/update/:id",auth,async (req,res)=>{
 
 route.put("/update",upload.single('brandLogo'),async (req,res)=>{
     const brand_id=req.body.brand_id; 
-    const brandLogo = req.file.path
-    const result = await cloudinary.uploader.upload(brandLogo);
+    const result = req.file ? await cloudinary.uploader.upload(req.file.path):null;
     try {
       const brandUpdate = await Brand.findOneAndUpdate({ _id: brand_id }, { $set: {
         brandName:req.body.brandName,
         description:req.body.description,
-        logo : result.url,
+        ...(req.file && { logo: result.url }),
       } });
       return res.json(brandUpdate);
   } catch (error) {

@@ -103,3 +103,56 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const length = (document.getElementById("len").textContent)
+  const priceElements = document.querySelectorAll(".price1");
+  const qtyElements = document.querySelectorAll(".qty");
+  const sumElements = document.querySelectorAll(".sum");
+  console.log(length);
+  for (let i = 0; i < length; i++) {
+    console.log(priceElements[i].textContent);
+    const price =  parseFloat(priceElements[i].textContent);
+    const quantity = parseInt(qtyElements[i].value);
+    sumElements[i].textContent = price * quantity || 0 ;
+    console.log("h");
+  }
+  let totalAmt = 0;
+  for (let i=0 ; i<length ; i++) {
+    const sum = parseFloat(sumElements[i].textContent)
+    totalAmt += sum || 0;  
+  
+  }
+
+    const total = document.getElementById("total");
+    total.textContent = totalAmt;
+    const grandTotal = document.getElementById("grandTotal");
+    const discound = document.getElementById("discound");
+    let grand = parseInt(total.textContent) - parseInt(discound.textContent)
+    grandTotal.textContent = grand
+})
+
+
+
+function updateQuantity(id,change){
+  const product = document.querySelector(`input.qty[data-user-id="${id}"]`);
+  const sum = document.querySelector(`.sum[data-user-id="${id}"]`)
+  const amount = document.querySelector(`.price1[data-user-id="${id}"]`)
+  const total = document.getElementById("total");
+  const grandTotal = document.getElementById("grandTotal");
+  const discound = document.getElementById("discound");
+  let newTotal = parseInt(total.textContent) + (parseInt(amount.textContent)*change)
+  let newQuantity = parseInt(product.value) + change;
+  newQuantity = Math.max(0, newQuantity);
+  if(newQuantity === 0){
+    return
+  }else{
+    let newSum  = parseInt(amount.textContent) * newQuantity;
+    product.value = newQuantity;
+    sum.textContent = newSum;
+    total.textContent = newTotal
+    let grand = parseInt(total.textContent) - parseInt(discound.textContent)
+    grandTotal.textContent = grand
+    document.getElementById("grandToCheck").value = grand
+  } 
+}

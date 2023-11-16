@@ -72,8 +72,6 @@ router.get("/", async(req, res) =>{
   const trendingArray = descentSort.slice(0, 8);
   const newArrivalSort = await Product.find().sort({ dateCreated: -1 });
   const arrivalArray = newArrivalSort.slice(0, 8);
-  // console.log(sortProduct);
-  // console.log(topBanner[0]);
   if(topBanner.length>0){
     return res.render("index",{topBanner,productArray,centerBanner,trendingArray,arrivalArray})
   }

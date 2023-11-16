@@ -29,6 +29,13 @@ router.post('/',authCart,async(req,res)=>{
    try {
     const userId = req.userId
     const { itemId, quantity } = req.body;
+    let existingCartItem = await CartItem.findOne({ userId, productId: itemId });
+    if (existingCartItem) {
+        existingCartItem.quantity =parseInt(existingCartItem.quantity) + parseInt(quantity) ;
+        const updatedCartItem = await existingCartItem.save();
+        
+        return res.json(updatedCartItem);
+    }
     const cartItem = new CartItem({
         userId,
         productId:itemId,

@@ -80,28 +80,31 @@
                         </div>
                       </td>
                       <td class="col-lg-2">
-          <div class="input-group" style="width: 130px;">
-            <button class="decrement btn btn-white" type="button" data-mdb-ripple-color="dark"
-              onclick="updateQuantity('{{this._id}}', -1)">
-              <i style="font-size: 12px;" class="fas fa-minus"></i>
-            </button>
-            <input type="text" class="form-control text-center qty" style="border: none;"
-              aria-label="Example text with button addon" aria-describedby="button-addon1" data-user-id="{{this._id}}" value="{{../quantity}}" />
-            <button class="increment btn btn-white" type="button" data-mdb-ripple-color="dark"
-              onclick="updateQuantity('{{this._id}}', 1)">
-              <i style="font-size: 12px;" class="fas fa-plus"></i>
-            </button>
-          </div>
-        </td>
+                        <div class="input-group" style="width: 130px;">
+                          <button class="decrement btn btn-white" id="decrement{{this._id}}"
+                            data-user-id="{{this.productId}}" type="button" data-mdb-ripple-color="dark"
+                            onclick="updateQuantity('{{this._id}}', -1)">
+                            <i style="font-size: 12px;" class="fas fa-minus"></i>
+                          </button>
+                          <input type="text" class="form-control text-center qty" style="border: none;"
+                            aria-label="Example text with button addon" aria-describedby="button-addon1"
+                            data-user-id="{{this._id}}" value="{{../quantity}}" />
+                          <button class="increment btn btn-white" type="button" data-mdb-ripple-color="dark"
+                            onclick="updateQuantity('{{this._id}}', 1)">
+                            <i style="font-size: 12px;" class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                      </td>
                       <td class="col-lg-5">
                         <div class="me-lg-5">
                           <div class="d-flex">
-                            <span class="text-success mt-2">₹<span
-                                class="text-center text-success price1"  data-user-id="{{this._id}}">{{this.price}}</span>/-</span>
+                            <span class="text-success mt-2">₹<span class="price1 text-center text-success "
+                                data-user-id="{{this._id}}">{{this.price}}</span>/-</span>
                             <span class="text-danger ms-3 mt-2">₹<span
                                 class="text-center text-danger price2 ">{{this.net_price}}</span>/-</span>
 
-                            <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"  data-user-id="{{this._id}}"></span>/-</span>
+                            <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"
+                                data-user-id="{{this._id}}"></span>/-</span>
                             <div class="">
                               <a class="deleteCartItem btn btn-light ms-5" data-user-id='{{this._id}}'><img
                                   src="/img/delete.png" width="15px" alt=""></a>
@@ -125,12 +128,12 @@
           <div class="card shadow-0 border">
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <p class="mb-2">Total price:<span class="ms-3" id="totalAmt">0</span></p>
-                <p class="mb-2"></p>
+                <p class="mb-2">Total price:</p>
+                <p class="mb-2"><span id="total">0</span></p>
               </div>
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Discount:</p>
-                <p class="mb-2 text-success"></p>
+                <p class="mb-2 text-success"><span id="discound">0</span></p>
               </div>
               <div class="d-flex justify-content-between">
                 <p class="mb-2"></p>
@@ -139,11 +142,16 @@
               <hr />
               <div class="d-flex justify-content-between">
                 <p class="mb-2">Total price:</p>
-                <p class="mb-2 fw-bold"></p>
+                <p class="mb-2 fw-bold"><span id="grandTotal"></span></p>
               </div>
 
               <div class="mt-3">
-                <a href="#" class="btn btn-dark w-100 shadow-0 mb-2"> Buy Now </a>
+                <form action="/action_page.php" name="toCheck">
+                    <input type="text" class="form-control" id="qtyToCheck" name="qtyToCheck">
+                    <input type="text" class="form-control" id="grandToCheck" name="grandToCheck">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <a href="/checkout" class="btn btn-dark w-100 shadow-0 mb-2"> Buy Now </a>
                 <a href="/shop" class="btn btn-light w-100 border mt-2"> Back to shop </a>
               </div>
             </div>
@@ -173,25 +181,6 @@
   {{#if cartProducts}}
   <p id="len" style="display: none;">{{cartProducts.length}}</p>
   {{/if}}
-  <script>
-    const length = (document.getElementById("len").textContent)
-
-    for (let i = 0; i <= length; i++) {
-      document.getElementsByClassName("sum")[i].textContent = parseInt(document.getElementsByClassName("price1")[i].textContent) * parseInt(document.getElementsByClassName("qty")[i].value)
-    }
-  </script>
-<script>
-  function updateQuantity(id,change){
-     const product = document.querySelector(`input.qty[data-user-id="${id}"]`);
-     const sum = document.querySelector(`.sum[data-user-id="${id}"]`)
-     const amount = document.querySelector(`.price1[data-user-id="${id}"]`)
-     let newQuantity = parseInt(product.value) + change;
-     newQuantity = Math.max(0, newQuantity);
-     let newSum  = parseInt(amount.textContent) * newQuantity;
-     product.value = newQuantity;
-     sum.textContent = newSum;
-  }
-</script>
 
   <script src="/js/cartMgt.js"></script>
 </body>
