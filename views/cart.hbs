@@ -146,12 +146,10 @@
               </div>
 
               <div class="mt-3">
-                <form action="/action_page.php" name="toCheck">
-                    <input type="text" class="form-control" id="qtyToCheck" name="qtyToCheck">
-                    <input type="text" class="form-control" id="grandToCheck" name="grandToCheck">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                <form action="/checkout" name="toCheck" method="post">
+                    <input type="text" class="form-control" hidden id="grandToCheck" value="" name="grandToCheck">
+                  <button type="submit" class="btn btn-dark w-100 shadow-0 mb-2"> Buy Now </button>
                 </form>
-                <a href="/checkout" class="btn btn-dark w-100 shadow-0 mb-2"> Buy Now </a>
                 <a href="/shop" class="btn btn-light w-100 border mt-2"> Back to shop </a>
               </div>
             </div>

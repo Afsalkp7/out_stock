@@ -1,1 +1,188 @@
-jkbsd
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style2.css">
+    <link rel="stylesheet" href="/css/cartStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 w-100 bg-light"
+            style="position: fixed; z-index:5">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.png" width="200px"
+                        alt="logo"></a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-5">
+                        <a href="/" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Home</a>
+                        <a href="/shop" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Shop</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">About</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto me-3">
+                            <a id="userIcons" href="/wish"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/cart"><img src="/img/cart.png" alt="cart" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/user"><img src="/img/person1.png" alt="admin" width="30px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container pt-5">
+            <div class="py-5 text-center">
+
+                <h2>Checkout form</h2>
+                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required
+                    form group has a validation state that can be triggered by attempting to submit the form without
+                    completing it.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Your cart</span>
+                        <span class="badge badge-secondary badge-pill">3</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+
+                        {{#each cartProducts}}
+                        {{#each cartContent}}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <img src="{{this.image}}" width="10%" height="10%" alt=""> 
+                            <div>
+                                <h6 class="my-0">{{this.productName}}</h6>
+                                <small class="text-muted">{{this.brand}}</small>
+                            </div>
+                            <span class="text-muted" id="qty{{this._id}}">{{../quantity}}</span>
+                            <span class="text-muted" id="total{{this._id}}"></span>
+                        </li>
+                        <script>
+                            const id{{this._id}} = "total{{this._id}}";
+                            const total{{this._id}}=document.getElementById("id{{this._id}}")
+                            console.log({{this.price}}*{{../quantity}}  )
+                        </script>
+                        {{/each}}
+                        {{/each}}
+
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">Promo code</h6>
+                                <small>EXAMPLECODE</small>
+                            </div>
+                            <span class="text-success">₹ 0 /-</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (USD)</span>
+                            <strong>₹ <span>{{grandTotal}}</span> /-</strong>
+                        </li>
+                    </ul>
+
+                    <form class="card p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Promo code">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary">Redeem</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Billing address</h4>
+                    <form name="checkForm" onsubmit="return checkValidation()" action="/">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName">First name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName">
+                                <p id="fNameAknwoledgment" style="color: red; display: none;">Fill valid first name!!!
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName">Last name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName">
+                                <p id="lNameAknwoledgment" style="color: red; display: none;">Fill valid last name!!!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" name="email"
+                                placeholder="you@example.com">
+                            <p id="emailAknwoledgment" style="color: red; display: none;">Fill valid email address!!!
+                            </p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                name="address">
+                            <p id="adrressAknwoledgment" style="color: red; display: none;">Fill valid shipping
+                                address!!!</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                            <input type="text" class="form-control" id="address2" name="address2"
+                                placeholder="Apartment or suite">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="country">Country</label>
+                                <select class="custom-select d-block w-100" id="country" name="country">
+                                    <option value="">Choose...</option>
+                                    <option>India</option>
+                                </select>
+                                <p id="countryAknwoledgment" style="color: red; display: none;">Select valid country!!!
+                                </p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="state">State</label>
+                                <select class="custom-select d-block w-100" id="state" name="state">
+                                    <option value="">Choose...</option>
+                                    <option>Kerala</option>
+                                </select>
+                                <p id="stateAknwoledgment" style="color: red; display: none;">Select valid state!!!</p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="pin">pin code</label>
+                                <input type="text" class="form-control" id="pin" name="pin">
+                                <p id="pinAknwoledgment" style="color: red; display: none;">Enter valid pin number!!!
+                                </p>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-dark w-100  btn-block" type="submit">Continue to checkout</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+
+
+            <script src="/js/validation.js"></script>
+</body>
+
+</html>

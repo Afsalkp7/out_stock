@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const discound = document.getElementById("discound");
     let grand = parseInt(total.textContent) - parseInt(discound.textContent)
     grandTotal.textContent = grand
+    document.getElementById("grandToCheck").value = grand
 })
 
 
@@ -147,6 +148,13 @@ function updateQuantity(id,change){
   if(newQuantity === 0){
     return
   }else{
+    fetch('/cart/updateQuantity', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ productId:id, newQuantity }),
+    })
     let newSum  = parseInt(amount.textContent) * newQuantity;
     product.value = newQuantity;
     sum.textContent = newSum;

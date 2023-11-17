@@ -124,3 +124,40 @@ function registerValidation() {
     return true;
   }
 }
+
+function checkValidation(){
+  let firstName = document.forms["checkForm"]["firstName"].value
+  let lastName = document.forms["checkForm"]["lastName"].value
+  let email = document.forms["checkForm"]["email"].value
+  let address = document.forms["checkForm"]["address"].value
+  let country = document.forms["checkForm"]["country"].value
+  let state = document.forms["checkForm"]["state"].value
+  let pin = document.forms["checkForm"]["pin"].value
+  let isValidEmail = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+
+
+  if (firstName == "" || firstName.length<6) {
+    document.getElementById("fNameAknwoledgment").style.display = "block";
+    return false
+  }else if(lastName == "" || lastName.length<6) {
+    document.getElementById("lNameAknwoledgment").style.display = "block";
+    return false
+  }else if(email == "" || !isValidEmail) {
+    document.getElementById("emailAknwoledgment").style.display = "block";
+    return false
+  }else if(address == "") {
+    document.getElementById("adrressAknwoledgment").style.display = "block";
+    return false
+  }else if(country == "") {
+    document.getElementById("countryAknwoledgment").style.display = "block";
+    return false
+  }else if(state == "") {
+    document.getElementById("stateAknwoledgment").style.display = "block";
+    return false
+  }else if(pin == "" || pin.length<6 || pin.length>6 || isNaN(pin)) {
+    document.getElementById("pinAknwoledgment").style.display = "block";
+    return false
+  }else{
+    return true
+  }
+}
