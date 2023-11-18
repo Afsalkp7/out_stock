@@ -56,9 +56,7 @@
             <div class="py-5 text-center">
 
                 <h2>Checkout form</h2>
-                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required
-                    form group has a validation state that can be triggered by attempting to submit the form without
-                    completing it.</p>
+
             </div>
 
             <div class="row">
@@ -72,38 +70,40 @@
                         {{#each cartProducts}}
                         {{#each cartContent}}
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <img src="{{this.image}}" width="10%" height="10%" alt=""> 
+                            <img class="me-5" src="{{this.image}}" width="10%" height="10%" alt="">
                             <div>
                                 <h6 class="my-0">{{this.productName}}</h6>
                                 <small class="text-muted">{{this.brand}}</small>
                             </div>
-                            <span class="text-muted" id="qty{{this._id}}">{{../quantity}}</span>
+                            <span class="text-muted ms-auto me-5" id="qty{{this._id}}">{{../quantity}}</span>
                             <span class="text-muted" id="total{{this._id}}"></span>
                         </li>
                         <script>
-                            const id{{this._id}} = "total{{this._id}}";
-                            const total{{this._id}}=document.getElementById("id{{this._id}}")
-                            console.log({{this.price}}*{{../quantity}}  )
+                            var price = parseInt("{{this.price}}");
+                            var qty = parseInt("{{../quantity}}");
+                            var grand = price * qty;
+                            document.getElementById("total{{this._id}}").textContent = grand;
+                            console.log()
                         </script>
                         {{/each}}
                         {{/each}}
 
                         <li class="list-group-item d-flex justify-content-between bg-light">
-                            <div class="text-success">
+                            <div class="text-danger">
                                 <h6 class="my-0">Promo code</h6>
-                                <small>EXAMPLECODE</small>
+                                <small>coupon name</small>
                             </div>
-                            <span class="text-success">₹ 0 /-</span>
+                            <span class="text-danger">₹ 0 /-</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (USD)</span>
-                            <strong>₹ <span>{{grandTotal}}</span> /-</strong>
+                            <span class="text-success">Total (INR)</span>
+                            <strong class="text-success">₹ <span>{{grandTotal}}</span> /-</strong>
                         </li>
                     </ul>
 
                     <form class="card p-2">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Promo code">
+                            <input type="text" class="form-control" placeholder="Coupon code">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-secondary">Redeem</button>
                             </div>
@@ -112,7 +112,34 @@
                 </div>
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Billing address</h4>
-                    <form name="checkForm" onsubmit="return checkValidation()" action="/">
+
+
+                    <div class="text-center">
+                        {{#each orderAddress}}
+                        <div class="row">
+                            <div class="bg-white card addresses-item shadow-sm">
+                                <div class="gold-members p-4">
+                                    <div class="media">
+                                        <div class="mr-3"><i class="icofont-location-pin icofont-3x"></i></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-1">{{this.firstName}}</h6>
+                                            <p>{{this.address}}, {{this.address2}}, {{this.state}} {{this.pin}},
+                                                {{this.country}}
+                                            </p>
+                                            <p class="mb-0 text-black font-weight-bold">
+                                                <a class="text-success" href="#"  onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')"> SELECT</a>
+                                                <a class="text-primary m-3" href="#"  onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')">EDIT</a>
+                                                <a class="text-danger" href="#"> DELETE</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                    <form name="checkForm" onsubmit="return checkValidation()" action="/checkout/order" method="post">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="firstName">First name</label>
@@ -134,7 +161,12 @@
                             <p id="emailAknwoledgment" style="color: red; display: none;">Fill valid email address!!!
                             </p>
                         </div>
-
+                        <div class="mb-3">
+                            <label for="phone">Conatact number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="+91xxxxxxxxxx">
+                            <p id="phoneAknwoledgment" style="color: red; display: none;">Fill valid phone number!!!
+                            </p>
+                        </div>
                         <div class="mb-3">
                             <label for="address">Address</label>
                             <input type="text" class="form-control" id="address" placeholder="1234 Main St"
@@ -173,9 +205,10 @@
                                 <p id="pinAknwoledgment" style="color: red; display: none;">Enter valid pin number!!!
                                 </p>
                             </div>
+                            <input type="text" id="id" name="id" hidden>
                         </div>
                         <hr class="mb-4">
-                        <button class="btn btn-dark w-100  btn-block" type="submit">Continue to checkout</button>
+                        <button class="btn btn-dark w-100  btn-block" type="submit">Continue to payment</button>
                     </form>
                     <br>
                 </div>
@@ -183,6 +216,7 @@
 
 
             <script src="/js/validation.js"></script>
+            <script src="/js/checkoutMgt.js"></script>
 </body>
 
 </html>

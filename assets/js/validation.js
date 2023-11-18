@@ -133,10 +133,11 @@ function checkValidation(){
   let country = document.forms["checkForm"]["country"].value
   let state = document.forms["checkForm"]["state"].value
   let pin = document.forms["checkForm"]["pin"].value
+  let phone = document.forms["checkForm"]["phone"].value
   let isValidEmail = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+  let containsOnlyDigits = /^\d+$/.test(phone);
 
-
-  if (firstName == "" || firstName.length<6) {
+  if (firstName == "" || firstName.length<3) {
     document.getElementById("fNameAknwoledgment").style.display = "block";
     return false
   }else if(lastName == "" || lastName.length<6) {
@@ -156,6 +157,9 @@ function checkValidation(){
     return false
   }else if(pin == "" || pin.length<6 || pin.length>6 || isNaN(pin)) {
     document.getElementById("pinAknwoledgment").style.display = "block";
+    return false
+  }else if(phone === "" || phone.length !== 10 || !containsOnlyDigits) {
+    document.getElementById("phoneAknwoledgment").style.display = "block";
     return false
   }else{
     return true

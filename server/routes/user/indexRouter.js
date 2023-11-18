@@ -245,7 +245,7 @@ router.post(
           status: req.body.status,
           verified: req.body.verified,
         });
-        const postData = await userData.save();
+        await userData.save();
         res.render("userlogin");
       } else {
         res.render("userregister", { notMatch: true });

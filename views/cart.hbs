@@ -71,7 +71,7 @@
                       <td class="col-lg-5">
                         <div class="me-lg-5">
                           <div class="d-flex">
-                            <img src="{{this.image}}" class="border rounded me-3" style="width: 50px;" />
+                            <img src="{{this.image}}" class="border rounded me-3 ms-3" style="width: 50px;" />
                             <div class="">
                               <span style="font-weight: bold; font-size: 16px;">{{this.productName}}</span>
                               <p class="text-muted">{{this.brand}}</p>
@@ -101,7 +101,7 @@
                             <span class="text-success mt-2">₹<span class="price1 text-center text-success "
                                 data-user-id="{{this._id}}">{{this.price}}</span>/-</span>
                             <span class="text-danger ms-3 mt-2">₹<span
-                                class="text-center text-danger price2 ">{{this.net_price}}</span>/-</span>
+                                class="text-center text-danger price2">{{this.net_price}}</span>/-</span>
 
                             <span class="ms-3 mt-2">₹<span class="text-center text-dark sum"
                                 data-user-id="{{this._id}}"></span>/-</span>
@@ -147,7 +147,7 @@
 
               <div class="mt-3">
                 <form action="/checkout" name="toCheck" method="post">
-                    <input type="text" class="form-control" hidden id="grandToCheck" value="" name="grandToCheck">
+                  <input type="text" class="form-control" hidden id="grandToCheck" value="" name="grandToCheck">
                   <button type="submit" class="btn btn-dark w-100 shadow-0 mb-2"> Buy Now </button>
                 </form>
                 <a href="/shop" class="btn btn-light w-100 border mt-2"> Back to shop </a>
