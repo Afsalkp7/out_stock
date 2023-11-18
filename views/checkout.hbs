@@ -76,7 +76,7 @@
                                 <small class="text-muted">{{this.brand}}</small>
                             </div>
                             <span class="text-muted ms-auto me-5" id="qty{{this._id}}">{{../quantity}}</span>
-                            <span class="text-muted" id="total{{this._id}}"></span>
+                            <span class="text-muted">₹<span id="total{{this._id}}"></span>/-</span>
                         </li>
                         <script>
                             var price = parseInt("{{this.price}}");
@@ -127,9 +127,13 @@
                                                 {{this.country}}
                                             </p>
                                             <p class="mb-0 text-black font-weight-bold">
-                                                <a class="text-success" href="#"  onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')"> SELECT</a>
-                                                <a class="text-primary m-3" href="#"  onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')">EDIT</a>
-                                                <a class="text-danger" href="#"> DELETE</a>
+                                                <a class="text-success" href="#"
+                                                    onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')">
+                                                    SELECT</a>
+                                                <a class="text-primary m-3" href="#"
+                                                    onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')">EDIT</a>
+                                                <a class="deleteAddress text-danger" data-id="{{this._id}}"
+                                                    style="cursor: pointer;"> DELETE</a>
                                             </p>
                                         </div>
                                     </div>
@@ -208,9 +212,27 @@
                             <input type="text" id="id" name="id" hidden>
                         </div>
                         <hr class="mb-4">
-                        <button class="btn btn-dark w-100  btn-block" type="submit">Continue to payment</button>
+                        <button class="btn btn-dark w-100  btn-block" type="submit">Continue to order summery</button>
                     </form>
                     <br>
+                </div>
+            </div>
+
+            <div class="modal fade" id="addressDeleteShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="userTitle"></h5>
+                            <a href="/admin/products" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                        </div>
+                        <div class="modal-body" id="addressDetails">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/admin/products" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
