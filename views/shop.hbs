@@ -74,9 +74,9 @@
                     <li style="list-style: none; margin-top: 10px;">{{this.name}}</li>
                 </a> --}}
                 <label>
-                    <input type="checkbox" name="category" value="{{this.name}}">
+                    <input type="checkbox" name="category" class="category-filter" value="{{this.name}}">
                     {{this.name}}
-                </label><br> 
+                </label><br>
                 {{/each}}
                 <br>
                 <span class="text-center"
@@ -86,9 +86,14 @@
                     <li style="list-style: none; margin-top: 10px;">ALL</li>
                 </a>
                 {{#each brands}}
-                <a style="text-decoration: none; font-size: 15px; color: black;" href="/shop?brand={{this.brandName}}">
+                {{!-- <a style="text-decoration: none; font-size: 15px; color: black;"
+                    href="/shop?brand={{this.brandName}}">
                     <li style="list-style: none; margin-top: 10px;">{{this.brandName}}</li>
-                </a>
+                </a> --}}
+                <label>
+                    <input type="checkbox" name="brand" class="brand-filter" value="{{this.brandName}}">
+                    {{this.brandName}}
+                </label><br>
                 {{/each}}
                 <br>
                 <span class="text-center"
@@ -110,8 +115,8 @@
 
 
                                 {{#each products}}
-                                <div class="col hp" data-category-name="{{this.category}}"
-                                    data-brand-name="{{this.brand}}" data-price="{{this.price}}">
+                                <div class="col hp" data-category="{{this.category}}"
+                                    data-brand="{{this.brand}}" data-price="{{this.price}}">
                                     <div class="card shadow-sm">
                                         <a href="/shop/{{this._id}}">
                                             <img src="{{this.image}}" id="shopImage" data-product-id="{{this._id}}"
@@ -148,7 +153,7 @@
         </div>
     </div>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/shopItem.js"></script>
 </body>
 
