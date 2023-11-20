@@ -146,6 +146,7 @@
                     <form name="checkForm" onsubmit="return checkValidation()" action="/checkout/order" method="post">
                         <div class="row">
                             <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" name="grandTotal" value="{{grandTotal}}" hidden>
                                 <label for="firstName">First name</label>
                                 <input type="text" class="form-control" id="firstName" name="firstName">
                                 <p id="fNameAknwoledgment" style="color: red; display: none;">Fill valid first name!!!
@@ -224,13 +225,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="userTitle"></h5>
-                            <a href="/admin/products" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                            <a class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
                         </div>
                         <div class="modal-body" id="addressDetails">
                             ...
                         </div>
                         <div class="modal-footer">
-                            <a href="/admin/products" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
+                            <a class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
                         </div>
                     </div>
                 </div>

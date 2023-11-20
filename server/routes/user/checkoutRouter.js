@@ -38,8 +38,9 @@ router.post("/order", authCart, async (req, res) => {
     state,
     pin,
     id,
+    grandTotal,
   } = req.body;
-  if (id){
+  if (id) {
     const existAdress = await Order.findOne({ userId, _id: id });
     if (existAdress) {
       const updateAddress = await Order.updateOne(
@@ -47,11 +48,23 @@ router.post("/order", authCart, async (req, res) => {
         { $set: req.body }
       );
       if (updateAddress) {
-        return res.render("orderSummery");
+        const checkOutData = await Order.findOne({ userId, _id: id });
+        const cartItems = await CartItem.find({ userId });
+        const cartProducts = [];
+
+        for (let cartItem of cartItems) {
+          const productId = cartItem.productId;
+          const quantity = cartItem.quantity;
+
+          const cartContent = await Product.find({ _id: productId });
+          if (cartContent) {
+            cartProducts.push({ cartContent, quantity });
+          }
+        }
+        return res.render("payment", { grandTotal , checkOutData , cartProducts});
       }
     }
-  }
-   else {
+  } else {
     const checkOutData = new Order({
       userId,
       firstName,
@@ -65,30 +78,41 @@ router.post("/order", authCart, async (req, res) => {
       pin,
     });
     await checkOutData.save();
-    res.render("orderSummery");
+    const cartItems = await CartItem.find({ userId });
+    const cartProducts = [];
+
+    for (let cartItem of cartItems) {
+      const productId = cartItem.productId;
+      const quantity = cartItem.quantity;
+
+      const cartContent = await Product.find({ _id: productId });
+      if (cartContent) {
+        cartProducts.push({ cartContent, quantity });
+      }
+    }
+    res.render("payment", { grandTotal , checkOutData , cartProducts });
   }
 });
 
+router.get("/delete/:id", async (req, res) => {
+  addressId = req.params.id;
+  try {
+    const address = await Order.findOne({ _id: addressId });
 
-router.get("/delete/:id",async(req,res)=>{
-    addressId = req.params.id;
-    try {
-        const address = await Order.findOne({ _id: addressId });
-        
-        if (address) {
-          return res.json(address);
-        } else {
-          res.status(404).json({ error: 'address not found' });
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-      }
-})
+    if (address) {
+      return res.json(address);
+    } else {
+      res.status(404).json({ error: "address not found" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
-router.delete("/",async(req,res)=>{
-    const addressId = req.body.adr_id;
-    const deleteAddress = await Order.findByIdAndRemove(addressId);
-    return res.json(deleteAddress)
-})
+router.delete("/", async (req, res) => {
+  const addressId = req.body.adr_id;
+  const deleteAddress = await Order.findByIdAndRemove(addressId);
+  return res.json(deleteAddress);
+});
 module.exports = router;

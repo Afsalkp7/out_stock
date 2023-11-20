@@ -1,1 +1,184 @@
-sdzc
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/userlog.css">
+    <link rel="stylesheet" href="/css/logStyle.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-4 ">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.jpg" width="200px"
+                        alt="logo"></a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-5">
+                        <a href="/" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Home</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Shop</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">About</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto me-3">
+                            <a id="userIcons" href="/wish"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/cart"><img src="/img/cart.png" alt="cart" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a href="/user"><img src="/img/person1.png" alt="admin" width="40px"></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="container pt-5">
+
+        <div class="row">
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your cart</span>
+                    <span class="badge badge-secondary badge-pill">3</span>
+                </h4>
+                <ul class="list-group mb-3">
+
+                    {{#each cartProducts}}
+                    {{#each cartContent}}
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <img class="me-5" src="{{this.image}}" width="10%" height="10%" alt="">
+                        <div>
+                            <h6 class="my-0">{{this.productName}}</h6>
+                            <small class="text-muted">{{this.brand}}</small>
+                        </div>
+                        <span class="text-muted ms-auto me-5" id="qty{{this._id}}">{{../quantity}}</span>
+                        <span class="text-muted">₹<span id="total{{this._id}}"></span>/-</span>
+                    </li>
+                    <script>
+                        var price = parseInt("{{this.price}}");
+                        var qty = parseInt("{{../quantity}}");
+                        var grand = price * qty;
+                        document.getElementById("total{{this._id}}").textContent = grand;
+                        console.log()
+                    </script>
+                    {{/each}}
+                    {{/each}}
+
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-danger">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>coupon name</small>
+                        </div>
+                        <span class="text-danger">₹ 0 /-</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="text-success">Total (INR)</span>
+                        <strong class="text-success">₹ <span>{{grandTotal}}</span> /-</strong>
+                    </li>
+                </ul>
+
+
+            </div>
+
+
+            <div class="container mb-5">
+                <h1>Shipping</h1>
+                <p>Please confirm your shipping details.</p>
+                <hr />
+                <div class="form">
+
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="firstname">First name</span>
+                            <input class="field__input" type="text" id="firstname" value="{{checkOutData.firstName}}" readonly />
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="lastname">Last name</span>
+                            <input class="field__input" type="text" id="lastname" value="{{checkOutData.lastName}}" readonly/>
+                        </label>
+                    </div>
+                    <label class="field">
+                        <span class="field__label" for="address">Address</span>
+                        <input class="field__input" type="text" id="address" value="{{checkOutData.address}}" readonly/>
+                    </label>
+
+                    <div class="fields fields--3">
+                        <label class="field">
+                            <span class="field__label" for="country">Country</span>
+                            <input class="field__input" type="text" id="country" value="{{checkOutData.country}}" readonly/>
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="state">State</span>
+                            <input class="field__input" type="text" id="state" value="{{checkOutData.state}}" readonly/>
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="pincode">pin code</span>
+                            <input class="field__input" type="text" id="pincode" value="{{checkOutData.pin}}" readonly/>
+                        </label>
+                        
+                    </div>
+                </div>
+                <hr>
+                <hr>
+            </div>
+
+
+
+
+
+
+            <div class="col-md-8 order-md-1 border border-muted">
+                <h4 class="mb-3 ">PAYMENT METHODS</h4>
+                <div class="container">
+                    <form>
+                        <div class="mt-5 mb-5">
+                            <input type="radio" id="card" name="paymentMethod">
+                            <label for="card"
+                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">
+                                Credit or debit card</label><br>
+                        </div>
+                        <div class="mt-5 mb-5">
+                            <input type="radio" id="razorPay" name="paymentMethod">
+                            <label for="razorPay"
+                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">RAZOR
+                                PAY</label><br>
+                        </div>
+                        <div class="mt-5 mb-5">
+                            <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cash on delivery">
+                            <label for="cashOnDelivery"
+                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">CASH
+                                ON DELEVERY</label><br><br>
+                        </div>
+
+
+                        <input type="submit" class="btn btn-dark w-100" value="Submit">
+
+
+                    </form>
+                </div>
+                <br>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
