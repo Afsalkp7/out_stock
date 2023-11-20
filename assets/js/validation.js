@@ -140,7 +140,7 @@ function checkValidation(){
   if (firstName == "" || firstName.length<3) {
     document.getElementById("fNameAknwoledgment").style.display = "block";
     return false
-  }else if(lastName == "" || lastName.length<6) {
+  }else if(lastName == "") {
     document.getElementById("lNameAknwoledgment").style.display = "block";
     return false
   }else if(email == "" || !isValidEmail) {

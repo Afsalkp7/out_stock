@@ -7,15 +7,17 @@
   <title>Document</title>
   <link rel="stylesheet" href="/css/style2.css">
   <link rel="stylesheet" href="/css/productCard.css">
+  <link rel="stylesheet" href="/css/zoom.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
-  
+
   <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 w-100 bg-light" style="position: fixed; z-index:5">
       <div class="container-fluid">
@@ -56,10 +58,19 @@
     <div class="container pt-5">
       <div class="row gx-5">
         <aside class="col-lg-6">
-          <div class="border rounded-4 mb-3 d-flex justify-content-center">
-            <img style="max-width: 100%; max-height: 100vh; margin: auto;" id="mainImg" class="rounded-4 fit"
-              src="{{item.image}}" />
-          </div>
+              <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                <div class="zoom">
+                  <div class="original">
+                    <img style="max-width: 100%; max-height: 100vh; margin: auto;" id="mainImg" class="rounded-4 fit" src="{{item.image}}" />
+                  </div>
+                  <div class="viewer" style="z-index: 3;">
+                    <img id="zoomImage" src="{{item.image}}">
+                  </div>
+                  <div class="magnifier"></div>
+                </div>
+                
+              </div>
+
           <div class="d-flex justify-content-center mb-3">
             {{#if item.image}}
             <img id="img1" onclick="change1()" width="100" height="100" class="rounded-2" src="{{item.image}}" />
@@ -133,7 +144,8 @@
                     data-mdb-ripple-color="dark">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <input type="text" id="quantity" class="form-control text-center border border-secondary" aria-label="Example text with button addon" aria-describedby="button-addon1" value="1" />
+                  <input type="text" id="quantity" class="form-control text-center border border-secondary"
+                    aria-label="Example text with button addon" aria-describedby="button-addon1" value="1" />
                   <button class="btn btn-white border border-secondary px-3" type="button" id="increment"
                     data-mdb-ripple-color="dark">
                     <i class="fas fa-plus"></i>
@@ -142,9 +154,11 @@
               </div>
             </div>
             <a href="#" class="btn btn-dark shadow-0"> Buy now </a>
-            <button class="btn btn-dark shadow-0"  id="addToCartButton" data-item-id="{{item._id}}"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
-            <buton  id="addToWishButton" data-item-id="{{item._id}}" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i
-                class="me-1 fa fa-heart fa-lg"></i> Save </buton>
+            <button class="btn btn-dark shadow-0" id="addToCartButton" data-item-id="{{item._id}}"> <i
+                class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
+            <buton id="addToWishButton" data-item-id="{{item._id}}"
+              class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i>
+              Save </buton>
           </div>
         </main>
       </div>
@@ -329,15 +343,19 @@
   <script>
     function change1() {
       document.getElementById("mainImg").src = "{{item.image}}"
+      document.getElementById("zoomImage").src = "{{item.image}}"
     }
     function change2() {
       document.getElementById("mainImg").src = "{{item.secondImage}}"
+      document.getElementById("zoomImage").src = "{{item.secondImage}}"
     }
     function change3() {
       document.getElementById("mainImg").src = "{{item.thirdImage}}"
+      document.getElementById("zoomImage").src = "{{item.thirdImage}}"
     }
     function change4() {
       document.getElementById("mainImg").src = "{{item.fourthImage}}"
+      document.getElementById("zoomImage").src = "{{item.fourthImage}}"
     }
     const quantityInput = document.getElementById('quantity');
     const incrementButton = document.getElementById('increment');
@@ -345,19 +363,24 @@
 
     incrementButton.addEventListener('click', () => {
       let quantity = parseInt(quantityInput.value) || 0;
-      quantity = Math.max(1, quantity + 1); 
+      quantity = Math.max(1, quantity + 1);
       quantityInput.value = quantity;
     });
 
     decrementButton.addEventListener('click', () => {
       let quantity = parseInt(quantityInput.value) || 0;
-      quantity = Math.max(1, quantity - 1); 
+      quantity = Math.max(1, quantity - 1);
       quantityInput.value = quantity;
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/js/zoom.js"></script>
+  <script>
+    var x = $('#mainImg').zoom(3);
+    x.setZoom(2);
 
-
-    <script src="/js/cartMgt.js"></script>
+  </script>
+  <script src="/js/cartMgt.js"></script>
 </body>
 
 </html>
