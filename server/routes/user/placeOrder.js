@@ -35,7 +35,7 @@ router.post("/",authCart,async (req,res)=>{
       
     const deleteCart = await CartItem.deleteMany({ userId });
     if(deleteCart){
-        return res.redirect("/orderSummery")
+        return res.render("orderSummery",{ordered : true,orderData})
     }
     
 

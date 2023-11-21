@@ -51,7 +51,13 @@
 
 
 
+{{#if noItem}}
+<div class="container text-center">
+  <img src="/img/wishlistEmpty.jpg" alt="">
+  <h2>empty wish list</h2>
+</div>
 
+{{else}}
 
   <section class="bg-light">
     <div class="container ">
@@ -139,6 +145,7 @@
       </div>
     </div>
   </div>
+  {{/if}}
   <script src="/js/wishMgt.js"></script>
 </body>
 
