@@ -21,7 +21,12 @@ if (addToCartButton){
       })
       .then((response)=>{
         if(response.ok) {
-          alert("added to cart success")
+          Swal.fire({
+            icon: "success",
+            title: "Item added to cart successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
           window.location.href="#"
         }
       })
@@ -98,7 +103,18 @@ document.addEventListener('DOMContentLoaded', () => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(wishItem)
-        });
+        })
+        .then((response)=>{
+          if(response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "Item added to wishlist",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            window.location.href="#"
+          }
+        })
       });
   }
 

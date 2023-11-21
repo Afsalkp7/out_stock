@@ -165,3 +165,14 @@ function checkValidation(){
     return true
   }
 }
+
+
+function placeOrderValidation(){
+  var getSelectedValue = document.querySelector( 'input[name="paymentMethod"]:checked');
+  if(getSelectedValue != null) {
+    return true;
+  }else {  
+    document.getElementById("paymentAlert").style.display = "block";
+    return false;
+  }
+}

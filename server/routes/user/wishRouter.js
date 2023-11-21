@@ -33,9 +33,7 @@ router.post('/',authCart,async(req,res)=>{
      })
      const wishAdded = await wishItem.save()
      if (wishAdded) {
-         const _id = wishAdded.productId;
-         const item = await Product.findById(_id);
-         res.render("product",{item})
+        res.json(wishAdded)
      }else{
          const wrong  = {msg:"Product can't added to wishlist"}
          res.render("product",{wrong})

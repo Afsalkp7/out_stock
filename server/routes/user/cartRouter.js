@@ -6,10 +6,13 @@ const CartItem = require("../../model/cartModel")
 const { authCart } = require("../../middlewere/user_auth");
 
 
+
 router.get("/",authCart,async(req,res)=>{
     const userId = req.userId
     const cartItems = await CartItem.find({userId})
-
+    if (cartItems.length == 0){
+        res.render("cart",{noItem:true})
+    }
     const cartProducts = [];
 
     for (let cartItem of cartItems){
@@ -21,7 +24,7 @@ router.get("/",authCart,async(req,res)=>{
             cartProducts.push({cartContent,quantity})
         }
     }
-    console.log(cartProducts); 
+    console.log(cartProducts);
     res.render("cart",{cartProducts})
 })
 
@@ -33,7 +36,6 @@ router.post('/',authCart,async(req,res)=>{
     if (existingCartItem) {
         existingCartItem.quantity =parseInt(existingCartItem.quantity) + parseInt(quantity) ;
         const updatedCartItem = await existingCartItem.save();
-        
         return res.json(updatedCartItem);
     }
     const cartItem = new CartItem({

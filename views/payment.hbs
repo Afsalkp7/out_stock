@@ -119,6 +119,10 @@
                         <span class="field__label" for="address">Address</span>
                         <input class="field__input" type="text" id="address" value="{{checkOutData.address}}" readonly/>
                     </label>
+                    <label class="field">
+                        <span class="field__label" for="phone">Phone number</span>
+                        <input class="field__input" type="text" id="phone" value="{{checkOutData.phone}}" readonly/>
+                    </label>
 
                     <div class="fields fields--3">
                         <label class="field">
@@ -148,7 +152,7 @@
             <div class="col-md-8 order-md-1 border border-muted">
                 <h4 class="mb-3 ">PAYMENT METHODS</h4>
                 <div class="container">
-                    <form>
+                    <form action="/placeOrder" method="post" onsubmit="return placeOrderValidation()">
                         <div class="mt-5 mb-5">
                             <input type="radio" id="card" name="paymentMethod">
                             <label for="card"
@@ -156,6 +160,8 @@
                                 Credit or debit card</label><br>
                         </div>
                         <div class="mt-5 mb-5">
+                            <input type="text" name="orderId" id="orderId" value="{{checkOutData._id}}" hidden>
+                            <input type="text" name="grandTotal" id="grandTotal" value="{{grandTotal}}" hidden>
                             <input type="radio" id="razorPay" name="paymentMethod">
                             <label for="razorPay"
                                 style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">RAZOR
@@ -167,9 +173,9 @@
                                 style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">CASH
                                 ON DELEVERY</label><br><br>
                         </div>
+                        <p id="paymentAlert" style="display: none;">Select any payment method is must</p>
 
-
-                        <input type="submit" class="btn btn-dark w-100" value="Submit">
+                        <input type="submit" class="btn btn-dark w-100" value="Place your order">
 
 
                     </form>
@@ -178,7 +184,7 @@
             </div>
         </div>
 
-
+<script src="/js/validation.js"></script>
 </body>
 
 </html>
