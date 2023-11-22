@@ -53,15 +53,7 @@ document.querySelectorAll(".editProduct").forEach((btn) => {
         catElement.innerHTML = `
           <form id="updateProductForm" name="updateProductForm">
 
-          <div class=" mb-3">
-            <label for="updMainImage">Fourth image</label>
-            <input type="file" class="form-control" id="updMainImage" name="updMainImage">
-          </div>
-          <div class="mb-3">
-            <div id="updMainImageContainer">
-              <img id="updCroppedMainImage" hidden name="updCroppedMainImage" src="#" alt="Cropped Image">
-            </div>
-          </div>
+
 
           <div class="form-floating mb-3 mt-3">
           <input type="text" class="form-control" id="name" value="${productData.productName}" name="productName">

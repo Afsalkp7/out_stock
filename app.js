@@ -44,6 +44,7 @@ app.use("/wish",(require('./server/routes/user/wishRouter')))
 app.use("/checkout",(require("./server/routes/user/checkoutRouter")))
 app.use("/placeOrder",(require("./server/routes/user/placeOrder")))
 app.use("/orderSummery",(require("./server/routes/user/orderSummeryRouter")))
+app.use("/myOrders",(require("./server/routes/user/myOrdersRouter")))
 app.use("/admin", require("./server/routes/admin/router"));
 app.use("/admin/users", require("./server/routes/admin/userRouter"));
 app.use("/admin/products", require("./server/routes/admin/productRouter"));
