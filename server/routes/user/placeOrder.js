@@ -5,7 +5,7 @@ const PlaceOrder = require("../../model/orderPlaceModel")
 const userCollection = require("../../model/userModel");
 const CartItem = require("../../model/cartModel")
 const { authCart } = require("../../middlewere/user_auth");
-
+const Order = require("../../model/oraderModel");
 
 
 router.post("/",authCart,async (req,res)=>{
@@ -35,7 +35,23 @@ router.post("/",authCart,async (req,res)=>{
       
     const deleteCart = await CartItem.deleteMany({ userId });
     if(deleteCart){
-        return res.render("orderSummery",{ordered : true,orderData})
+      const address = await Order.findById(orderData.addressId)
+      const orderedItems = orderData.orderItems
+      console.log("jn ",orderedItems);
+      let orders =[]
+      let sum = 0
+      for (let ordereditem of orderedItems){
+        const productId = ordereditem.productId;
+        const qty = ordereditem.quantity
+        
+        const productData = await Product.findById(productId)
+        let newQty = productData.quantity - qty;
+        await Product.updateOne({_id:productId},{$set:{quantity:newQty}})
+        sum = sum +(productData.price * qty)
+        orders.push({productData,qty})
+
+      }
+        return res.render("orderSummery",{ordered : true,address,orderData,orders,sum})
     }
     
 

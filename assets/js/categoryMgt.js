@@ -1,136 +1,151 @@
-document.querySelectorAll(".showBrand").forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    const brandId = await event.target.getAttribute("data-user-id");
+
+
+   
+document.querySelectorAll('.showCat').forEach(btn => {
+  btn.addEventListener('click', async (event) => {
+    const catId = await event.target.getAttribute('data-user-id');
 
     try {
-      const response = await fetch(`/admin/brands/${brandId}`);
+      const response = await fetch(`/admin/categories/${catId}`);
       if (response.ok) {
-        const brandData = await response.json();
+        const catData = await response.json();
 
-        const categoryElement = document.getElementById("brandDetails");
+
+        const categoryElement = document.getElementById('catDetails');
         categoryElement.innerHTML = `
-          <img src="${brandData.logo}" width="30%" alt="logo"> 
-            <p>Name: ${brandData.brandName}</p>
-            <p>Description: ${brandData.description}</p>
-            <p>Creates At: ${brandData.date}</p>
-            
-          `;
+          <p>Name: ${catData.name}</p>
+          <p>Description: ${catData.description}</p>
+          <p>Creates At: ${catData.createdAt}</p>
+          <p>Updated At: ${catData.updatesAt}</p>
+        `;
 
         // Show the modal
-        const Modal = new bootstrap.Modal(document.getElementById("brandShow"));
+        const Modal = new bootstrap.Modal(document.getElementById('catshow'));
         Modal.show();
       } else {
-        console.error("Error fetching user data");
+        console.error('Error fetching user data');
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   });
 });
 
-document.querySelectorAll(".editBrand").forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    const brandId = await event.target.getAttribute("data-user-id");
+
+
+document.querySelectorAll('.editCat').forEach(btn => {
+  btn.addEventListener('click', async (event) => {
+    const catId = await event.target.getAttribute('data-user-id');
 
     try {
-      const response = await fetch(`/admin/brands/update/${brandId}`);
+      const response = await fetch(`/admin/categories/update/${catId}`);
       if (response.ok) {
-        const brandData = await response.json();
+        const catData = await response.json();
 
-        console.log(brandData);
-        const catElement = document.getElementById("brandDetails");
+        console.log(catData);
+        const catElement = document.getElementById('catUpdateDetails');
         catElement.innerHTML = `
-          <form id="updateBrandForm">
-          <div class="form-floating mb-3 mt-3">
-          <input type="text" class="form-control" id="name" value="${
-            brandData.brandName
-          }" name="brandName">
-          </div>
+        <form id="updateCatForm">
         <div class="form-floating mb-3 mt-3">
-          <input type="text" class="form-control" id="floatingPassword" value="${
-            brandData.description
-          }" name="description">
+        <input type="email" class="form-control" id="name" value="${catData.name}" name="name">
         </div>
-        <div class="form-floating mb-3 mt-3">
-        <input type="text" class="form-control" id="floatingPassword" hidden value="${Date.now()}" name="updateAt">
+      <div class="form-floating mb-3 mt-3">
+        <input type="text" class="form-control" id="floatingPassword" value="${catData.description}" name="description">
       </div>
-      <input type="hidden" name="brand_id" value="${brandData._id}">
-      <button type="button" onclick="updateBrand()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Submit</button>
-    </form>
-          `;
+      <div class="form-floating mb-3 mt-3">
+      <input type="text" class="form-control" id="floatingPassword" hidden value="${Date.now()}" name="updatedAt">
+    </div>
+    <input type="hidden" name="user_id" value="${catData._id}">
+    <button type="button" onclick="updateCat()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Submit</button>
+  </form>
+        `;
 
         // Show the modal
-        const catModal = new bootstrap.Modal(
-          document.getElementById("brandShow")
-        );
+        const catModal = new bootstrap.Modal(document.getElementById('catEdit'));
         catModal.show();
       } else {
-        console.error("Error fetching user data");
+        console.error('Error fetching user data');
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   });
 });
 
-function updateBrand() {
-  const form = document.getElementById("updateBrandForm");
+
+function updateCat() {
+  const form = document.getElementById("updateCatForm")
   const formData = new FormData(form);
-  fetch("/admin/brands/update", {
-    method: "PUT",
-    body: JSON.stringify(Object.fromEntries(formData)),
-    headers: { "Content-Type": "application/json" },
+  fetch('/admin/categories/update', {
+    method: 'PUT',
+    body:JSON.stringify(Object.fromEntries(formData)),    
+    headers : {'Content-Type': 'application/json',},
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not ok');
       }
       return response.json();
     })
     .then((data) => {
-      console.log("Success:", data);
-      window.location.href = "/admin/brands";
+      console.log('Success:', data);
+      window.location.href="/admin/categories"
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.error('Error:', error);
     });
 }
 
+// document.querySelectorAll('.deleteCategory').forEach(btn => {
+//   btn.addEventListener('click', async (event) => {
+//     const userId = await event.target.getAttribute('data-user-id');
 
-document.querySelectorAll(".deleteBrand").forEach((btn) => {
+//     try {
+//       const response = await fetch(`/admin/categories/${userId}`,{
+//         method:'DELETE'
+//       });
+//       if (response.ok) {
+//         window.location.href = "/admin/categories"
+//       }
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   });
+// });
+
+document.querySelectorAll(".deleteCategory").forEach((btn) => {
   btn.addEventListener("click", async (event) => {
-    const brandId = await event.target.getAttribute("data-user-id");
-
+    const catId = await event.target.getAttribute("data-user-id");
+    
     try {
-      const response = await fetch(`/admin/brands/delete/${brandId}`);
-      if (response.ok) {
-        const brandData = await response.json();
+    const response = await fetch(`/admin/categories/delete/${catId}`);
+    if (response.ok) {
+    const catData = await response.json();
 
-        const categoryElement = document.getElementById("brandDetails");
-        categoryElement.innerHTML = `
-            <h4>Confirm Delete Brand Data</h4><br>
-            <form id="deleteData">
-              <input type="hidden" name="brand_id" value="${brandData._id}">
-              <button type="button" onclick="deleteBrand()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Confirm Delete</button>
-            </form>
-          `;
-
-        // Show the modal
-        const Modal = new bootstrap.Modal(document.getElementById("brandShow"));
-        Modal.show();
-      } else {
-        console.error("Error fetching user data");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    const categoryElement = document.getElementById("catDetails");
+    categoryElement.innerHTML = `
+        <h4>Confirm Delete Category Data</h4><br>
+        <form id="deleteData">
+          <input type="hidden" name="cat_id" value="${catData._id}">
+          <button type="button" onclick="deleteCategory()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Confirm Delete</button>
+        </form>
+      `;
+      const Modal = new bootstrap.Modal(document.getElementById("catshow"));
+      Modal.show();
+    } else {
+      console.error("Error fetching user data");
     }
-  });
+  } catch (error) {
+    console.error("Error:", error);
+  }
+});
 });
 
-function deleteBrand() {
+
+function deleteCategory() {
   const form = document.getElementById("deleteData");
   const formData = new FormData(form);
-  fetch("/admin/brands/delete", {
+  fetch("/admin/categories/delete", {
     method: "DELETE",
     body: JSON.stringify(Object.fromEntries(formData)),
     headers: { "Content-Type": "application/json" },
@@ -143,11 +158,9 @@ function deleteBrand() {
     })
     .then((data) => {
       console.log("Success:", data);
-      window.location.href = "/admin/brands";
+      window.location.href = "/admin/categories";
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
-
-   
