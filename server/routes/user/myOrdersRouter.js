@@ -5,11 +5,13 @@ const PlaceOrder = require("../../model/orderPlaceModel");
 const Order = require("../../model/oraderModel");
 const Product = require("../../model/productModel");
 const { LogContext } = require("twilio/lib/rest/serverless/v1/service/environment/log");
+const userCollection = require("../../model/userModel");
 
 router.get("/",authCart,async(req,res)=>{
     
     try {
         const userId = req.userId;
+        const user = await userCollection.findById(userId)
         const orderDatas = await PlaceOrder.find({userId})
         console.log(orderDatas);
         let orderSummery = []
@@ -30,7 +32,7 @@ router.get("/",authCart,async(req,res)=>{
         console.log(orderSummery);
 
 
-        return res.render("myOrders",{orderSummery}) 
+        return res.render("myOrders",{orderSummery,user}) 
     } catch (error) {
         return res.render("error",{error})
     }

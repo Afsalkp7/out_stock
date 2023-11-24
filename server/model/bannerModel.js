@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const fns = require("date-fns")
 const bannerSchema = mongoose.Schema({
     bannerName:{
         type:String,
@@ -10,14 +10,14 @@ const bannerSchema = mongoose.Schema({
     },
     date:{
         type:Date,
-        default:Date.now
+        default:fns.format(new Date(),"dd,mm,yyyy")
     },
     expirationDate: {
         type: Date,
         default: function () {
             const currentDate = new Date();
             currentDate.setDate(currentDate.getDate() + 3);
-            return currentDate;
+            return fns.format(currentDate,"dd,mm,yyyy");
         }
     },
     description:{

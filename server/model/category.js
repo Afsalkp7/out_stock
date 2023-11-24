@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const fns = require('date-fns')
 
 const categorySchema = mongoose.Schema({
     name : {
@@ -9,8 +10,8 @@ const categorySchema = mongoose.Schema({
         type: String 
     },
     createdAt : {
-        type:Date,
-        default:Date.now()
+        type:String,
+        default:fns.format(new Date(),'dd-MM-yyyy')
     }
     ,
     updatedAt : {

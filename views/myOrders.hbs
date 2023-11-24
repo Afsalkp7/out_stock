@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/userlog.css">
     <link rel="stylesheet" href="/css/logStyle.css">
     <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/userDetails.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -65,13 +65,116 @@ Swal.fire({
 </script>
 {{/if}}
 
-<section class="h-100 gradient-custom">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-10 col-xl-8">
-        <div class="card" style="border-radius: 10px;">
-          
-          <div class="card-body ">
+<div class="container mt-5">
+
+    <div class="container-xl px-4 mt-4">
+
+      <hr class="mt-0 mb-4">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card mb-4 mb-xl-0">
+            <div class="card-body text-center">
+
+              <img class="img-account-profile rounded-circle me-3 mb-2" style="height: 5rem;" src="/img/person.png"
+                alt="profile">
+
+              <span class="text-dark  mt-3"
+                style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">Hello,
+              </span><span style="font-weight: light; font-family: Arial, Helvetica, sans-serif; font-size: 16px;"
+                class="font-italic text-muted ">{{user.userName}}</span>
+              <br>
+            </div>
+          </div>
+
+
+          <a href="/user_data">
+            <div class="card mb-4 mb-xl-0">
+              <div class="card-body text-center">
+
+                <img class="img-account-profile rounded-circle me-3 mb-2 float-start" src="/img/person1.png"
+                  alt="person">
+
+                <span class="text-dark float-start mt-3"
+                  style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 16px;">PERSONAL
+                  INFO</span>
+                <br>
+              </div>
+            </div>
+          </a>
+
+
+          <a href="/myOrders">
+            <div class="card mb-4 mb-xl-0">
+              <div class="card-body text-center">
+
+                <img class="img-account-profile rounded-circle me-3 mb-2 float-start" src="/img/order.png" alt="order">
+
+                <span class="text-dark float-start mt-3"
+                  style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 16px;">MY
+                  ORDERS</span>
+                <br>
+              </div>
+            </div>
+          </a>
+
+          <a href="/wish">
+            <div class="card mb-4 mb-xl-0">
+              <div class="card-body text-center">
+
+                <img class="img-account-profile rounded-circle float-start me-3 mb-2" src="/img/wish.png" alt="wish">
+
+                <span class="text-dark float-start mb-4"
+                  style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 16px;">MY
+                  WISHLIST</span>
+                <br>
+              </div>
+            </div>
+          </a>
+
+
+          <div class="card mb-4 mb-xl-0">
+            <div class="card-body text-center">
+
+              <img class="img-account-profile rounded-circle float-start me-3 mb-2" src="/img/address.png"
+                alt="address">
+
+              <span class="text-dark float-start mt-3"
+                style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 16px;">MY ADDRESS</span>
+              <br>
+            </div>
+          </div>
+
+
+          <div class="card mb-4 mb-xl-0">
+            <div class="card-body text-center">
+
+              <img class="img-account-profile rounded-circle float-start me-3 mb-2" src="/img/logout.png" alt="logout">
+
+              <span class="text-dark float-start  mt-3"
+                style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 16px;">LOG OUT</span>
+              <br>
+            </div>
+          </div>
+
+          <div class="card mb-4 mb-xl-0">
+            <div class="card-body text-center">
+
+              <img class="img-account-profile rounded-circle float-start me-3 mb-2" src="/img/delete.png" alt="DELETE">
+
+              <span class="text-dark  mt-3 float-start"
+                style="font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 16px;">DELETE
+                ACCOUNT</span>
+              <br>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-8">
+
+          <div class="card mb-4">
+            <div class="card-header">My orders</div>
+            <div class="card-body ">
             
 {{#each orderSummery}}
 
@@ -110,6 +213,21 @@ Swal.fire({
 
             
           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+
+<section class="h-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card mb-4" style="border-radius: 10px;">
+          
+          
         </div>
       </div>
     </div>

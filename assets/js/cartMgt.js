@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 const quantityInput = document.getElementById('quantity');
 const addToCartButton = document.getElementById('addToCartButton');
@@ -23,11 +22,12 @@ if (addToCartButton){
         if(response.ok) {
           Swal.fire({
             icon: "success",
-            title: "Item added to cart successfully",
+            title: "Item added to wishlist",
             showConfirmButton: false,
             timer: 1500
           });
-          window.location.href="#"
+
+          window.location.reload="/"
         }
       })
     });  
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
               showConfirmButton: false,
               timer: 1500
             });
-            window.location.href="#"
+            window.location.reload="/"
           }
         })
       });
