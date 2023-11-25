@@ -36,17 +36,64 @@ document.querySelectorAll('.showUser').forEach(btn => {
         const userData = await response.json();
 
         
-        const userDetailsElement = document.getElementById('userDetails');
+        const userDetailsElement = document.getElementById('totalBody');
         userDetailsElement.innerHTML = `
-          <p>User Name: ${userData.userName}</p>
-          <p>Email: ${userData.email}</p>
-          <p>Phone Number: ${userData.phone}</p>
-          <p>Status: ${userData.status}</p>
+        <link rel="stylesheet" href="/css/payment.css">
+        <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your cart</span>
+            </h4>
+        
+        </div>
+        <div class="col-md-6 order-md-1">
+            <h4 class="mb-3">User Details</h4>
+
+            <div class="form">
+
+            <label class="field">
+                <span class="field__label" for="firstname">First name</span>
+                <input class="field__input" type="text" id="firstname" value="${userData.userName}" readonly />
+            </label>
+
+            <label class="field">
+                <span class="field__label" for="address">Address</span>
+                <input class="field__input" type="text" id="address" value="${userData.email}" readonly/>
+            </label>
+            <label class="field">
+                <span class="field__label" for="phone">Phone number</span>
+                <input class="field__input" type="text" id="phone" value="${userData.phone}" readonly/>
+            </label>
+            <label class="field">
+                <span class="field__label" for="status">Status</span>
+                <input class="field__input" type="text" id="status" value="${userData.status}" readonly/>
+            </label>
+            <button class="btn btn-dark" onclick="startEdit()">Edit status</button>
+            <form id="updateUserForm" style="display:none">
+              <label class="field">
+                
+              <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio1" name="status" value="active" checked>
+              <label class="form-check-label" for="radio1">Active</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio2" name="status" value="block">
+              <label class="form-check-label" for="radio2">Block</label>
+            </div>
+            <input type="hidden" name="user_id" value="${userData._id}">
+            <button type="button" onclick="submitStatus()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Submit Status</button>
+        
+              </label>
+            </form>
+
+
+        </div>
+            
+            <br>
+        </div>
+    </div>
         `;
 
-        // Show the modal
-        const userModal = new bootstrap.Modal(document.getElementById('usershow'));
-        userModal.show();
       } else {
         console.error('Error fetching user data');
       }
@@ -200,3 +247,6 @@ function deleteUser() {
 }
 
 
+function startEdit(){
+  document.getElementById("updateUserForm").style.display="block"
+}

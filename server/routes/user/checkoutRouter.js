@@ -44,7 +44,7 @@ router.post("/order", authCart, async (req, res) => {
     const existAdress = await Order.findOne({ userId, _id: id });
     if (existAdress) {
       const updateAddress = await Order.updateOne(
-        { userId },
+        { _id:id },
         { $set: req.body }
       );
       if (updateAddress) {

@@ -16,6 +16,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/style2.css">
+
 </head>
 
 <body>
@@ -91,7 +92,7 @@
           </div>
         </div>
       </nav>
-      <div class="container ">
+      <div class="container" id="totalBody">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -111,7 +112,7 @@
               <td>{{this.email}}</td>
               <td>{{this.phone}}</td>
               <td>{{this.status}}</td>
-              <td><a class="showUser btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/eye.png" width="15px" alt=""></a><a class="editUser btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a class="deleteUser btn btn-light ms-2"  data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a></td>
+              <td><a class="showUser btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/eye.png" width="15px" alt=""></a><a class="editUser btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a class="deleteUser btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a></td>
             </tr>
             {{/each}}
           </tbody>
