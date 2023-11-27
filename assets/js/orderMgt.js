@@ -1,36 +1,37 @@
-document.querySelectorAll('.showOrder').forEach(btn => {
-    btn.addEventListener('click', async (event) => {
-      const ordId = await event.target.getAttribute('data-user-id');
+// document.querySelectorAll('.showOrder').forEach(btn => {
+//     btn.addEventListener('click', async (event) => {
+//       const ordId = await event.target.getAttribute('data-user-id');
+//       await fetch(`/admin/orders/${ordId}`);
   
-      try {
-        const response = await fetch(`/admin/orders/${ordId}`);
-        if (response.ok) {
-          const orderData = await response.json();
+      // try {
+      //   const response = 
+      //   if (response.ok) {
+      //     const orderData = await response.json();
   
   
-          const categoryElement = document.getElementById('orderDetails');
-          categoryElement.innerHTML = `
-          <p>Order id : ${orderData._id}
-          <p>User id : ${orderData.userId}
-          <p>Address id : ${orderData.addressId}
-            <p>Amount: ${orderData.totalAmount}</p>
-            <p>Payment : ${orderData.paymentId}</p>
-            <p>Status : ${orderData.orderStatus}</p>
-            <p>Ordered At: ${orderData.orderedDate}</p>
-            <p>Delivery At: ${orderData.deliveryDate}</p>
-          `;
+          // const categoryElement = document.getElementById('orderDetails');
+          // categoryElement.innerHTML = `
+          // <p>Order id : ${orderData._id}
+          // <p>User id : ${orderData.userId}
+          // <p>Address id : ${orderData.addressId}
+          //   <p>Amount: ${orderData.totalAmount}</p>
+          //   <p>Payment : ${orderData.paymentId}</p>
+          //   <p>Status : ${orderData.orderStatus}</p>
+          //   <p>Ordered At: ${orderData.orderedDate}</p>
+          //   <p>Delivery At: ${orderData.deliveryDate}</p>
+          // `;
   
-          // Show the modal
-          const Modal = new bootstrap.Modal(document.getElementById('ordershow'));
-          Modal.show();
-        } else {
-          console.error('Error fetching user data');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    });
-  });
+          // // Show the modal
+          // const Modal = new bootstrap.Modal(document.getElementById('ordershow'));
+          // Modal.show();
+        // } else {
+        //   console.error('Error fetching user data');
+        // }
+      // } catch (error) {
+      //   console.error('Error:', error);
+      // }
+  //   });
+  // });
   
   
   

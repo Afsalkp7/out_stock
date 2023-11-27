@@ -39,13 +39,9 @@ document.querySelectorAll('.showUser').forEach(btn => {
         const userDetailsElement = document.getElementById('totalBody');
         userDetailsElement.innerHTML = `
         <link rel="stylesheet" href="/css/payment.css">
+        <button onclick = "reloadPage()" class="btn btn-dark" style="margin:10px;radius:30px;">Back</button>
         <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
-            </h4>
         
-        </div>
         <div class="col-md-6 order-md-1">
             <h4 class="mb-3">User Details</h4>
 
@@ -103,6 +99,9 @@ document.querySelectorAll('.showUser').forEach(btn => {
   });
 });
 
+function reloadPage(){
+  window.location.reload("/")
+}
 
 document.querySelectorAll('.editUser').forEach(btn => {
   btn.addEventListener('click', async (event) => {

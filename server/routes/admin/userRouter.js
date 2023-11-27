@@ -3,7 +3,8 @@ const route = express.Router();
 const userCollection = require("../../model/userModel");
 const adminCollection = require("../../model/adminModel");
 const auth = require("../../middlewere/auth");
-const router = require("../user/indexRouter");
+const PlaceOrder = require("../../model/orderPlaceModel");
+const Order = require("../../model/oraderModel")
 
 route.get("/", auth, async (req, res) => {
   if (req.cookies.session) {
@@ -21,6 +22,8 @@ route.get("/:userId", async (req, res) => {
 
   try {
     const user = await userCollection.findOne({ _id: userId });
+    const address = await Order.find({userId});
+    const orders = await PlaceOrder.find({userId})
     if (user) {
       res.json(user);
     } else {

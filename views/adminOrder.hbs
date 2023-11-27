@@ -96,10 +96,10 @@
                     <thead>
                         <tr>
                             <th scope="col"> Order id</th>
-                            <th scope="col"> User id</th>
-                            <th>Amount</th>
-                            <th scope="col">status</th>
-                            <th scope="col">Order date</th>
+                            <th scope="col"> User Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ordered date</th>
                             <th scope="col">Except delivery</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -108,12 +108,12 @@
                         {{#each orders}}
                         <tr>
                             <td>{{this._id}}</td>
-                            <td>{{this.userId}}</td>
+                            <td>{{this.userName}}</td>
                             <td>{{this.totalAmount}}</td>
                             <td>{{this.orderStatus}}</td>
                             <td>{{this.orderedDate}}</td>
                             <td>{{this.deliveryDate}}</td>
-                            <td><a class="showOrder btn btn-light ms-2" data-user-id='{{this._id}}'><img
+                            <td><a href="/admin/orders/{{this._id}}" class="showOrder btn btn-light ms-2" data-user-id='{{this._id}}'><img
                                         src="/img/eye.png" width="15px" alt=""></a><a class="editOrder btn btn-light ms-2"
                                     data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a
                                     class="deleteOrder btn btn-light ms-2" data-user-id='{{this._id}}'><img

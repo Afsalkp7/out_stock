@@ -3,6 +3,8 @@ const router = express.Router()
 const auth = require("../../middlewere/auth")
 const adminCollection = require("../../model/adminModel")
 const PlaceOrder = require("../../model/orderPlaceModel")
+const userCollection = require("../../model/userModel");
+
 
 
 router.get("/" , async (req,res)=>{
@@ -10,7 +12,14 @@ router.get("/" , async (req,res)=>{
         const _id = req.adminId
         const admin = await adminCollection.findOne({ _id })
         const orders = await PlaceOrder.find()
-        res.render("adminOrder",{admin,orders})
+        let ordersArray = []
+        for (order of orders) {
+          let user = await userCollection.findOne({_id:order.userId})
+          let userName = user.userName;
+          order.userName = userName
+          ordersArray.push(order)
+        }
+        res.render("adminOrder",{admin,orders:ordersArray})
     }else{
         res.redirect("/admin")
     }
@@ -23,7 +32,7 @@ router.get("/:id",auth,async (req,res) => {
         try {
             const order = await PlaceOrder.findOne({ _id: id });
             if (order) {
-              res.json(order);
+              res.render("orderSingle");
             } else {
               res.status(404).json({ error: 'User not found' });
             }
