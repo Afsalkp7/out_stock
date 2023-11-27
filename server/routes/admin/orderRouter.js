@@ -4,6 +4,7 @@ const auth = require("../../middlewere/auth")
 const adminCollection = require("../../model/adminModel")
 const PlaceOrder = require("../../model/orderPlaceModel")
 const userCollection = require("../../model/userModel");
+const Order = require("../../model/oraderModel");
 
 
 
@@ -31,8 +32,14 @@ router.get("/:id",auth,async (req,res) => {
     
         try {
             const order = await PlaceOrder.findOne({ _id: id });
+            const user = await userCollection.findOne({_id:order.userId});
+            console.log(order.addressId);
+            const address = await Order.findOne({_id:order.addressId})
+            console.log(user);
+            console.log(order);
+            console.log(address);
             if (order) {
-              res.render("orderSingle");
+              res.render("orderSingle",{user,order,address});
             } else {
               res.status(404).json({ error: 'User not found' });
             }
