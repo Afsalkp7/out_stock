@@ -113,7 +113,7 @@
                                             <div class="card-header" role="tab" id="headingOne" data-toggle="collapse"
                                                 href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                 <h5 class="mb-0">
-                                                    Production Info
+                                                    User Info
                                                 </h5>
                                             </div>
 
@@ -123,39 +123,23 @@
                                                     <form>
                                                         <div class="form-group row">
                                                             <label for="draftStatus"
-                                                                class="col-sm-4 col-form-label ">Lettering Draft
-                                                                Status</label>
-                                                            <div class="col-sm-8">
-                                                                <select class="custom-select col-sm-8" id="draftStatus">
-                                                                    <option selected>Choose...</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>
+                                                                class="col-sm-4 col-form-label ">User Name
+                                                            </label>
+                                                            <div class="col-sm-8 text-dark">
+                                                                {{user.userName}}
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="cadStatus" class="col-sm-4 col-form-label ">CAD
-                                                                Status</label>
-                                                            <div class="col-sm-8">
-                                                                <select class="custom-select col-sm-8" id="cadStatus">
-                                                                    <option selected>Choose...</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>
+                                                            <label for="cadStatus" class="col-sm-4 col-form-label ">User email</label>
+                                                            <div class="col-sm-8 text-dark">
+                                                                {{user.email}}
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="orderStatus"
-                                                                class="col-sm-4 col-form-label ">Order Status</label>
-                                                            <div class="col-sm-8">
-                                                                <select class="custom-select col-sm-8" id="orderStatus">
-                                                                    <option selected>Choose...</option>
-                                                                    <option value="1">One</option>
-                                                                    <option value="2">Two</option>
-                                                                    <option value="3">Three</option>
-                                                                </select>
+                                                                class="col-sm-4 col-form-label ">User contact number</label>
+                                                            <div class="col-sm-8 text-dark">
+                                                                {{user.phone}}
                                                             </div>
                                                         </div>
                                                     </form>
@@ -167,7 +151,7 @@
                                                 data-toggle="collapse" href="#collapseTwo" aria-expanded="true"
                                                 aria-controls="collapseTwo">
                                                 <h5 class="mb-0">
-                                                    Delivery Info
+                                                    Order Address
                                                 </h5>
                                             </div>
                                             <div id="collapseTwo" class="collapse show" role="tabpanel"
@@ -177,37 +161,58 @@
                                                         <form>
                                                             <div class="form-group row">
                                                                 <label for="graveyard"
-                                                                    class="col-md-4 col-form-label ">Graveyard</label>
+                                                                    class="col-md-4 col-form-label ">Customer Name</label>
                                                                 <div class="col-md-8 col-sm-12">
-                                                                    <select class="custom-select col-md-8 "
-                                                                        id="graveyard">
-                                                                        <option selected>Choose...</option>
-                                                                        <option value="1">One</option>
-                                                                        <option value="2">Two</option>
-                                                                        <option value="3">Three</option>
-                                                                    </select>
+                                                                    {{address.firstName}} {{address.lastName}}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label class="col-md-4 col-form-label"
-                                                                    for="authority">Graveyard Authority</label>
+                                                                    for="authority">Phone Number</label>
                                                                 <div class="col-md-8 col-sm-12">
-                                                                    <!-- <input type="text" class="col-md-8 form-control" id="authority" placeholder=""> -->
-                                                                    <a href="#">John Doe</a>
+                                                                    {{address.phone}}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="orderStatus"
-                                                                    class="col-md-4 col-form-label ">Order
-                                                                    Status</label>
+                                                                    class="col-md-4 col-form-label ">Email address</label>
                                                                 <div class="col-md-8 col-sm-12">
-                                                                    <select class="custom-select col-md-8"
-                                                                        id="orderStatus">
-                                                                        <option selected>Choose...</option>
-                                                                        <option value="1">One</option>
-                                                                        <option value="2">Two</option>
-                                                                        <option value="3">Three</option>
-                                                                    </select>
+                                                                    {{address.email}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="orderStatus"
+                                                                    class="col-md-4 col-form-label ">Delivery Address</label>
+                                                                <div class="col-md-8 col-sm-12">
+                                                                    {{address.address}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="orderStatus"
+                                                                    class="col-md-4 col-form-label ">Optional address</label>
+                                                                <div class="col-md-8 col-sm-12">
+                                                                    {{address.address2}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="orderStatus"
+                                                                    class="col-md-4 col-form-label ">Country</label>
+                                                                <div class="col-md-8 col-sm-12">
+                                                                    {{address.country}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="orderStatus"
+                                                                    class="col-md-4 col-form-label ">State</label>
+                                                                <div class="col-md-8 col-sm-12">
+                                                                    {{address.state}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="orderStatus"
+                                                                    class="col-md-4 col-form-label ">Pin code</label>
+                                                                <div class="col-md-8 col-sm-12">
+                                                                    {{address.pin}}
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -226,82 +231,34 @@
                                             <div id="collapseThree" class="collapse show" role="tabpanel"
                                                 aria-labelledby="headingThree" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    <div class="form-group row">
-                                                        <label for="esp" class="col-md-4 col-form-label ">ESP</label>
+                                                     <div class="form-group row">
+                                                        <label for="esp" class="col-md-4 col-form-label ">Oredered date</label>
                                                         <div class="col-md-8 col-sm-12">
-                                                            <select class="custom-select col-md-8" id="esp">
-                                                                <option selected>Choose...</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            {{order.orderedDate}}
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-md-4 col-form-label"
-                                                            for="location">Location</label>
+                                                        <label for="esp" class="col-md-4 col-form-label ">Except delivery date</label>
                                                         <div class="col-md-8 col-sm-12">
-                                                            <input type="text" class="col-md-8 form-control"
-                                                                id="location" placeholder="e.g. there ">
+                                                            {{order.deliveryDate}}
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-md-4 col-form-label"
-                                                            for="trackingNum">Tracking Number</label>
+                                                        <label for="esp" class="col-md-4 col-form-label ">Order Status</label>
                                                         <div class="col-md-8 col-sm-12">
-                                                            <input type="text" class="col-md-8 form-control"
-                                                                id="trackingNum" placeholder="e.g. 123452">
+                                                            {{order.orderStatus}}
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="applicationStatus"
-                                                            class="col-md-4 col-form-label ">Application Status</label>
+                                                        <label for="esp" class="col-md-4 col-form-label ">Payment method</label>
                                                         <div class="col-md-8 col-sm-12">
-                                                            <select class="custom-select col-md-8"
-                                                                id="applicationStatus">
-                                                                <option selected>Choose...</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            {{order.paymentId}}
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="assemblerStatus"
-                                                            class="col-md-4 col-form-label ">Assemblerer Status</label>
+                                                        <label for="esp" class="col-md-4 col-form-label ">Total Amount</label>
                                                         <div class="col-md-8 col-sm-12">
-                                                            <select class="custom-select col-md-8" id="assemblerStatus">
-                                                                <option selected>Choose...</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-md-4 col-form-label"
-                                                            for="assembler">Assembler</label>
-                                                        <div class="col-md-8 col-sm-12">
-                                                            <select class="custom-select col-md-8" id="assembler">
-                                                                <option selected>Choose...</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="assemblerPayment"
-                                                            class="col-md-4 col-form-label ">Payment to
-                                                            Assembler</label>
-                                                        <div class="col-md-8 col-sm-12">
-                                                            <select class="custom-select col-md-8"
-                                                                id="assemblerPayment">
-                                                                <option selected>Choose...</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            {{order.totalAmount}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -320,31 +277,37 @@
                                                     <dd class="col-sm-4">Order Id</dd>
                                                     <dt class="col-sm-8">{{order._id}}</dt>
                                                     <dd class="col-sm-4">Items</dd>
-                                                    <dt class="col-sm-8">none</dt>
+                                                    {{#each products}}
+                                                    <dt class="col-sm-8">Name : {{this.productName}}</dt>
+                                                    <dt class="col-sm-8 ms-auto">Category : {{this.category}}</dt>
+                                                    <dt class="col-sm-8 ms-auto">Brand : {{this.brand}}</dt>
+                                                    <dt class="col-sm-8 ms-auto">Price : ₹ {{this.price}} /-</dt>
+                                                    <dt class="col-sm-8 ms-auto">Quantity : {{this.qty}}</dt>
+                                                    <hr>
+                                                    {{/each}}
                                                 </dl>
                                                 <dl class="row">
 
                                                 </dl>
                                                 <dl class="row">
-                                                    <dd class="col-sm-4">Headstone Size</dd>
-                                                    <dt class="col-sm-8">Medium (75x65x12)</dt>
-                                                    <dd class="col-sm-4">Headstone Base</dd>
-                                                    <dt class="col-sm-8">Regular (15x56x24)</dt>
+                                                    <dd class="col-sm-4">Order date</dd>
+                                                    <dt class="col-sm-8">{{order.orderedDate}}</dt>
+                                                    <dd class="col-sm-4">Expect delivery</dd>
+                                                    <dt class="col-sm-8">{{order.deliveryDate}}</dt>
+                                                    <dd class="col-sm-4">Payment status</dd>
+                                                    <dt class="col-sm-8">{{order.paymentId}}</dt>
                                                 </dl>
                                                 <dl class="row">
-                                                    <dd class="col-sm-4">Assembler Discount</dd>
-                                                    <dt class="col-sm-8">Yes</dt>
+                                                    <dd class="col-sm-4">Order Status</dd>
+                                                    <dt class="col-sm-8">{{order.status}}</dt>
                                                     <dd class="col-sm-4">Total Price</dd>
-                                                    <dt class="col-sm-8">9330 <br>
-                                                        <button>View Bill</button>
+                                                    <dt class="col-sm-8">{{order.totalAmount}} <br>
                                                     </dt>
                                                 </dl>
                                                 <hr>
                                                 <dl class="row">
                                                     <dt class="col-sm-12">Comments</dt>
-                                                    <dd class="col-sm-12">Lorem ipsum dolor sit amet, consectetur
-                                                        adipisicing elit, sed do eiusmod
-                                                        tempor incididunt ut labore et dolore magna aliqua.</dd>
+                                                    <dd class="col-sm-12"></dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -355,7 +318,7 @@
                         <!-- End of Order Details -->
                         <!--Product Info  -->
                         <div class="tab-pane fade" id="product" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            Display Product Info Content
+                            Display Personal Info Content
                         </div>
                         <!--Factory Order  -->
                         <div class="tab-pane fade" id="factory" role="tabpanel" aria-labelledby="nav-profile-tab">
