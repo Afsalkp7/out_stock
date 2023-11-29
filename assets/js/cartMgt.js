@@ -131,12 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const price =  parseFloat(priceElements[i].textContent);
     const quantity = parseInt(qtyElements[i].value);
     sumElements[i].textContent = price * quantity || 0 ;
-    console.log("h");
   }
   let totalAmt = 0;
   for (let i=0 ; i<length ; i++) {
     const sum = parseFloat(sumElements[i].textContent)
-    totalAmt += sum || 0;  
+    totalAmt += sum || 0; 
   
   }
 

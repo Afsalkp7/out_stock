@@ -46,7 +46,6 @@ app.use("/placeOrder",(require("./server/routes/user/placeOrder")))
 app.use("/orderSummery",(require("./server/routes/user/orderSummeryRouter")))
 app.use("/myOrders",(require("./server/routes/user/myOrdersRouter")))
 app.use("/myAddresses",(require("./server/routes/user/myAddressesRouter")))
-
 app.use("/admin", require("./server/routes/admin/router"));
 app.use("/admin/users", require("./server/routes/admin/userRouter"));
 app.use("/admin/products", require("./server/routes/admin/productRouter"));
@@ -55,5 +54,4 @@ app.use("/admin/categories", require("./server/routes/admin/categoryRouter"));
 app.use("/admin/banners",require("./server/routes/admin/bannersRouter"))
 app.use("/admin/orders",require("./server/routes/admin/orderRouter"))
 
-
-app.listen(PORT, () => console.log(`server is running on ${PORT}`));
+app.listen(PORT, () => console.log(`server is running on ${PORT}...`));
