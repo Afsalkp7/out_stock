@@ -160,13 +160,9 @@
             <div class="col-md-8 order-md-1 border border-muted">
                 <h4 class="mb-3 ">PAYMENT METHODS</h4>
                 <div class="container">
-                    <form action="/placeOrder" method="post" onsubmit="return placeOrderValidation()">
-                        <div class="mt-5 mb-5">
-                            <input type="radio" id="card" name="paymentMethod">
-                            <label for="card"
-                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">
-                                Credit or debit card</label><br>
-                        </div>
+                    <form id="paymentMethod" action="/placeOrder" method="post"
+                        onsubmit="return (placeOrderValidation()&&placeOrder())">
+                        
                         <div class="mt-5 mb-5">
                             <input type="text" name="orderId" id="orderId" value="{{checkOutData._id}}" hidden>
                             <input type="text" name="grandTotal" id="grandTotal" value="{{grandTotal}}" hidden>
@@ -190,7 +186,6 @@
                 <br>
             </div>
         </div>
-        <button id="rzp-button1">Pay with Razorpay</button>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script src="/js/validation.js"></script>
         <script>
@@ -209,7 +204,20 @@
                 };
             })
 
-                document.getElementById('rzp-button1').onclick = function (e) {
+            function placeOrder() {
+                const paymentMethods = document.getElementsByName('paymentMethod');
+                
+                let selectedPaymentMethod;
+
+                for (const method of paymentMethods) {
+                    if (method.checked) {
+                        selectedPaymentMethod = method.value;
+                        break;
+                    }
+                }
+                console.log(selectedPaymentMethod)
+
+                if (selectedPaymentMethod === "razorpay") {
                     fetch('/placeOrder/create/orderId', {
                         method: 'POST',
                         headers: {
@@ -228,12 +236,12 @@
                                 "currency": "INR",
                                 "name": "Outstock",
                                 "description": "Buy furniture fron outstock",
-                                "image": "https://example.com/your_logo",
+                                "image": "/img/logo.png",
                                 "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                                 "handler": function (response) {
                                     alert(response.razorpay_payment_id);
                                     alert(response.razorpay_order_id);
-                                    alert(response.razorpay_signature)
+                                    alert(response.razorpay_signature);
 
                                     var settings = {
                                         "url": "/placeOrder/payment/verify",
@@ -249,7 +257,7 @@
 
                                 },
                                 "theme": {
-                                    "color": "#3399cc"
+                                    "color": "#000000"
                                 }
                             };
                             var rzp1 = new Razorpay(options);
@@ -268,16 +276,20 @@
                             e.preventDefault();
                         })
 
-                    //creates new orderId everytime
+
 
                     $.ajax(settings).done(function (response) {
 
-                    orderId = response.orderId;
-                    console.log(orderId);
-                    $("button").show();
-                });
-                };
+                        orderId = response.orderId;
+                        console.log(orderId);
+                        $("button").show();
+                    });
+                }else{
+                    return true;
+                }
+            }
         </script>
+
 </body>
 
 </html>
