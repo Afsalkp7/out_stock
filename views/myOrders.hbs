@@ -182,32 +182,30 @@
             <div class="card-header">My orders</div>
             <div class="card-body ">
 
-              {{#each orderSummery}}
+              {{#each orders}}
 
               <div class="card shadow-0 border ">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-md-2">
-                      <img src="{{this.product.image}}" class="img-fluid" alt="product">
+                   
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-dark mb-0">{{this.name}}</p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0">{{this.product.productName}}</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small">{{this.product.category}}</p>
+                      <p class="text-dark mb-0 small">{{this.orderData.totalAmount}}</p>
                     </div>
 
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small">{{this.product.price}}</p>
+                      <p class="text-dark mb-0 small">{{this.orderData.orderedDate}}</p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small">Qty: {{this.qty}}</p>
+                      <p class="text-dark mb-0 small"> {{this.orderData.deliveryDate}}</p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="btn-success mb-0 bold"> {{this.orderStatus}}</p>
+                     <p class="text-dark mb-0 small"> {{this.orderData.orderStatus}}</p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small" id="grand{{this.productData._id}}"></p>
+                      <a class="btn btn-dark" href="/myOrders/{{this.orderData._id}}">show</a>
                     </div>
                   </div>
                 </div>

@@ -45,7 +45,7 @@ router.get("/:id", auth, async (req, res) => {
       console.log("address",address);
       console.log("products",products);
       if (order) {
-        res.render("orderSingle", { user, order, address, products });
+        res.render("adminOrderSingle", { user, order, address, products });
       } else {
         res.status(404).json({ error: "User not found" });
       }

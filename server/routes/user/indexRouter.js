@@ -324,7 +324,7 @@ router.get("/logout", (req, res) => {
   const token = req.cookies.usersession;
   if (token) {
     res.clearCookie("usersession");
-    res.render("index");
+    res.redirect("/user");
   } else {
     res.render("userlogin");
   }

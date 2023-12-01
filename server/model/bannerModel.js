@@ -10,14 +10,14 @@ const bannerSchema = mongoose.Schema({
     },
     date:{
         type:Date,
-        default:fns.format(new Date(),"dd,mm,yyyy")
+        default:Date.now
     },
     expirationDate: {
         type: Date,
         default: function () {
             const currentDate = new Date();
             currentDate.setDate(currentDate.getDate() + 3);
-            return fns.format(currentDate,"dd,mm,yyyy");
+            return currentDate;
         }
     },
     description:{

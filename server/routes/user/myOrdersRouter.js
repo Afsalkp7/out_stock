@@ -12,31 +12,36 @@ router.get("/",authCart,async(req,res)=>{
     try {
         const userId = req.userId;
         const user = await userCollection.findById(userId)
-        const orderDatas = await PlaceOrder.find({userId})
+        const orderDatas = await PlaceOrder.find({userId});
         console.log(orderDatas);
-        let orderSummery = []
-        for (orderData of orderDatas) {
+        let orders = []
+        for (orderData of orderDatas){
             let address = await Order.findOne({_id:orderData.addressId})
-            console.log(address);
-            let totalAmount =orderData.totalAmount;
-            let paymentId = orderData.paymentId;
-            let orderStatus = orderData.orderStatus
-            let orderItems = orderData.orderItems;
-            for (orderItem of orderItems){
-                let product = await Product.findOne({_id:orderItem.productId})
-                let qty = orderItem.quantity
-                orderSummery.push({address:address,totalAmount:totalAmount,paymentId:paymentId,orderStatus:orderStatus,product:product,qty:qty})
-            }
+
+            orders.push({name:address.firstName,orderData})
 
         }
-        console.log(orderSummery);
+        console.log("orders : ",orders);
 
-
-        return res.render("myOrders",{orderSummery,user}) 
+        return res.render("myOrders",{user,orders}) 
     } catch (error) {
         return res.render("error",{error})
     }
     
+})
+
+router.get("/:id",authCart,async (req,res)=>{
+    const orderId = req.params.id;
+    const order = await PlaceOrder.findOne({_id:orderId})
+    const address = await Order.findOne({_id:order.addressId})
+    const orderItems = order.orderItems;
+    let orderedProducts = []
+    for (orderItem of orderItems) {
+        let product = await Product.findOne({_id:orderItem.productId})
+        let qty = orderItem.quantity;
+        orderedProducts.push({ ...product.toObject(), qty });
+    }
+    return res.render("myorderSingle",{order,address,orderedProducts})
 })
 
 module.exports = router;
