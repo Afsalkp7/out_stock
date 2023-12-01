@@ -176,3 +176,16 @@ function placeOrderValidation(){
     return false;
   }
 }
+
+function cancelOrderValidation(){
+  let reason = document.getElementById("reason").value
+  if(reason.length<1  ){
+    document.getElementById("reasonAknowledgment").innerHTML="Please write reason for cancelation..."
+    return false;
+  }else if(reason.length<6){
+    document.getElementById("reasonAknowledgment").innerHTML="Reason must be 7 or more characters..."
+    return false;
+  }else{
+    return true;
+  }
+}

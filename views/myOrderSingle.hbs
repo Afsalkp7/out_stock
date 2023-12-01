@@ -173,7 +173,8 @@
                 <div class="col-xl-8">
 
                     <div class="card mb-4">
-                        <div class="card-header">Order details</div>
+                        <div class="card-header">Order details<a id="cancelBtn" style="cursor: pointer;"
+                                data-order-id="{{order._id}}" class="float-end">cancel order</a></div>
                         <div class="card-body ">
                             {{#each orderedProducts}}
 
@@ -263,9 +264,32 @@
                                             <div class="form-group row">
                                                 <label for="orderStatus" class="col-md-4 col-form-label "><b>Order
                                                         status</b></label>
-                                                <div class="col-md-8 col-sm-12">
+                                                {{#if orderPlaced}}
+                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
                                                     {{order.orderStatus}}
                                                 </div>
+                                                {{/if}}
+                                                {{#if delivered}}
+                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                    {{order.orderStatus}}
+                                                </div>
+                                                {{/if}}
+                                                {{#if cancelled}}
+                                                <div class="col-md-8 col-sm-12 btn btn-danger text-dark">
+                                                    {{order.orderStatus}}
+                                                </div>
+                                                {{/if}}
+                                                {{#if outOfDelivery}}
+                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                    {{order.orderStatus}}
+                                                </div>
+                                                {{/if}}
+                                                {{#if shipped}}
+                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                    {{order.orderStatus}}
+                                                </div>
+                                                {{/if}}
+
                                             </div>
                                         </form>
                                     </div>
@@ -349,6 +373,29 @@
                 </div>
             </div>
         </div>
+
+    {{!-- modal --}}
+
+        <div class="modal fade" id="orderCancel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="userTitle"></h5>
+                        <a href="#" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                    </div>
+                    <div class="modal-body" id="orderDetails">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="/js/validation.js"></script>
+        <script src="/js/orderMgt.js"></script>
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     </div>

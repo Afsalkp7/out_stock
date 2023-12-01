@@ -32,6 +32,9 @@ const placeOrderSchema = mongoose.Schema({
             currentDate.setDate(currentDate.getDate() + 3);
             return currentDate;
         }
+    },
+    cancelReason : {
+        type : String,
     }
 })
 const PlaceOrder = mongoose.model("PlaceOrder",placeOrderSchema);

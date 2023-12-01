@@ -9,7 +9,6 @@ const mongoose = require("./server/database/db");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
-
 dotenv.config({ path: "config.env" });
 
 app.use(morgan("tiny"));
@@ -53,5 +52,7 @@ app.use("/admin/brands", require("./server/routes/admin/brandRouter"));
 app.use("/admin/categories", require("./server/routes/admin/categoryRouter"));
 app.use("/admin/banners",require("./server/routes/admin/bannersRouter"))
 app.use("/admin/orders",require("./server/routes/admin/orderRouter"))
+
+
 
 app.listen(PORT, () => console.log(`server is running on ${PORT}...`));

@@ -41,7 +41,35 @@ router.get("/:id",authCart,async (req,res)=>{
         let qty = orderItem.quantity;
         orderedProducts.push({ ...product.toObject(), qty });
     }
-    return res.render("myorderSingle",{order,address,orderedProducts})
+    let orderPlaced = false;
+    let shipped = false;
+    let outOfDelivery = false;
+    let delivered = false;
+    let cancelled = false;
+    if(order.orderStatus=="Order Placed"){
+        orderPlaced = true
+    }else if(order.orderStatus=="Shipped"){
+        shipped = true
+    }else if(order.orderStatus=="Out Of Delvery"){
+        outOfDelivery = true
+    }else if(order.orderStatus=="delivered"){
+        delivered = true
+    }else{
+        cancelled = true
+    }
+    return res.render("myorderSingle",{order,address,orderedProducts,orderPlaced,delivered,cancelled,outOfDelivery,shipped})
+})
+
+router.get("/cancel/:id",async (req,res)=>{
+    const orderId = req.params.id;
+    const order  = await PlaceOrder.findOne({_id:orderId})
+    return res.json(order);
+})  
+
+router.put("/cancel",async(req,res)=>{
+    const {_id,reason} = req.body
+    const cancel = await PlaceOrder.findOneAndUpdate({_id},{$set:{orderStatus:"cancelled",cancelReason:reason}})
+    return res.json(cancel);
 })
 
 module.exports = router;
