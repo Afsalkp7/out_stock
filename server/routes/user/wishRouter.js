@@ -20,7 +20,7 @@ router.get("/",authCart,async(req,res)=>{
         }
     }
     console.log(wishProducts); 
-    if(wishProducts[0].wishContent.length == 0){
+    if(wishProducts.length == 0){
       return res.render("wishlist",{noItem : true})
     }
     return res.render("wishlist",{wishProducts})

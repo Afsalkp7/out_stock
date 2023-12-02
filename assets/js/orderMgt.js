@@ -47,6 +47,7 @@ document.querySelectorAll(".editOrder").forEach((btn) => {
                 <select class="form-select" id="orderStatus" name="orderStatus">
                   <option>Order Placed</option>
                   <option>Shipped</option>
+                  <option>Out for delivery</option>
                   <option>Delivered</option>
                   <option>Canceled</option>
                 </select>
@@ -209,6 +210,55 @@ function cancelOrder() {
   .then((data) => {
     console.log("Success:", data);
     window.location.reload("/")
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+}
+
+
+const buttondlt = document.getElementById("dltBtn");
+buttondlt.addEventListener("click", async (event) => {
+  const orderId = await event.target.getAttribute("data-order-id");
+  console.log(orderId);
+  try {
+    const response = await fetch(`/myOrders/delete/${orderId}`);
+    if (response.ok) {
+      const orderData = await response.json();
+      const orderCancelation = document.getElementById("orderDetails");
+      orderCancelation.innerHTML = `
+          <h4>Confirm delete order Data</h4><br>
+          <form id="deleteOrder">
+            <h3>Are you confirm delete order</h3>
+            <input type="hidden" name="_id" value="${orderData._id}">
+            <button type="button" onclick="deleteOrder()" data-bs-toggle="modal" class="btn btn-dark text-light mt-3">Confirm Delete</button>
+          </form>
+        `;
+      const Modal = new bootstrap.Modal(document.getElementById("orderCancel"));
+      Modal.show();
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+});
+
+function deleteOrder() {
+  const form = document.getElementById("deleteOrder");
+  const formData = new FormData(form);
+  fetch("/myOrders/delete", {
+    method: "Delete",
+    body: JSON.stringify(Object.fromEntries(formData)),
+    headers: { "Content-Type": "application/json" },
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Success:", data);
+    window.location.href="/myOrders"
   })
   .catch((error) => {
     console.error("Error:", error);

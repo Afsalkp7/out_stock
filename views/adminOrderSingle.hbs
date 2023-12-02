@@ -269,7 +269,7 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="d-inline h4">Order Details</div>
-                                                <div class="d-inline float-right"><small><a href="">Edit</a></small>
+                                                <div class="d-inline float-right"><small><a class="editOrder btn btn-light ms-2" data-user-id='{{order._id}}'>Edit</a></small>
                                                 </div>
                                             </div>
                                             <div class="card-body">
@@ -450,6 +450,23 @@
         </div>
     </div>
 
+ <div class="modal fade" id="orderEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userTitle"></h5>
+                    <a href="/admin/orders" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                </div>
+                <div class="modal-body" id="orderUpdateDetails">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin/orders" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

@@ -173,9 +173,28 @@
                 <div class="col-xl-8">
 
                     <div class="card mb-4">
-                        <div class="card-header">Order details<a id="cancelBtn" style="cursor: pointer;"
+                        {{#if cancelled}}
+                        <div class="card-header" style="display: none;">Order details<a id="cancelBtn" style="cursor: pointer;"
                                 data-order-id="{{order._id}}" class="float-end">cancel order</a></div>
                         <div class="card-body ">
+                        <div class="card-header" style="display: block;">Order details<a id="dltBtn" style="cursor: pointer;"
+                                data-order-id="{{order._id}}" class="float-end">delete order</a></div>
+                        <div class="card-body ">
+                        {{else if outForDelivery}}
+                        <div class="card-header" style="display: none;">Order details<a id="dltBtn" style="cursor: pointer;"
+                                data-order-id="{{order._id}}" class="float-end">delete order</a></div>
+                        <div class="card-body ">
+                        <div class="card-header">Order details<a  style="display: none;" id="cancelBtn" style="cursor: pointer;"
+                                data-order-id="{{order._id}}" class="float-end">cancel order</a></div>
+                        <div class="card-body ">
+                        {{else}}
+                        <div class="card-header" style="display: none;">Order details<a id="dltBtn" style="cursor: pointer;"
+                                data-order-id="{{order._id}}" class="float-end">delete order</a></div>
+                        <div class="card-body ">
+                        <div class="card-header" style="display: block;">Order details<a id="cancelBtn" style="cursor: pointer;"
+                                data-order-id="{{order._id}}" class="float-end">cancel order</a></div>
+                        <div class="card-body ">
+                        {{/if}}
                             {{#each orderedProducts}}
 
                             <div class="card shadow-0 border mb-4">
@@ -289,8 +308,21 @@
                                                     {{order.orderStatus}}
                                                 </div>
                                                 {{/if}}
+                                                {{#if outForDelivery}}
+                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                    {{order.orderStatus}}
+                                                </div>
+                                                {{/if}}
 
                                             </div>
+                                            {{#if cancelled}}
+                                            <div class="form-group row">
+                                                <label for="orderStatus" class="col-md-4 col-form-label "><b>Reason for cancellation</b></label>
+                                                <div class="col-md-8 col-sm-12">
+                                                    {{order.cancelReason}}
+                                                </div>
+                                            </div>
+                                            {{/if}}
                                         </form>
                                     </div>
                                 </div>

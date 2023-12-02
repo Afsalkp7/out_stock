@@ -109,7 +109,7 @@ Swal.fire({
                 var price ={{this.productData.price}}
                 var qty = {{this.qty}}
                 var total = price*qty
-                document.getElementById(`grand${this.productData._id}`).textContent = total
+                document.getElementById("grand{{this.productData._id}}").textContent = total
             </script>
 {{/each}}
             <div class="d-flex justify-content-between pt-2">

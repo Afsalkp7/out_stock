@@ -20,12 +20,20 @@ if (addToCartButton){
       })
       .then((response)=>{
         if(response.ok) {
-          Swal.fire({
-            icon: "success",
-            title: "Item added to wishlist",
-            showConfirmButton: false,
-            timer: 1500
-          });
+          Toastify({
+            text: "Item Added to cart successfully",
+            duration: 1000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "black",
+            },
+            
+          }).showToast();
 
           window.location.reload="/"
         }
@@ -106,12 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((response)=>{
           if(response.ok) {
-            Swal.fire({
-              icon: "success",
-              title: "Item added to wishlist",
-              showConfirmButton: false,
-              timer: 1500
-            });
+            Toastify({
+              text: "Item Added to wishlist successfully",
+              duration: 1000,
+              destination: "https://github.com/apvarun/toastify-js",
+              newWindow: true,
+              close: true,
+              gravity: "top", 
+              position: "center", 
+              stopOnFocus: true, 
+              style: {
+                background: "black",
+              },
+              
+            }).showToast();
             window.location.reload="/"
           }
         })

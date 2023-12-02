@@ -1,20 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addToWishButtons = document.querySelectorAll('.addFromWishToCartButton');
-    Array.from(addToWishButtons).forEach((button) => {
-        button.addEventListener('click', async() => {
-        const itemId = button.getAttribute('data-item-id');
+    addToWishButtons.forEach((button) => {
+        button.addEventListener('click', async(event) => {
+        const itemId = event.target.getAttribute('data-item-id');
     
         const cartItem = {
             itemId: itemId,
+            quantity :1
           };
     
-        await  fetch('/cart', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
+        
+      fetch('/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartItem)
+      })
+      .then((response)=>{
+        if(response.ok) {
+          Toastify({
+            text: "Item Added to cart successfully",
+            duration: 1000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "black",
             },
-            body: JSON.stringify(cartItem)
-          })
+            
+          }).showToast();
+
+          window.location.reload="/"
+        }
+      })
           
         });
     });

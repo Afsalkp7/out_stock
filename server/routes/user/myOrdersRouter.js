@@ -43,24 +43,24 @@ router.get("/:id",authCart,async (req,res)=>{
     }
     let orderPlaced = false;
     let shipped = false;
-    let outOfDelivery = false;
     let delivered = false;
     let cancelled = false;
+    let outForDelivery = false;
     if(order.orderStatus=="Order Placed"){
         orderPlaced = true
     }else if(order.orderStatus=="Shipped"){
         shipped = true
-    }else if(order.orderStatus=="Out Of Delvery"){
-        outOfDelivery = true
     }else if(order.orderStatus=="delivered"){
         delivered = true
+    }else if(order.orderStatus=="Out for delivery"){
+        outForDelivery = true;
     }else{
         cancelled = true
     }
-    return res.render("myorderSingle",{order,address,orderedProducts,orderPlaced,delivered,cancelled,outOfDelivery,shipped})
+    return res.render("myorderSingle",{order,address,orderedProducts,orderPlaced,delivered,cancelled,outForDelivery,shipped})
 })
 
-router.get("/cancel/:id",async (req,res)=>{
+router.get("/cancel/:id",authCart,async (req,res)=>{
     const orderId = req.params.id;
     const order  = await PlaceOrder.findOne({_id:orderId})
     return res.json(order);
@@ -72,4 +72,15 @@ router.put("/cancel",async(req,res)=>{
     return res.json(cancel);
 })
 
+router.get("/delete/:id",authCart,async(req,res)=>{
+    const orderId = req.params.id;
+    const order = await PlaceOrder.findOne({_id:orderId});
+    return res.json(order);
+})
+
+router.delete("/delete",async (req,res)=>{
+    const orderId = req.body._id;
+    const deleteData = await PlaceOrder.findOneAndRemove({_id:orderId})
+    return res.json(deleteData);
+})
 module.exports = router;
