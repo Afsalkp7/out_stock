@@ -4,6 +4,8 @@ const route = express.Router()
 const auth = require("../../middlewere/auth")
 const adminCollection = require("../../model/adminModel")
 const Brand = require('../../model/brandsModel')
+const Category = require('../../model/category')
+const Product = require('../../model/productModel')
 const multer = require('multer')
 const upload = multer({ dest: 'assets/img/Brands' })
 const cloudinary = require("../../../cloudinary") 
@@ -47,7 +49,8 @@ route.get("/:id",auth, async (req,res)=>{
     try {
         const brand = await Brand.findOne({ _id: id });
         if (brand) {
-          res.json(brand);
+          const products = await Product.find({brand:brand.brandName})
+          res.render("adminBrandSingle",{brand,products})
         } else {
           res.status(404).json({ error: 'User not found' });
         }

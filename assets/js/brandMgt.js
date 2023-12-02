@@ -116,11 +116,15 @@ document.querySelectorAll(".editBrand").forEach((btn) => {
         console.log(brandData);
         const catElement = document.getElementById("brandDetails");
         catElement.innerHTML = `
-          <form id="updateBrandForm" enctype="multipart/form-data">
+          <form id="updateBrandForm" name="updateBrandForm" enctype="multipart/form-data">
           
           <div class=" mb-3">
-          <label for="brandLogo">Logo</label>
-          <input type="file" class="form-control" id="brandLogo" name="brandLogo">
+          <img src="${brandData.logo}" width="100px"><br>
+          <label for="brandLogoInput">Logo</label>
+          <input type="file" class="form-control" id="brandLogoInput" name="brandLogoInput">
+          </div>
+          <div id="imageContainer">
+            <img id="croppedBrandLogo" name="croppedBrandLogo" src="#" alt="Cropped Image">
           </div>
           <div class="form-floating mb-3 mt-3">
           <input type="text" class="form-control" id="name" value="${

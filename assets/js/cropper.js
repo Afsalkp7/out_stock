@@ -302,4 +302,52 @@ $(document).ready(function () {
 
 
 
-//PRODUCT UPDATE MAIN CROPPER
+//BRAND UPDATE CROPPER
+
+$(document).ready(function () {
+
+  const updateBrandForm = document.forms.updateBrandForm;
+  const brandLogoInput = document.getElementById("brandLogoInput");
+  const croppedBrandLogo = document.getElementById("croppedBrandLogo");
+
+  let cropperLogo;
+
+  brandLogoInput.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+
+        croppedBrandLogo.src = e.target.result;
+        cropperLogo = new Cropper(croppedBrandLogo, {
+          aspectRatio: 1, 
+          viewMode: 2,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  updateBrandForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const croppedCanvas = cropperLogo.getCroppedCanvas();
+
+    if (!croppedCanvas) {
+
+      alert("Please crop the image before submitting.");
+      return;
+    }
+
+    const croppedDataUrl = croppedCanvas.toDataURL("image/jpeg");
+
+    const croppedImageInput = document.createElement("input");
+    croppedImageInput.type = "hidden";
+    croppedImageInput.name = "croppedBrandLogo";
+    croppedImageInput.value = croppedDataUrl;
+    updateBrandForm.appendChild(croppedImageInput);
+
+    updateBrandForm.submit();
+  });
+});
