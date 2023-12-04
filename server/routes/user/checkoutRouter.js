@@ -5,8 +5,10 @@ const userCollection = require("../../model/userModel");
 const CartItem = require("../../model/cartModel");
 const { authCart } = require("../../middlewere/user_auth");
 const Order = require("../../model/oraderModel");
+const Coupon=require("../../model/couponModel")
 
 router.post("/", authCart, async (req, res) => {
+  
   const userId = req.userId;
   const orderAddress = await Order.find({ userId });
   const cartItems = await CartItem.find({ userId });
@@ -22,6 +24,7 @@ router.post("/", authCart, async (req, res) => {
     }
   }
   const grandTotal = req.body.grandToCheck;
+  console.log(grandTotal, cartProducts, orderAddress);
   res.render("checkout", { grandTotal, cartProducts, orderAddress });
 });
 
@@ -115,4 +118,18 @@ router.delete("/", async (req, res) => {
   const deleteAddress = await Order.findByIdAndRemove(addressId);
   return res.json(deleteAddress);
 });
+
+router.get("/coupon/:code",authCart,async(req,res)=>{
+  const userId = req.userId
+  const code = req.params.code
+  const match = await Coupon.findOne({couponCode:code})
+  if (match){
+    const validity = match.startDate>new Date()<match.endDate
+    if (validity){
+      res.json(match)
+    }
+  }
+  
+})
+
 module.exports = router;

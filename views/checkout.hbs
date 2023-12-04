@@ -97,18 +97,14 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span class="text-success">Total (INR)</span>
-                            <strong class="text-success">₹ <span>{{grandTotal}}</span> /-</strong>
+                            <strong class="text-success">₹ <span id="grandTotal">{{grandTotal}}</span> /-</strong>
                         </li>
                     </ul>
 
-                    <form class="card p-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Coupon code">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary">Redeem</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="card p-2">
+                            <input type="text" class="form-control" name="couponCode" id="couponCode" placeholder="Coupon code">
+                            <button onclick="redeem()" class="btn btn-secondary">Redeem</button>
+                    </div>
                 </div>
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Billing address</h4>
@@ -219,8 +215,8 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="addressDeleteShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="addressDeleteShow" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog  modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">

@@ -189,3 +189,30 @@ function cancelOrderValidation(){
     return true;
   }
 }
+
+function validateCouponForm(){
+  let couponCode = document.forms["couponForm"]["couponCode"].value;
+  let couponProfit = document.forms["couponForm"]["couponProfit"].value;
+  let maxDis = document.forms["couponForm"]["maxDis"].value;
+  let start = document.forms["couponForm"]["startDate"].value;
+  let end = document.forms["couponForm"]["endDate"].value;
+  if (couponCode == ""||couponCode.length<5){
+    document.getElementById("codeAknowledgment").innerHTML="Code must contain 6 or more characters"
+    return false
+  }else if (couponProfit == ""){
+    document.getElementById("couponProfitAknowledgment").innerHTML="Please fill coupon profit column"
+    return false
+  }else if (start == ""){
+  }else if (maxDis == ""){
+    document.getElementById("maxDisAknowledgment").innerHTML="Please fill maximum discound column"
+    return false
+  }else if (start == ""){
+    document.getElementById("startAknowledgment").innerHTML="Select a starting date"
+    return false
+  }else if (end == ""){
+    document.getElementById("endAknowledgment").innerHTML="Select a ending date"
+    return false
+  }else{
+    return true
+  }
+}

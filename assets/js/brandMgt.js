@@ -1,32 +1,32 @@
-document.querySelectorAll(".showBrand").forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    const brandId = await event.target.getAttribute("data-user-id");
+// document.querySelectorAll(".showBrand").forEach((btn) => {
+//   btn.addEventListener("click", async (event) => {
+//     const brandId = await event.target.getAttribute("data-user-id");
 
-    try {
-      const response = await fetch(`/admin/brands/${brandId}`);
-      if (response.ok) {
-        const brandData = await response.json();
+//     try {
+//       const response = await fetch(`/admin/brands/${brandId}`);
+//       if (response.ok) {
+//         const brandData = await response.json();
 
-        const categoryElement = document.getElementById("brandDetails");
-        categoryElement.innerHTML = `
-          <img src="${brandData.logo}" width="30%" alt="logo"> 
-            <p>Name: ${brandData.brandName}</p>
-            <p>Description: ${brandData.description}</p>
-            <p>Creates At: ${brandData.date}</p>
+//         const categoryElement = document.getElementById("brandDetails");
+//         categoryElement.innerHTML = `
+//           <img src="${brandData.logo}" width="30%" alt="logo"> 
+//             <p>Name: ${brandData.brandName}</p>
+//             <p>Description: ${brandData.description}</p>
+//             <p>Creates At: ${brandData.date}</p>
             
-          `;
+//           `;
 
-        // Show the modal
-        const Modal = new bootstrap.Modal(document.getElementById("brandShow"));
-        Modal.show();
-      } else {
-        console.error("Error fetching user data");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  });
-});
+//         // Show the modal
+//         const Modal = new bootstrap.Modal(document.getElementById("brandShow"));
+//         Modal.show();
+//       } else {
+//         console.error("Error fetching user data");
+//       }
+//     } catch (error) {
+//       console.error("Error:", error);
+//     }
+//   });
+// });
 
 // document.querySelectorAll(".editBrand").forEach((btn) => {
 //   btn.addEventListener("click", async (event) => {
@@ -124,7 +124,7 @@ document.querySelectorAll(".editBrand").forEach((btn) => {
           <input type="file" class="form-control" id="brandLogoInput" name="brandLogoInput">
           </div>
           <div id="imageContainer">
-            <img id="croppedBrandLogo" name="croppedBrandLogo" src="#" alt="Cropped Image">
+            <img id="croppedBrandLogo" name="croppedBrandLogo" src="#" alt="Cropped Image" hidden>
           </div>
           <div class="form-floating mb-3 mt-3">
           <input type="text" class="form-control" id="name" value="${

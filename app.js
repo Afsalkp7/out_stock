@@ -52,6 +52,7 @@ app.use("/admin/brands", require("./server/routes/admin/brandRouter"));
 app.use("/admin/categories", require("./server/routes/admin/categoryRouter"));
 app.use("/admin/banners",require("./server/routes/admin/bannersRouter"))
 app.use("/admin/orders",require("./server/routes/admin/orderRouter"))
+app.use("/admin/coupons",require("./server/routes/admin/couponRouter"))
 
 
 

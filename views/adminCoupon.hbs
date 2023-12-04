@@ -16,14 +16,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/style2.css">
-
-  <!-- Include Cropper.js library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 
 <body>
@@ -53,7 +45,7 @@
                 <li>
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/admin/brands"><span class="fa fa-trophy mr-3"></span>Brands</a>
                 </li>
                 <li>
@@ -71,12 +63,13 @@
                 <li>
                     <a href="/admin/banners"><span class="fa fa-support mr-3"></span> Banners</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/coupons"><span class="fa fa-support mr-3"></span> Coupons</a>
                 </li>
                 <li>
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="fa fa-sign-out mr-3"></span>
-                        Sign Out</a>
+                        Sign
+                        Out</a>
                 </li>
             </ul>
         </nav>
@@ -85,46 +78,51 @@
         <div id="content" class="p-4 p-md-5 pt-5">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.jpg" width="200px" alt="logo"></a>
-                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.jpg" width="200px"
+                            alt="logo"></a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto">
-                            <a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><img src="/img/person1.png" alt="admin" width="40px"></a>
+                            <a data-bs-toggle="modal" href="#exampleModalToggle" role="button"><img
+                                    src="/img/person1.png" alt="admin" width="40px"></a>
                         </div>
                     </div>
                 </div>
             </nav>
             <div class="ms-auto d-flex justify-content-end w-100 mt-3">
-                <a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addBrandModal">Add Brand</a>
+                <a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addCouponModal">Add Coupon</a>
             </div>
             <div class="container ">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Logo</th>
-                            <th scope="col"> Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col">Last update</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Profit</th>
+                            <th scope="col"> Maximum discound</th>
+                            <th scope="col">Starting date</th>
+                            <th scope="col">Ending date</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each brands}}
+                        {{#each coupons}}
 
 
                         <tr>
                             <td>-</td>
-                            <td><img src="{{this.logo}}" width="50px" alt="logo" style="border-radius: 10px;"></td>
-                            <td>{{this.brandName}}</td>
-                            <td>{{this.description}}</td>
-                            <td>{{this.date}}</td>
-                            <td>{{this.updateAt}}</td>
+                            <td>{{this.couponCode}}</td>
+                            <td>{{this.couponType}}</td>
+                            <td>{{this.couponProfit}}</td>
+                            <td>{{this.maxDis}}</td>
+                            <td>{{this.startDate}}</td>
+                            <td>{{this.endDate}}</td>
 
-                            <td><a href="/admin/brands/{{this._id}}" class=" btn btn-light ms-2"><img src="/img/eye.png" width="15px" alt=""></a><a
+                            <td><a href="/admin/coupon/{{this._id}}" class=" btn btn-light ms-2"><img src="/img/eye.png" width="15px" alt=""></a><a
                                     class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
                                         src="/img/delete.png" width="15px" alt=""></a></td>
                         </tr>
@@ -132,24 +130,63 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
 
+    {{!-- modal --}}
+
+    <div class="modal fade" id="addCouponModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">COUPON</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form name="couponForm" onsubmit="return validateCouponForm()" method="POST">
+                        <div class="mb-3 mt-3">
+                            <label for="couponCode">Coupon code</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="couponCode" name="couponCode">
+                            <p class="text-danger" id="codeAknowledgment"></p>
+                        </div>
+                        <div class=" mb-3">
+                            <label for="couponType">Coupon type</label>
+                            <select  class="form-control" style="background-color: rgb(226, 226, 226);" id="couponType" name="couponType">
+                                <option value="₹">₹</option>
+                                <option value="%">%</option>
+                            </select>
+                            <p class="text-danger" id="typeAknowledgment"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="couponProfit">Coupon Profit</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="couponProfit" name="couponProfit">
+                            <p class="text-danger" id="couponProfitDisAknowledgment"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maxDis">Maximun discound</label>
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="maxDis" name="maxDis">
+                            <p class="text-danger" id="maxDisAknowledgment"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="startDate">Starting date</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate">
+                            <p class="text-danger" id="startAknowledgment"></p>
+                        </div>
+                        <div class=" mb-3">
+                            <label for="endDate">Ending date</label>
+                            <input type="date" class="form-control" id="endDate" name="endDate">
+                            <p class="text-danger" id="endAknowledgment"></p>
+                        </div>                        
+                        <button type="submit" class="btn btn-dark">ADD TO COUPON</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    {{!-- modal --}}
 
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
         tabindex="-1">
@@ -237,67 +274,8 @@
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="addBrandModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">BRANDS</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form name="myForm" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3 mt-3">
-                            <label for="brandName">Brand Name</label>
-                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
-                                id="brandName" name="brandName">
-                        </div>
-                        <div class=" mb-3">
-                            <label for="logo">Logo</label>
-                            <input type="file" class="form-control" id="logoInput" name="brandLogo">
-                        </div>
-                        <div class="mb-3">
-                            <div id="imageContainer">
-                                <img id="croppedImage" name="croppedImage" src="#" alt="Cropped Image">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <input type="date" hidden class="form-control" id="date" name="date">
-                        </div>
-                        <div class=" mb-3">
-                            <label for="description">Description</label><br>
-                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;"
-                                name="description" rows="2"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="brandShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userTitle"></h5>
-                    <a href="/admin/brands" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
-                </div>
-                <div class="modal-body" id="brandDetails">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <a href="/admin/brands" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="/js/cropper.js"></script>
-    <script src="/js/brandMgt.js"></script>
-    <script src="/js/validation.js"></script>
+<script src="/js/validation.js"></script>
+    <script src="/js/coupon.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.js"></script>

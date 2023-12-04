@@ -72,7 +72,7 @@ function fillAddressFields(firstName, lastName, email, phone, address, address2,
       try {
         const response = await fetch(`/myAddresses/delete/${adrId}`);
         if (response.ok) {
-          const addressData = await response.json();
+          const addressData  = await response.json();
           const categoryElement = document.getElementById("addressDetails");
           categoryElement.innerHTML = `
                 <h4>Confirm Delete this address</h4><br>
@@ -118,3 +118,41 @@ function fillAddressFields(firstName, lastName, email, phone, address, address2,
         console.error("Error:", error);
       });
   }
+
+async function redeem(){
+  const grandTotal = document.getElementById("grandTotal").textContent
+  console.log(grandTotal);
+  const code = document.getElementById("couponCode").value
+  try {
+    const response = await fetch(`/checkout/coupon/${code}`);
+    if (response.ok){
+      const couponData = await response.json();
+      console.log(couponData);
+      let discound;
+      let grandToCheck;
+      if (couponData.couponType == "%"){
+        discound = parseInt((grandTotal*couponData.couponProfit)/100);
+        console.log(discound);
+        if (discound > couponData.maxDis){
+          grandToCheck = grandTotal - couponData.maxDis
+        }else{
+          grandToCheck = grandTotal - discound
+        }
+        console.log(grandToCheck);
+      }
+      fetch("/checkout", {
+        method: "POST",
+        body: JSON.stringify({
+          grandToCheck,
+          discound
+        }),
+        headers: { "Content-Type": "application/json" },
+      })
+
+    }
+    
+  } catch (error) {
+    console.log(error);
+  }
+
+}
