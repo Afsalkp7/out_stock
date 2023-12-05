@@ -31,7 +31,12 @@ const orderSchema = mongoose.Schema({
     },
     pin : {
         type : Number
-    }
+    },
+    couponId : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'coupon'
+    },
+
 })
 const Order = mongoose.model("Order",orderSchema);
 

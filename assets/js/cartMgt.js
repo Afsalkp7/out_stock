@@ -161,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const discound = document.getElementById("discound");
     let grand = parseInt(total.textContent) - parseInt(discound.textContent)
     grandTotal.textContent = grand
-    document.getElementById("grandToCheck").value = grand
 })
 
 
@@ -195,3 +194,4 @@ function updateQuantity(id,change){
     document.getElementById("grandToCheck").value = grand
   } 
 }
+

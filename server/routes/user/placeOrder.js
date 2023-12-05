@@ -15,7 +15,7 @@ var razorpay = new Razorpay({
 
 router.post("/", authCart, async (req, res) => {
   const userId = req.userId;
-  const { orderId, paymentMethod, grandTotal } = req.body;
+  const { orderId, paymentMethod } = req.body;
   const cartItems = await CartItem.find({ userId });
   const orderedProducts = [];
   for (let cartItem of cartItems) {
@@ -23,7 +23,16 @@ router.post("/", authCart, async (req, res) => {
     const quantity = cartItem.quantity;
     orderedProducts.push({ productId, quantity });
   }
-  console.log(orderedProducts);
+
+  let grandTotal = 0;
+  for (let i = 0; i < orderedProducts.length; i++) {
+    var qty = orderedProducts[i].quantity;
+    var product = await Product.findById(orderedProducts[i].productId);
+    var price = product.price;
+    var total = price * qty;
+    grandTotal += total;
+  }
+
   if (paymentMethod == "cash on delivery") {
     try {
       const orderData = new PlaceOrder({
@@ -37,36 +46,42 @@ router.post("/", authCart, async (req, res) => {
       await orderData.save();
       const deleteCart = await CartItem.deleteMany({ userId });
       if (deleteCart) {
-        const address = await Order.findById(orderData.addressId);
-        const orderedItems = orderData.orderItems;
-        console.log(orderedItems);
-        let orders = [];
-        let sum = 0;
-        for (let ordereditem of orderedItems) {
-          const productId = ordereditem.productId;
-          const qty = ordereditem.quantity;
-          const productData = await Product.findById(productId);
-          let newQty = productData.quantity - qty;
-          await Product.updateOne(
-            { _id: productId },
-            { $set: { quantity: newQty } }
-          );
-          sum = sum + productData.price * qty;
-          orders.push({ productData, qty });
-        }
-
-        return res.render("orderSummery", {
-          ordered: true,
-          address,
-          orderData,
-          orders,
-          sum,
-        });
+        res.json(orderData);
       }
     } catch (error) {
       res.render("error", { error });
     }
   }
+});
+
+router.get("/:id", async (req, res) => {
+  const orderId = req.params.id;
+  const orderData = await PlaceOrder.findById(orderId);
+  const address = await Order.findById(orderData.addressId);
+  const orderedItems = orderData.orderItems;
+  console.log(orderedItems);
+  let orders = [];
+  let sum = 0;
+  for (let ordereditem of orderedItems) {
+    const productId = ordereditem.productId;
+    const qty = ordereditem.quantity;
+    const productData = await Product.findById(productId);
+    let newQty = productData.quantity - qty;
+    await Product.updateOne(
+      { _id: productId },
+      { $set: { quantity: newQty } }
+    );
+    sum = sum + productData.price * qty;
+    orders.push({ productData, qty });
+  }
+
+  return res.render("orderSummery", {
+    ordered: true,
+    address,
+    orderData,
+    orders,
+    sum,
+  });
 });
 
 router.post("/create/orderId", (req, res) => {

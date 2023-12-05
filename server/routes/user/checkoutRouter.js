@@ -5,10 +5,9 @@ const userCollection = require("../../model/userModel");
 const CartItem = require("../../model/cartModel");
 const { authCart } = require("../../middlewere/user_auth");
 const Order = require("../../model/oraderModel");
-const Coupon=require("../../model/couponModel")
+const Coupon = require("../../model/couponModel");
 
-router.post("/", authCart, async (req, res) => {
-  
+router.get("/", authCart, async (req, res) => {
   const userId = req.userId;
   const orderAddress = await Order.find({ userId });
   const cartItems = await CartItem.find({ userId });
@@ -23,9 +22,8 @@ router.post("/", authCart, async (req, res) => {
       cartProducts.push({ cartContent, quantity });
     }
   }
-  const grandTotal = req.body.grandToCheck;
-  console.log(grandTotal, cartProducts, orderAddress);
-  res.render("checkout", { grandTotal, cartProducts, orderAddress });
+  console.log( cartProducts, orderAddress);
+  return res.render("checkout", { orderAddress,cartProducts });
 });
 
 router.post("/order", authCart, async (req, res) => {
@@ -41,30 +39,45 @@ router.post("/order", authCart, async (req, res) => {
     state,
     pin,
     id,
-    grandTotal,
+    couponId,
   } = req.body;
   if (id) {
-    const existAdress = await Order.findOne({ userId, _id: id });
+    const existAdress = await Order.findOne({ userId, _id : id });
     if (existAdress) {
       const updateAddress = await Order.updateOne(
-        { _id:id },
-        { $set: req.body }
+        { _id: id },
+        {
+          $set: {
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+            address2,
+            country,
+            state,
+            pin,
+            id,
+            couponId,
+          },
+        }
       );
       if (updateAddress) {
         const checkOutData = await Order.findOne({ userId, _id: id });
-        const cartItems = await CartItem.find({ userId });
-        const cartProducts = [];
+        // const cartItems = await CartItem.find({ userId });
+        // const cartProducts = [];
 
-        for (let cartItem of cartItems) {
-          const productId = cartItem.productId;
-          const quantity = cartItem.quantity;
+        // for (let cartItem of cartItems) {
+        //   const productId = cartItem.productId;
+        //   const quantity = cartItem.quantity;
 
-          const cartContent = await Product.find({ _id: productId });
-          if (cartContent) {
-            cartProducts.push({ cartContent, quantity });
-          }
-        }
-        return res.render("payment", { grandTotal , checkOutData , cartProducts});
+        //   const cartContent = await Product.find({ _id: productId });
+        //   if (cartContent) {
+        //     cartProducts.push({ cartContent, quantity });
+        //   }
+        // }
+        console.log("checkOutData",checkOutData);
+         res.json(checkOutData);
       }
     }
   } else {
@@ -79,9 +92,31 @@ router.post("/order", authCart, async (req, res) => {
       country,
       state,
       pin,
+      couponId
     });
     await checkOutData.save();
-    const cartItems = await CartItem.find({ userId });
+    // const cartItems = await CartItem.find({ userId });
+    // const cartProducts = [];
+
+    // for (let cartItem of cartItems) {
+    //   const productId = cartItem.productId;
+    //   const quantity = cartItem.quantity;
+
+    //   const cartContent = await Product.find({ _id: productId });
+    //   if (cartContent) {
+    //     cartProducts.push({ cartContent, quantity });
+    //   }
+    // }
+    console.log("checkOutData",checkOutData);
+    res.json(checkOutData);
+  }
+});
+
+router.get("/order/:id", authCart , async (req, res) => {
+  const userId = req.userId;
+  const addressId = req.params.id;
+  const checkOutData = await Order.findOne({ userId, _id : addressId })
+  const cartItems = await CartItem.find({ userId });
     const cartProducts = [];
 
     for (let cartItem of cartItems) {
@@ -93,8 +128,14 @@ router.post("/order", authCart, async (req, res) => {
         cartProducts.push({ cartContent, quantity });
       }
     }
-    res.render("payment", { grandTotal , checkOutData , cartProducts });
-  }
+    if(checkOutData.couponId){
+      let coupon = await Coupon.findOne({_id:checkOutData.couponId})
+      console.log(coupon);
+      res.render("payment",{checkOutData,cartProducts,coupon,couponApplied:true})
+    }else{
+      res.render("payment",{checkOutData,cartProducts})
+    }
+  
 });
 
 router.get("/delete/:id", async (req, res) => {
@@ -119,17 +160,25 @@ router.delete("/", async (req, res) => {
   return res.json(deleteAddress);
 });
 
-router.get("/coupon/:code",authCart,async(req,res)=>{
-  const userId = req.userId
-  const code = req.params.code
-  const match = await Coupon.findOne({couponCode:code})
-  if (match){
-    const validity = match.startDate>new Date()<match.endDate
-    if (validity){
-      res.json(match)
+router.get("/coupon/:code", authCart, async (req, res) => {
+  const userId = req.userId;
+  const code = req.params.code;
+  const match = await Coupon.findOne({ couponCode: code });
+  if (match) {
+    const validity = match.startDate > new Date() < match.endDate;
+    if (validity) {
+      res.json(match);
     }
   }
-  
+});
+
+
+router.post("/coupon/:id",authCart,async(req,res)=>{
+  const couponId = req.params.id;
+
 })
+
+
+
 
 module.exports = router;

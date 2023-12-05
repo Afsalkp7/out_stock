@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 </head>
 
@@ -66,7 +68,9 @@
                         <span class="badge badge-secondary badge-pill">3</span>
                     </h4>
                     <ul class="list-group mb-3">
-
+                        <script>
+                            var grandTotal = 0
+                        </script>
                         {{#each cartProducts}}
                         {{#each cartContent}}
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -83,7 +87,9 @@
                             var qty = parseInt("{{../quantity}}");
                             var grand = price * qty;
                             document.getElementById("total{{this._id}}").textContent = grand;
-                            console.log()
+                            grandTotal += grand
+                            console.log(grandTotal)
+
                         </script>
                         {{/each}}
                         {{/each}}
@@ -91,19 +97,22 @@
                         <li class="list-group-item d-flex justify-content-between bg-light">
                             <div class="text-danger">
                                 <h6 class="my-0">Promo code</h6>
-                                <small>coupon name</small>
+                                <small id="couponName">coupon name</small>
                             </div>
-                            <span class="text-danger">₹ 0 /-</span>
+                            <span class="text-danger">₹ <span id="grandDiscound">0</span> /-</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span class="text-success">Total (INR)</span>
-                            <strong class="text-success">₹ <span id="grandTotal">{{grandTotal}}</span> /-</strong>
+                            <strong class="text-success">₹ <span id="grandTotal"></span> /-</strong>
                         </li>
                     </ul>
-
-                    <div class="card p-2">
-                            <input type="text" class="form-control" name="couponCode" id="couponCode" placeholder="Coupon code">
-                            <button onclick="redeem()" class="btn btn-secondary">Redeem</button>
+                    <script>
+                        document.getElementById("grandTotal").textContent = grandTotal
+                    </script>
+                    <div class="card p-2" id="couponBox">
+                        <input type="text" class="form-control" name="couponCode" id="couponCode"
+                            placeholder="Coupon code">
+                        <button onclick="redeem()" class="btn btn-secondary">Redeem</button>
                     </div>
                 </div>
                 <div class="col-md-8 order-md-1">
@@ -123,12 +132,11 @@
                                                 {{this.country}}
                                             </p>
                                             <p class="mb-0 text-black font-weight-bold">
-                                                <a class="text-success" href="#"
+                                                <a class="text-success me-2" style="cursor: pointer;"
                                                     onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')">
                                                     SELECT</a>
-                                                <a class="text-primary m-3" href="#"
-                                                    onclick="fillAddressFields('{{this.firstName}}', '{{this.lastName}}', '{{this.email}}', '{{this.phone}}', '{{this.address}}', '{{this.address2}}', '{{this.country}}', '{{this.state}}', '{{this.pin}}','{{this._id}}')">EDIT</a>
-                                                <a class="deleteAddress text-danger" data-id="{{this._id}}"
+
+                                                <a class="deleteAddress text-danger ms-2" data-id="{{this._id}}"
                                                     style="cursor: pointer;"> DELETE</a>
                                             </p>
                                         </div>
@@ -139,10 +147,9 @@
                         {{/each}}
                     </div>
 
-                    <form name="checkForm" onsubmit="return checkValidation()" action="/checkout/order" method="post">
+                    <form name="checkForm" id="checkForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <input type="text" class="form-control" name="grandTotal" value="{{grandTotal}}" hidden>
                                 <label for="firstName">First name</label>
                                 <input type="text" class="form-control" id="firstName" name="firstName">
                                 <p id="fNameAknwoledgment" style="color: red; display: none;">Fill valid first name!!!
@@ -207,9 +214,11 @@
                                 </p>
                             </div>
                             <input type="text" id="id" name="id" hidden>
+                            <input type="text" id="couponId" name="couponId" hidden>
                         </div>
                         <hr class="mb-4">
-                        <button class="btn btn-dark w-100  btn-block" type="submit">Continue to order summery</button>
+                        <button class="btn btn-dark w-100  btn-block" type="button"
+                            onclick="return (checkValidation()&&saveAddress())">Continue to order summery</button>
                     </form>
                     <br>
                 </div>

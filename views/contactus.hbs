@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/productCard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+</head>
+
+<body>
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 w-100 bg-light"
+            style="position: fixed; z-index:5">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.png" width="200px"
+                        alt="logo"></a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-5">
+                        <a href="/" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Home</a>
+                        <a href="/shop" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Shop</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">About</a>
+                        <a href="#" class="nav-item nav-link  ms-5"
+                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto me-3">
+                            <a id="userIcons" href="/wish"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/cart"><img src="/img/cart.png" alt="cart" width="30px"></a>
+                        </div>
+                        <div class="navbar-nav me-3">
+                            <a id="userIcons" href="/user"><img src="/img/person1.png" alt="admin" width="30px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="mainShop container-fluid" style="background-color: #f3f1f1; position:relative">
+        <img class="Shopimg img-fluid" src="/img/shopBg.jpg" width="100%">
+        <div class="shopHead"
+            style="text-align: center ; position: absolute; top: 50%;left:50%; transform: translate(-50%,-50%);">
+            <h2>Contact Us</h2>
+            <span style="opacity: .5;">Home/</span><b>Contact Us</b>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+
+                <div class="container">
+                    <h2 class="ms-5 mt-5">Contact us</h2>
+                    <p class="ms-5 mt-3 text-dark"
+                        style="font-size: medium; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                        Outstock is a premium Templates theme with advanced admin module.
+                        It’s extremely customizable, easy to use and fully responsive and retina
+                        ready. Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan
+                        et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue
+                        duis dolore te feugait nulla facilisi.</p>
+
+                    <div class="ms-5">
+                        <form id="contactForm" name="contactForm">
+                            <div class="mb-3 mt-3">
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" id="email" placeholder="Enter email"
+                                    name="email">
+                                <p id="emailMessanger" class="text-danger"></p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customerName">Name:</label>
+                                <input type="text" class="form-control" id="customerName" placeholder="Enter Your Name"
+                                    name="customerName">
+                                <p id="nameMessanger" class="text-danger"></p>
+                            </div>
+
+                            <label for="message">Message:</label>
+                            <textarea class="form-control" rows="5" id="message" name="message"></textarea>
+                            <p id="messageMessanger" class="text-danger"></p>
+                            <button type="button" onclick="return (validContact()&&messageSend())"
+                                class="btn btn-dark w-100 mt-3 mb-5">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+
+                <div class="container mt-3">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82583.96391248333!2d75.80345007582848!3d11.265865454449749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65938563d4747%3A0x32150641ca32ecab!2sKozhikode%2C%20Kerala!5e0!3m2!1sen!2sin!4v1701778900876!5m2!1sen!2sin"
+                        width="600" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/js/shopItem.js"></script>
+        <script src="/js/contactMgt.js"></script>
+        <script src="/js/validation.js"></script>
+</body>
+
+</html>

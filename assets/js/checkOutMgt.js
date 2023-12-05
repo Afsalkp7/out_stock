@@ -11,7 +11,6 @@ function fillAddressFields(firstName, lastName, email, phone, address, address2,
     document.getElementById('id').value = id;
 }
 
-
   document.querySelectorAll(".deleteAddress").forEach((btn) => {
     btn.addEventListener("click", async (event) => {
       const adrId = await event.target.getAttribute("data-id");
@@ -139,15 +138,27 @@ async function redeem(){
           grandToCheck = grandTotal - discound
         }
         console.log(grandToCheck);
+        document.getElementById("grandTotal").innerHTML = grandToCheck
+        document.getElementById("grandDiscound").innerHTML = discound
+        document.getElementById("couponBox").style.display="none"
+        document.getElementById("couponName").innerHTML = couponData.couponCode;
+        document.getElementById("couponId").value = couponData._id;
+        Toastify({
+          text: "Coupon added in discound",
+          duration: 1000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top", 
+          position: "center", 
+          stopOnFocus: true, 
+          style: {
+            background: "black",
+          },
+          
+        }).showToast();
+        
       }
-      fetch("/checkout", {
-        method: "POST",
-        body: JSON.stringify({
-          grandToCheck,
-          discound
-        }),
-        headers: { "Content-Type": "application/json" },
-      })
 
     }
     
@@ -156,3 +167,32 @@ async function redeem(){
   }
 
 }
+
+async function saveAddress(){
+  const form = document.getElementById("checkForm");
+  const formData = new FormData(form);
+  console.log(formData);
+  let body = Object.fromEntries(formData);
+
+  await fetch("/checkout/order", {
+    method: "post",
+    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json" },
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Success:", data);
+    window.location.href=`checkout/order/${data._id}`
+    
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+  
+}
+

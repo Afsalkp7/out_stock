@@ -216,3 +216,23 @@ function validateCouponForm(){
     return true
   }
 }
+function validContact(){
+  let email = document.forms["contactForm"]["email"].value;
+  let name = document.forms["contactForm"]["customerName"].value;
+  let msg = document.forms["contactForm"]["message"].value;
+  let isValidEmail = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+
+  if(email==""||!isValidEmail){
+    document.getElementById("emailMessanger").innerHTML = "Put a valid email..."
+    return false
+  }else if (name==""||name.length<3){
+    document.getElementById("nameMessanger").innerHTML = "Customer name must be include  minimum 3 characters..."
+    return false
+  } else if (msg==""||msg.length<6){
+    document.getElementById("messageMessanger").innerHTML = "Message mustbe include minimum 6 characters..."
+    return false
+  } else {
+    return true
+  } 
+
+}
