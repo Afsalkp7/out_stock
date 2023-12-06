@@ -158,6 +158,34 @@ async function redeem(){
           
         }).showToast();
         
+      }else{
+        discound = parseInt(couponData.couponProfit);
+        console.log(discound);
+        if (discound > grandTotal){
+          grandToCheck = grandTotal - parseInt((discound*50)/100)
+        }else{
+          grandToCheck = grandTotal - discound
+        }
+        console.log(grandToCheck);
+        document.getElementById("grandTotal").innerHTML = grandToCheck
+        document.getElementById("grandDiscound").innerHTML = discound
+        document.getElementById("couponBox").style.display="none"
+        document.getElementById("couponName").innerHTML = couponData.couponCode;
+        document.getElementById("couponId").value = couponData._id;
+        Toastify({
+          text: "Coupon added in discound",
+          duration: 1000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top", 
+          position: "center", 
+          stopOnFocus: true, 
+          style: {
+            background: "black",
+          },
+          
+        }).showToast();
       }
 
     }

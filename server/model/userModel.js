@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
   },
   otp:{
     type : String,
+  },
+  deleted : {
+    type : Boolean,
+    default : false
   }
 });
 

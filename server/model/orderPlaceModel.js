@@ -12,6 +12,10 @@ const placeOrderSchema = mongoose.Schema({
     totalAmount : {
         type : Number
     },
+    discound : {
+        type : Number,
+        default : 0
+    },
     paymentId : {
         type : String
     },

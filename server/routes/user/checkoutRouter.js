@@ -197,8 +197,8 @@ router.get("/coupon/:code", authCart, async (req, res) => {
   }
 });
 
-router.post("/coupon/:id", authCart, async (req, res) => {
-  const couponId = req.params.id;
-});
+// router.post("/coupon/:id", authCart, async (req, res) => {
+//   const couponId = req.params.id;
+// });
 
 module.exports = router;

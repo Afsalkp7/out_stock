@@ -101,17 +101,29 @@
                 <script>
                     document.getElementById("grandTotal").innerHTML = grandTotal
                 </script>
+                var total;
                 {{#if couponApplied}}
-                    <script>
+                    <script>    
                         let couponType = `{{coupon.couponType}}`
                         let profit = `{{coupon.couponProfit}}`
                         let maxDis = `{{coupon.maxDis}}`
-                        let total;
+                        
                         if(couponType=="%"){
                             let discound = parseInt((grandTotal*profit)/100)
                             if(discound>maxDis){
                                 total = grandTotal-maxDis
                                 document.getElementById("discound").innerHTML=maxDis
+                            }else{
+                                total = grandTotal-discound
+                                document.getElementById("discound").innerHTML=discound
+                            }   
+                            document.getElementById("grandTotal").innerHTML=total
+                        }else{
+                            let discound = parseInt(profit)
+                            if(discound>grandTotal){
+                                let dis = parseInt((profit*50)/100)
+                                total = grandTotal-dis
+                                document.getElementById("discound").innerHTML=dis;
                             }else{
                                 total = grandTotal-discound
                                 document.getElementById("discound").innerHTML=discound
@@ -231,90 +243,91 @@
                 };
             })
 
-            function placeOrder() {
-                const paymentMethods = document.getElementsByName('paymentMethod');
+                function placeOrder() {
+                    const paymentMethods = document.getElementsByName('paymentMethod');
 
-                let selectedPaymentMethod;
+                    let selectedPaymentMethod;
 
-                for (const method of paymentMethods) {
-                    if (method.checked) {
-                        selectedPaymentMethod = method.value;
-                        break;
+
+                    for (const method of paymentMethods) {
+                        if (method.checked) {
+                            selectedPaymentMethod = method.value;
+                            break;
+                        }
+                    }
+                    console.log(selectedPaymentMethod)
+                    
+                    if (selectedPaymentMethod === "razorpay") {
+                        fetch('/placeOrder/create/orderId', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ amount: '50000' }), // Adjust the payload as needed
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                var orderId = data.orderId;
+
+                                var options = {
+
+                                    "key": "rzp_test_ggMnfAwdsS6oBl", // Enter the Key ID generated from the Dashboard
+                                    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                    "currency": "INR",
+                                    "name": "Outstock",
+                                    "description": "Buy furniture fron outstock",
+                                    "image": "/img/logo.png",
+                                    "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                    "handler": function (response) {
+                                        alert(response.razorpay_payment_id);
+                                        alert(response.razorpay_order_id);
+                                        alert(response.razorpay_signature);
+
+                                        var settings = {
+                                            "url": "/placeOrder/payment/verify",
+                                            "method": "POST",
+                                            "timeout": 0,
+                                            "headers": {
+                                                "Content-Type": "application/json"
+                                            },
+                                            "data": JSON.stringify({ response }),
+                                        }
+
+
+
+                                    },
+                                    "theme": {
+                                        "color": "#000000"
+                                    }
+                                };
+                                var rzp1 = new Razorpay(options);
+
+                                rzp1.on('payment.failed', function (response) {
+                                    alert(response.error.code);
+                                    alert(response.error.description);
+                                    alert(response.error.source);
+                                    alert(response.error.step);
+                                    alert(response.error.reason);
+                                    alert(response.error.metadata.order_id);
+                                    alert(response.error.metadata.payment_id);
+                                });
+
+                                rzp1.open();
+                                e.preventDefault();
+                            })
+
+
+
+                        $.ajax(settings).done(function (response) {
+
+                            orderId = response.orderId;
+                            console.log(orderId);
+                            $("button").show();
+                        });
+                    } else {
+                        return true
                     }
                 }
-                console.log(selectedPaymentMethod)
-
-                if (selectedPaymentMethod === "razorpay") {
-                    fetch('/placeOrder/create/orderId', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ amount: '50000' }), // Adjust the payload as needed
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            var orderId = data.orderId;
-
-                            var options = {
-
-                                "key": "rzp_test_ggMnfAwdsS6oBl", // Enter the Key ID generated from the Dashboard
-                                "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                                "currency": "INR",
-                                "name": "Outstock",
-                                "description": "Buy furniture fron outstock",
-                                "image": "/img/logo.png",
-                                "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                                "handler": function (response) {
-                                    alert(response.razorpay_payment_id);
-                                    alert(response.razorpay_order_id);
-                                    alert(response.razorpay_signature);
-
-                                    var settings = {
-                                        "url": "/placeOrder/payment/verify",
-                                        "method": "POST",
-                                        "timeout": 0,
-                                        "headers": {
-                                            "Content-Type": "application/json"
-                                        },
-                                        "data": JSON.stringify({ response }),
-                                    }
-
-
-
-                                },
-                                "theme": {
-                                    "color": "#000000"
-                                }
-                            };
-                            var rzp1 = new Razorpay(options);
-
-                            rzp1.on('payment.failed', function (response) {
-                                alert(response.error.code);
-                                alert(response.error.description);
-                                alert(response.error.source);
-                                alert(response.error.step);
-                                alert(response.error.reason);
-                                alert(response.error.metadata.order_id);
-                                alert(response.error.metadata.payment_id);
-                            });
-
-                            rzp1.open();
-                            e.preventDefault();
-                        })
-
-
-
-                    $.ajax(settings).done(function (response) {
-
-                        orderId = response.orderId;
-                        console.log(orderId);
-                        $("button").show();
-                    });
-                } else {
-                    return true;
-                }
-            }
 
             function ordered() {
                 const form = document.getElementById("paymentMethod");

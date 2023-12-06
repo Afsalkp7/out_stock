@@ -7,6 +7,8 @@ const CartItem = require("../../model/cartModel");
 const { authCart } = require("../../middlewere/user_auth");
 const Order = require("../../model/oraderModel");
 const Razorpay = require("razorpay");
+const Coupon = require("../../model/couponModel");
+const { log } = require("console");
 
 var razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_ID_KEY,
@@ -16,7 +18,7 @@ var razorpay = new Razorpay({
 router.post("/", authCart, async (req, res) => {
   const userId = req.userId;
   const { orderId, paymentMethod } = req.body;
-
+  const address = await Order.findById(orderId);
   const cartItems = await CartItem.find({ userId });
   const orderedProducts = [];
   for (let cartItem of cartItems) {
@@ -33,8 +35,31 @@ router.post("/", authCart, async (req, res) => {
     var total = price * qty;
     grandTotal += total;
   }
-
-  
+  var discound=0;
+  if(address.couponId!=undefined){
+    const coupon = await Coupon.findById(address.couponId)
+    let grandToCheck = grandTotal 
+      if (coupon.couponType == "%"){
+        discound = parseInt((grandToCheck*coupon.couponProfit)/100);
+        console.log(discound);
+        if (discound > coupon.maxDis){
+          discound = coupon.maxDis
+          grandTotal = grandToCheck - coupon.maxDis
+        }else{
+          
+          grandTotal = grandToCheck - discound
+        }
+    }else {
+      discound = parseInt(coupon.couponProfit);
+        console.log(discound);
+        if (discound > grandToCheck){
+          discound = parseInt((discound*50)/100);
+          grandTotal = grandToCheck - discound
+        }else{
+          grandTotal = grandToCheck - discound
+        }
+    }
+  }
 
   if (paymentMethod == "cash on delivery") {
     try {
@@ -45,6 +70,7 @@ router.post("/", authCart, async (req, res) => {
         paymentId: paymentMethod,
         orderStatus: "Order Placed",
         orderItems: orderedProducts,
+        discound : discound
       });
       await orderData.save();
       const deleteCart = await CartItem.deleteMany({ userId });
@@ -77,6 +103,17 @@ router.get("/:id", async (req, res) => {
     sum = sum + productData.price * qty;
     orders.push({ productData, qty });
   }
+
+  
+
+  if(address.couponId){
+    await Order.updateOne(
+      { _id: address._id }, 
+      { $unset: { couponId: "" } }, 
+      { multi: false }
+    )
+  }
+  
 
   return res.render("orderSummery", {
     ordered: true,
