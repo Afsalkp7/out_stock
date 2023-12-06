@@ -16,6 +16,7 @@ var razorpay = new Razorpay({
 router.post("/", authCart, async (req, res) => {
   const userId = req.userId;
   const { orderId, paymentMethod } = req.body;
+
   const cartItems = await CartItem.find({ userId });
   const orderedProducts = [];
   for (let cartItem of cartItems) {
@@ -32,6 +33,8 @@ router.post("/", authCart, async (req, res) => {
     var total = price * qty;
     grandTotal += total;
   }
+
+  
 
   if (paymentMethod == "cash on delivery") {
     try {

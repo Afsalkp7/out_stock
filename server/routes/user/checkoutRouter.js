@@ -22,8 +22,8 @@ router.get("/", authCart, async (req, res) => {
       cartProducts.push({ cartContent, quantity });
     }
   }
-  console.log( cartProducts, orderAddress);
-  return res.render("checkout", { orderAddress,cartProducts });
+  console.log(cartProducts, orderAddress);
+  return res.render("checkout", { orderAddress, cartProducts });
 });
 
 router.post("/order", authCart, async (req, res) => {
@@ -42,100 +42,125 @@ router.post("/order", authCart, async (req, res) => {
     couponId,
   } = req.body;
   if (id) {
-    const existAdress = await Order.findOne({ userId, _id : id });
+    const existAdress = await Order.findOne({ userId, _id: id });
     if (existAdress) {
-      const updateAddress = await Order.updateOne(
-        { _id: id },
-        {
-          $set: {
-            firstName,
-            lastName,
-            email,
-            phone,
-            address,
-            address2,
-            country,
-            state,
-            pin,
-            id,
-            couponId,
-          },
+      if (couponId != "") {
+        const updateAddress = await Order.updateOne(
+          { _id: id },
+          {
+            $set: {
+              firstName,
+              lastName,
+              email,
+              phone,
+              address,
+              address2,
+              country,
+              state,
+              pin,
+              id,
+              couponId,
+            },
+          }
+        );
+        if (updateAddress) {
+          const checkOutData = await Order.findOne({ userId, _id: id });
+
+          console.log("checkOutData", checkOutData);
+          res.json(checkOutData);
         }
-      );
-      if (updateAddress) {
-        const checkOutData = await Order.findOne({ userId, _id: id });
-        // const cartItems = await CartItem.find({ userId });
-        // const cartProducts = [];
+      } else {
+        const updateAddress = await Order.updateOne(
+          { _id: id },
+          {
+            $set: {
+              firstName,
+              lastName,
+              email,
+              phone,
+              address,
+              address2,
+              country,
+              state,
+              pin,
+              id,
+            },
+          }
+        );
+        if (updateAddress) {
+          const checkOutData = await Order.findOne({ userId, _id: id });
 
-        // for (let cartItem of cartItems) {
-        //   const productId = cartItem.productId;
-        //   const quantity = cartItem.quantity;
-
-        //   const cartContent = await Product.find({ _id: productId });
-        //   if (cartContent) {
-        //     cartProducts.push({ cartContent, quantity });
-        //   }
-        // }
-        console.log("checkOutData",checkOutData);
-         res.json(checkOutData);
+          console.log("checkOutData", checkOutData);
+          res.json(checkOutData);
+        }
       }
     }
   } else {
-    const checkOutData = new Order({
-      userId,
-      firstName,
-      lastName,
-      email,
-      phone,
-      address,
-      address2,
-      country,
-      state,
-      pin,
-      couponId
-    });
-    await checkOutData.save();
-    // const cartItems = await CartItem.find({ userId });
-    // const cartProducts = [];
-
-    // for (let cartItem of cartItems) {
-    //   const productId = cartItem.productId;
-    //   const quantity = cartItem.quantity;
-
-    //   const cartContent = await Product.find({ _id: productId });
-    //   if (cartContent) {
-    //     cartProducts.push({ cartContent, quantity });
-    //   }
-    // }
-    console.log("checkOutData",checkOutData);
-    res.json(checkOutData);
+    if (couponId != "") {
+      const checkOutData = new Order({
+        userId,
+        firstName,
+        lastName,
+        email,
+        phone,
+        address,
+        address2,
+        country,
+        state,
+        pin,
+        couponId,
+      });
+      await checkOutData.save();
+      console.log("checkOutData", checkOutData);
+      res.json(checkOutData);
+    }else{
+      const checkOutData = new Order({
+        userId,
+        firstName,
+        lastName,
+        email,
+        phone,
+        address,
+        address2,
+        country,
+        state,
+        pin
+      });
+      await checkOutData.save();
+      console.log("checkOutData", checkOutData);
+      res.json(checkOutData);
+    }
   }
 });
 
-router.get("/order/:id", authCart , async (req, res) => {
+router.get("/order/:id", authCart, async (req, res) => {
   const userId = req.userId;
   const addressId = req.params.id;
-  const checkOutData = await Order.findOne({ userId, _id : addressId })
+  const checkOutData = await Order.findOne({ userId, _id: addressId });
   const cartItems = await CartItem.find({ userId });
-    const cartProducts = [];
+  const cartProducts = [];
 
-    for (let cartItem of cartItems) {
-      const productId = cartItem.productId;
-      const quantity = cartItem.quantity;
+  for (let cartItem of cartItems) {
+    const productId = cartItem.productId;
+    const quantity = cartItem.quantity;
 
-      const cartContent = await Product.find({ _id: productId });
-      if (cartContent) {
-        cartProducts.push({ cartContent, quantity });
-      }
+    const cartContent = await Product.find({ _id: productId });
+    if (cartContent) {
+      cartProducts.push({ cartContent, quantity });
     }
-    if(checkOutData.couponId){
-      let coupon = await Coupon.findOne({_id:checkOutData.couponId})
-      console.log(coupon);
-      res.render("payment",{checkOutData,cartProducts,coupon,couponApplied:true})
-    }else{
-      res.render("payment",{checkOutData,cartProducts})
-    }
-  
+  }
+  if (checkOutData.couponId) {
+    let coupon = await Coupon.findOne({ _id: checkOutData.couponId });
+    console.log(coupon);
+    res.render("payment", {
+      checkOutData,
+      cartProducts,
+      coupon,
+      couponApplied: true,
+    });
+  } else {
+    res.render("payment", { checkOutData, cartProducts });
+  }
 });
 
 router.get("/delete/:id", async (req, res) => {
@@ -172,13 +197,8 @@ router.get("/coupon/:code", authCart, async (req, res) => {
   }
 });
 
-
-router.post("/coupon/:id",authCart,async(req,res)=>{
+router.post("/coupon/:id", authCart, async (req, res) => {
   const couponId = req.params.id;
-
-})
-
-
-
+});
 
 module.exports = router;

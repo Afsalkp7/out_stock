@@ -39,3 +39,57 @@ async function messageSend() {
     console.error("Error:", error);
   });
 }
+
+document.querySelectorAll('.showMsg').forEach(btn => {
+    btn.addEventListener('click', async (event) => {
+        const msgId = await event.target.getAttribute('data-user-id');
+        window.location.href=`/admin/messages/${msgId}`
+    })
+})
+
+
+document.querySelectorAll('.deleteMsg').forEach(btn => {
+    btn.addEventListener('click', async (event) => {
+        const msgId = await event.target.getAttribute('data-user-id');
+        const response = await fetch(`/admin/messages/delete/${msgId}`)
+        if (response.ok) {
+            const msgData = await response.json();
+    
+            const categoryElement = document.getElementById("msgDetails");
+            categoryElement.innerHTML = `
+              <h4>Confirm Delete Message Data</h4><br>
+              <form id="deleteData">
+                <input type="hidden" name="_id" value="${msgData._id}">
+                <button type="button" onclick="deleteMessage()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Confirm Delete</button>
+              </form>
+            `;
+            const Modal = new bootstrap.Modal(document.getElementById("msgDelete"));
+            Modal.show();
+          } else {
+            console.error("Error fetching user data");
+          }
+        })
+      });
+
+function deleteMessage(){
+    const form = document.getElementById("deleteData");
+  const formData = new FormData(form);
+  fetch("/admin/messages/delete", {
+    method: "DELETE",
+    body: JSON.stringify(Object.fromEntries(formData)),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Success:", data);
+      window.location.href = "/admin/messages";
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
