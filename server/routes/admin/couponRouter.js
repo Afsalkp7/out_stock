@@ -9,6 +9,12 @@ router.get("/",auth,async (req,res)=>{
     res.render("adminCoupon",{coupons})
 })
 
+router.get("/:id",async (req,res) => {
+    const couponId = req.params.id;
+    const coupon = await Coupon.findById(couponId)
+    res.render("adminCouponSingle",{coupon})
+})
+
 router.post("/",async (req,res)=>{
     console.log(req.body);
     const { couponCode,couponType,couponProfit,maxDis,startDate,endDate } = req.body;
@@ -28,5 +34,12 @@ router.post("/",async (req,res)=>{
        return res.redirect("/admin/coupons")
     }
 })
+
+// router.get("/update/:id",async(req,res)=>{
+//     const couponId = req.params.id;
+//     const coupon = await Coupon.findById(couponId)
+//     console.log(coupon);
+//     return res.json(coupon)
+// })
 
 module.exports = router

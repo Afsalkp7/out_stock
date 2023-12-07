@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/payment.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/style2.css">
 </head>
@@ -92,45 +93,37 @@
                     </div>
                 </div>
             </nav>
-            <div class="ms-auto d-flex justify-content-end w-100 mt-3">
-                <a class="btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#addCouponModal">Add Coupon</a>
-            </div>
-            <div class="container ">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Value</th>
-                            <th scope="col"> Maximum discound</th>
-                            <th scope="col">Starting date</th>
-                            <th scope="col">Ending date</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each coupons}}
+            <div class="container" id="totalBody">
+                <div class="form mt-5">
 
-
-                        <tr>
-                            <td>-</td>
-                            <td>{{this.couponCode}}</td>
-                            <td>{{this.couponType}}</td>
-                            <td>{{this.couponProfit}}</td>
-                            <td>{{this.maxDis}}</td>
-                            <td>{{this.startDate}}</td>
-                            <td>{{this.endDate}}</td>
-
-                            <td><a class="showCoupon btn btn-light ms-2" href="/admin/coupons/{{this._id}}"><img src="/img/eye.png" width="15px" alt=""></a><a
-                                    class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/delete.png" width="15px" alt=""></a></td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="firstname">COUPON CODE</span>
+                            <input class="field__input" type="text" id="firstname" value="{{coupon.couponCode}}"
+                                readonly />
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="lastname">COUPON VALUE</span>
+                            <input class="field__input text-dark" type="text" id="lastname"
+                                value="{{coupon.couponProfit}}" readonly />
+                        </label>
+                    </div>
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="address">COUPON TYPE</span>
+                            <input class="field__input text-dark" type="text" id="lastname"
+                                value="{{coupon.couponType}}" readonly />
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="address">MAXIMUM DISCOUND</span>
+                            <input class="field__input text-dark" type="text" id="lastname" value="{{coupon.maxDis}}"
+                                readonly />
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 
     {{!-- modal --}}
@@ -153,7 +146,8 @@
                         </div>
                         <div class=" mb-3">
                             <label for="couponType">Coupon type</label>
-                            <select  class="form-control" style="background-color: rgb(226, 226, 226);" id="couponType" name="couponType">
+                            <select class="form-control" style="background-color: rgb(226, 226, 226);" id="couponType"
+                                name="couponType">
                                 <option value="₹">₹</option>
                                 <option value="%">%</option>
                             </select>
@@ -161,12 +155,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="couponProfit">Coupon Value</label>
-                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="couponProfit" name="couponProfit">
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="couponProfit" name="couponProfit">
                             <p class="text-danger" id="couponProfitDisAknowledgment"></p>
                         </div>
                         <div class="mb-3">
                             <label for="maxDis">Maximun discound</label>
-                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="maxDis" name="maxDis">
+                            <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);"
+                                id="maxDis" name="maxDis">
                             <p class="text-danger" id="maxDisAknowledgment"></p>
                         </div>
                         <div class="mb-3">
@@ -178,7 +174,7 @@
                             <label for="endDate">Ending date</label>
                             <input type="date" class="form-control" id="endDate" name="endDate">
                             <p class="text-danger" id="endAknowledgment"></p>
-                        </div>                        
+                        </div>
                         <button type="submit" class="btn btn-dark">ADD TO COUPON</button>
                     </form>
                 </div>
@@ -274,20 +270,20 @@
     </div>
 
 
-<div class="modal fade" id="couponShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="userTitle"></h5>
-          <a href="/admin/coupons" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+    <div class="modal fade" id="couponShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userTitle"></h5>
+                    <a href="/admin/coupons" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                </div>
+                <div class="modal-body" id="couponDetails">
+                    ...
+                </div>
+            </div>
         </div>
-        <div class="modal-body" id="couponDetails">
-          ...
-        </div>
-      </div>
     </div>
-  </div>  
 
     <script src="/js/validation.js"></script>
     <script src="/js/coupon.js"></script>

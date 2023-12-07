@@ -16,6 +16,7 @@ var razorpay = new Razorpay({
 });
 
 router.post("/", authCart, async (req, res) => {
+  console.log(req.body);
   const userId = req.userId;
   const { orderId, paymentMethod } = req.body;
   const address = await Order.findById(orderId);
@@ -62,6 +63,25 @@ router.post("/", authCart, async (req, res) => {
   }
 
   if (paymentMethod == "cash on delivery") {
+    try {
+      const orderData = new PlaceOrder({
+        userId,
+        addressId: orderId,
+        totalAmount: grandTotal,
+        paymentId: paymentMethod,
+        orderStatus: "Order Placed",
+        orderItems: orderedProducts,
+        discound : discound
+      });
+      await orderData.save();
+      const deleteCart = await CartItem.deleteMany({ userId });
+      if (deleteCart) {
+        res.json(orderData);
+      }
+    } catch (error) {
+      res.render("error", { error });
+    }
+  }else{
     try {
       const orderData = new PlaceOrder({
         userId,
