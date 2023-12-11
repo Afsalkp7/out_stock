@@ -93,11 +93,23 @@ route.get("/", auth , async (req,res) => {
         }
     ])
 
-    
-    console.log(lastMonthOrders.length);
+    const YearOrdersAmount = []
+    for (i=0 ; i<12 ; i++) {
+        var targetMonth =  i;
+        
+        var filteredData = lastMonthOrders.filter((obj)=> {
+            return obj.orderedDate.getMonth() === targetMonth;
+        })
+        var grandTotalSum = 0;
+        for (j=0 ; j<filteredData.length;j++) {
+            grandTotalSum+=filteredData[j].totalAmount
+        }
+        YearOrdersAmount.push(grandTotalSum)
+    }
+    console.log(YearOrdersAmount);
 
 
-    res.render("adminReport", {admin,orderCount,weekOrdersAmount} )
+    res.render("adminReport", {admin,orderCount,weekOrdersAmount,YearOrdersAmount} )
 })
 
 

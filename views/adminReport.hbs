@@ -251,6 +251,7 @@
         });
     </script>
     <script>
+        const YearOrdersAmount = [{{YearOrdersAmount}}]
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
 
@@ -259,18 +260,18 @@
             // Set Data
             const data = google.visualization.arrayToDataTable([
                 ['Months', 'Mhl'],
-                ['jan', 54.8],
-                ['feb', 48.6],
-                ['mar', 44.4],
-                ['apr', 23.9],
-                ['may', 14.5],
-                ['jun', 14.5],
-                ['jul', 14.5],
-                ['aug', 14.5],
-                ['sep', 14.5],
-                ['oct', 14.5],
-                ['nov', 14.5],
-                ['dec', 14.5],
+                ['jan', YearOrdersAmount[0]],
+                ['feb', YearOrdersAmount[1]],
+                ['mar', YearOrdersAmount[2]],
+                ['apr', YearOrdersAmount[3]],
+                ['may', YearOrdersAmount[4]],
+                ['jun', YearOrdersAmount[5]],
+                ['jul', YearOrdersAmount[6]],
+                ['aug', YearOrdersAmount[7]],
+                ['sep', YearOrdersAmount[8]],
+                ['oct', YearOrdersAmount[9]],
+                ['nov', YearOrdersAmount[10]],
+                ['dec', YearOrdersAmount[11]],
             ]);
 
             // Set Options
