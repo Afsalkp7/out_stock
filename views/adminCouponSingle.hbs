@@ -50,7 +50,7 @@
                     <a href="/admin/brands"><span class="fa fa-trophy mr-3"></span>Brands</a>
                 </li>
                 <li>
-                    <a href="/admin/reviews"><span class="fa fa-cog mr-3"></span> Reviews</a>
+                    <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
                     <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
@@ -120,7 +120,57 @@
                                 readonly />
                         </label>
                     </div>
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="address">COUPON START DATE</span>
+                            <input class="field__input text-dark" type="text" id="lastname"
+                                value="{{coupon.startDate}}" readonly />
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="address">COUPON END DATE</span>
+                            <input class="field__input text-dark" type="text" id="lastname" value="{{coupon.endDate}}"
+                                readonly />
+                        </label>
+                    </div>
                 </div>
+                <a class="btn btn-dark text-white mt-3" href="/admin/coupons">BACK</a>
+                <a class="btn btn-dark text-white mt-3" >EDIT COUPON</a>
+                <form class="mt-3">
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="updateCouponCode">COUPON CODE</span>
+                            <input class="field__input" type="text" id="updateCouponCode" name="updateCouponCode" value="{{coupon.couponCode}}"/>
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="updateCouponProfit">COUPON VALUE</span>
+                            <input class="field__input text-dark" type="text" id="updateCouponProfit" name="updateCouponProfit" value="{{coupon.couponProfit}}"/>
+                        </label>
+                    </div>
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="updateCouponType">COUPON TYPE</span>
+                            <input class="field__input text-dark" type="text" id="updateCouponType" name="updateCouponType" value="{{coupon.couponType}}"/>
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="updateMaxDis">MAXIMUM DISCOUND</span>
+                            <input class="field__input text-dark" type="text" id="updateMaxDis" name="updateMaxDis" value="{{coupon.maxDis}}"/>
+                        </label>
+                    </div>
+                    <div class="fields fields--2">
+                        <label class="field">
+                            <span class="field__label" for="updateStartDate">COUPON START DATE</span>
+                            <div class="field__input text-dark">{{coupon.startDate}}</div>
+                            <input class="mt-2" type="date" name="updateStartDate" id="updateStartDate">
+                            
+                        </label>
+                        <label class="field">
+                            <span class="field__label" for="address">COUPON END DATE</span>
+                            <div class="field__input text-dark">{{coupon.endDate}}</div>
+                            <input class="mt-2" type="date" name="" id="">
+                        </label>
+                    </div>
+                    <button type="button" class="btn btn-dark"> UPDATE </button>
+                </form>
             </div>
         </div>
     </div>

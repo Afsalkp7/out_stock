@@ -55,6 +55,7 @@ app.use("/admin/banners",require("./server/routes/admin/bannersRouter"))
 app.use("/admin/orders",require("./server/routes/admin/orderRouter"))
 app.use("/admin/coupons",require("./server/routes/admin/couponRouter"))
 app.use("/admin/messages",require("./server/routes/admin/messageRouter"))
+app.use("/admin/report",require("./server/routes/admin/reportRouter"))
 
 
 

@@ -100,8 +100,9 @@
                 </ul>
                 <script>
                     document.getElementById("grandTotal").innerHTML = grandTotal
+                    var total;
                 </script>
-                var total;
+                
                 {{#if couponApplied}}
                 <script>
                     let couponType = `{{coupon.couponType}}`
@@ -207,12 +208,14 @@
                             <label for="razorPay"
                                 style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">RAZORPAY</label><br>
                         </div>
+                        
                         <div class="mt-5 mb-5">
                             <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cash on delivery">
                             <label for="cashOnDelivery"
-                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">CASH
-                                ON DELEVERY</label><br><br>
+                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">CASH ON DELEVERY
+                            </label><br><br>
                         </div>
+
                         <p id="paymentAlert" style="display: none;">Select any payment method is must</p>
 
                         <input type="button"
@@ -347,7 +350,16 @@
                         console.log(orderId);
                         $("button").show();
                     });
-                } else {
+                }else if(selectedPaymentMethod === "paypal") {
+                    fetch('/placeOrder/paypal', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ amount }), // Adjust the payload as needed
+                    })
+                }
+                 else {
                     return true
                 }
             }

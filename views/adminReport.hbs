@@ -16,12 +16,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/style2.css">
-    <!-- Include Cropper.js library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -54,7 +50,7 @@
                 <li>
                     <a href="/admin/brands"><span class="fa fa-trophy mr-3"></span>Brands</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
@@ -66,7 +62,7 @@
                 <li>
                     <a href="/admin/messages"><span class="fa fa-support mr-3"></span> Messages</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/admin/banners"><span class="fa fa-support mr-3"></span> Banners</a>
                 </li>
                 <li>
@@ -74,7 +70,8 @@
                 </li>
                 <li>
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span class="fa fa-sign-out mr-3"></span>
-                        Sign Out</a>
+                        Sign
+                        Out</a>
                 </li>
             </ul>
         </nav>
@@ -97,63 +94,47 @@
                     </div>
                 </div>
             </nav>
-            <div class="ms-auto d-flex justify-content-end w-100 mt-3"><a class="btn btn-dark text-light"
-                    data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Banner</a></div>
-            <div class="container ">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Logo</th>
-                            <th scope="col"> Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Destination</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col">Expire</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each banners}}
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="container col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                        <div class="card text-center">
+                            <h5 class="text-primary">TOTAL ORDERS</h5><span
+                                style="font-size: 40px; text-align: center; font-weight: bold;">{{orderCount.totalOrders}}</span>
+                        </div>
+                    </div>
+                    <div class="container col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                        <div class="card text-center">
+                            <h5 class="text-danger">CANCELLED ORDERS</h5><span
+                                style="font-size: 40px; text-align: center; font-weight: bold;">{{orderCount.cancelled}}</span>
+                        </div>
+                    </div>
+                    <div class="container col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                        <div class="card text-center">
+                            <h5 class="text-success">DELIVERED ORDERS</h5><span
+                                style="font-size: 40px; text-align: center; font-weight: bold;">{{orderCount.delivered}}</span>
+                        </div>
+                    </div>
+                    <div class="container col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
+                        <div class="card text-center">
+                            <h5 class="text-warning">PENDING ORDERS</h5><span
+                                style="font-size: 40px; text-align: center; font-weight: bold;">{{orderCount.pendingOrders}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <canvas id="myChart" style="width:100%;max-width:50%;"></canvas>
+                    <div id="myPIChart" style="width:100%; max-width:40%;">
+                    </div>
+                </div>
 
 
-                        <tr>
-                            <td>-</td>
-                            <td><img src="{{this.bannerImage}}" width="50px" alt="logo"></td>
-                            <td>{{this.bannerName}}</td>
-                            <td>{{this.description}}</td>
-                            <td>{{this.place}}</td>
-                            <td>{{this.status}}</td>
-                            <td>{{this.date}}</td>
-                            <td>{{this.expirationDate}}</td>
 
-                            <td><a class="showBanner btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/eye.png" width="15px" alt=""></a><a
-                                    class="editBanner btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/editIcon.png" width="15px" alt=""></a><a
-                                    class="deleteBanner btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/delete.png" width="15px" alt=""></a></td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
             </div>
+
 
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     {{!-- modal --}}
@@ -244,101 +225,66 @@
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form name="bannerForm" action="/admin/banners" onsubmit="validateBannerForm()"
-                        method="POST" enctype="multipart/form-data">
-                        <div class="mb-3 mt-3">
-                            <label for="bannerName">Banner Name</label>
-                            <input type="text" class="form-control text-dark"
-                                style="background-color: rgb(226, 226, 226);" id="bannerName"
-                                placeholder="Enter banner name" name="bannerName">
-                        </div>
-                        <div class=" mb-3">
-                            <label for="bannerImage">Add image</label><br>
-                            <input type="file" id="bannerImage" name="bannerImage">
-                        </div>
-                         <div class="mb-3">
-                            <div id="imageContainer">
-                                <img id="croppedImage" name="croppedImage" src="#" alt="Cropped Image">
-                            </div>
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="status">Status</label>
-                            <select class="form-control" style="background-color: rgb(226, 226, 226);" id="status"
-                                name="status">
-                                <option class="bg-dark text-light" value="Enable">Enable</option>
-                                <option class="bg-dark text-light" value="Disable">Disable</option>
-                            </select>
-                        </div>
-                         <div class="mb-3 mt-3">
-                            <label for="place">Destination</label>
-                            <select class="form-control" style="background-color: rgb(226, 226, 226);" id="place"
-                                name="place">
-                                <option class="bg-dark text-light" value="top">Home Top Slide</option>
-                                <option class="bg-dark text-light" value="center">Home Center</option>
-                                <option class="bg-dark text-light" value="bottom">Home Bottom</option>
-                            </select>
-                        </div>
-                        <div class=" mb-3">
-                            <label for="description">Description</label><br>
-                            <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;"
-                                name="description" rows="2"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO CATEGORY</button>
-                    </form>
 
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
 
-    <div class="modal fade" id="bannerShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userTitle"></h5>
-                    <a href="/admin/banners" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
-                </div>
-                <div class="modal-body" id="bannerDetails">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <a href="/admin/banners" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="bannerEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userTitle"></h5>
-                    <a href="/admin/banners" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
-                </div>
-                <div class="modal-body" id="bannerUpdateDetails">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <a href="/admin/banners" class="btn btn-dark text-light" data-bs-dismiss="modal">Close</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        const xValues = ["DAY1", "DAY2", "DAY3", "DAY4", "DAY5", "DAY6", "DAY7"];
+        const yValues = [{{ weekOrdersAmount }}];
+        const barColors = ["black", "gray", "black", "gray", "black", "gray", "black"];
 
-    <script src="/js/bannerMgt.js"></script>
-    <script src="/js/cropper.js"></script>
-    <script src="/js/validation.js"></script>
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "SALES ON THIS WEEK"
+                }
+            }
+        });
+    </script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            // Set Data
+            const data = google.visualization.arrayToDataTable([
+                ['Months', 'Mhl'],
+                ['jan', 54.8],
+                ['feb', 48.6],
+                ['mar', 44.4],
+                ['apr', 23.9],
+                ['may', 14.5],
+                ['jun', 14.5],
+                ['jul', 14.5],
+                ['aug', 14.5],
+                ['sep', 14.5],
+                ['oct', 14.5],
+                ['nov', 14.5],
+                ['dec', 14.5],
+            ]);
+
+            // Set Options
+            const options = {
+                title: 'Last year sales',
+                is3D: true
+            };
+
+            // Draw
+            const chart = new google.visualization.PieChart(document.getElementById('myPIChart'));
+            chart.draw(data, options);
+
+        }
+    </script>
     <script src="/js/index.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.js"></script>

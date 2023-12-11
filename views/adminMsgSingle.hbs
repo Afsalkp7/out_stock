@@ -51,7 +51,7 @@
           <a href="/admin/brands"><span class="fa fa-trophy mr-3"></span>Brands</a>
         </li>
         <li>
-          <a href="/admin/reviews"><span class="fa fa-cog mr-3"></span> Reviews</a>
+          <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
         </li>
         <li>
           <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
@@ -74,7 +74,7 @@
         </li>
       </ul>
     </nav>
-    
+
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
@@ -95,27 +95,26 @@
       <div class="container" id="totalBody">
         <div class="form mt-5">
 
-                    <div class="fields fields--2">
-                        <label class="field">
-                            <span class="field__label" for="firstname">Email</span>
-                            <input class="field__input" type="text" id="firstname" value="{{message.email}}"
-                                readonly />
-                        </label>
-                        <label class="field">
-                            <span class="field__label" for="lastname">Customer name</span>
-                            <input class="field__input text-dark" type="text" id="lastname" value="{{message.customerName}}"
-                                readonly />
-                        </label>
-                    </div>
-                    <label class="field">
-                        <span class="field__label" for="address">Message</span>
-                        <div class="text-dark">{{message.message}}</div>
-                    </label>
-                    <a href="mailto:{{message.email}}"><button class="btn btn-dark w-100">Replay</button></a>
-                    
+          <div class="fields fields--2">
+            <label class="field">
+              <span class="field__label" for="firstname">Email</span>
+              <input class="field__input" type="text" id="firstname" value="{{message.email}}" readonly />
+            </label>
+            <label class="field">
+              <span class="field__label" for="lastname">Customer name</span>
+              <input class="field__input text-dark" type="text" id="lastname" value="{{message.customerName}}"
+                readonly />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field__label" for="address">Message</span>
+            <div class="text-dark">{{message.message}}</div>
+          </label>
+          <a href="mailto:{{message.email}}"><button class="btn btn-dark w-100">Replay</button></a>
 
 
-                    </div>
+
+        </div>
       </div>
     </div>
   </div>
