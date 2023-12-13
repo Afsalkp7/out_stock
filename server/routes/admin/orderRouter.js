@@ -7,6 +7,44 @@ const userCollection = require("../../model/userModel");
 const Order = require("../../model/oraderModel");
 const Product = require("../../model/productModel");
 
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv").config({ path: "config.env" });
+const { config } = require("dotenv");
+
+const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: "afsalkpmanu31@gmail.com",
+      pass: "hold thhr ucgt iaqu",
+    },
+  });
+  
+  const messageByEmail = ( email , name , orderId , status ) => {
+    return new Promise((resolve, reject) => {
+      const mailOptions = {
+        from: "afsalkpmanu31@gmail.com",
+        to: email,
+        subject: "Message from customer",
+        text: `Hi,${name} , 
+        Your order with order id : ${orderId}
+        from outstock furniture is ${status} at now...!!!`,
+      };
+  
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error(error);
+          reject(error);
+        } else {
+          console.log("Email sent: " + info.response);
+          resolve(info.response);
+        }
+      });
+    });
+  };
+
+
+
+
 router.get("/", async (req, res) => {
   if (req.cookies.session) {
     const _id = req.adminId;
@@ -86,6 +124,10 @@ router.put("/update", async (req, res) => {
     { _id },
     { $set: { orderStatus } }
   );
+  const address = await Order.findOne({_id:orderUpdate.addressId})
+  const email = address.email
+  const addressName = address.firstName
+  await messageByEmail( email , addressName , _id , orderStatus )
   return res.json(orderUpdate);
 });
 

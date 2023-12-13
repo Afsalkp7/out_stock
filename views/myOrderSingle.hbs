@@ -192,7 +192,7 @@
                                 data-order-id="{{order._id}}" class="float-end">delete order</a></div>
                         <div class="card-body ">
                         <div class="card-header" style="display: block;">Order details<a id="cancelBtn" style="cursor: pointer;"
-                                data-order-id="{{order._id}}" class="float-end">cancel order</a></div>
+                                data-order-id="{{order._id}}" class="float-end text-danger">cancel order</a></div>
                         <div class="card-body ">
                         {{/if}}
                             {{#each orderedProducts}}
@@ -284,32 +284,28 @@
                                                 <label for="orderStatus" class="col-md-4 col-form-label "><b>Order
                                                         status</b></label>
                                                 {{#if orderPlaced}}
-                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                <div class="col-md-8 col-sm-12 mt-2 text-success    " style="font-weight: bold;">
                                                     {{order.orderStatus}}
                                                 </div>
                                                 {{/if}}
                                                 {{#if delivered}}
-                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                <div class="col-md-8 col-sm-12 mt-2 text-warning" style="font-weight: bold;">
                                                     {{order.orderStatus}}
                                                 </div>
                                                 {{/if}}
                                                 {{#if cancelled}}
-                                                <div class="col-md-8 col-sm-12 btn btn-danger text-dark">
+                                                <div  class="col-md-8 col-sm-12 mt-2 text-danger" style="font-weight: bold;">
                                                     {{order.orderStatus}}
                                                 </div>
                                                 {{/if}}
-                                                {{#if outOfDelivery}}
-                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
-                                                    {{order.orderStatus}}
-                                                </div>
-                                                {{/if}}
+                                                
                                                 {{#if shipped}}
-                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                <div class="col-md-8 col-sm-12 mt-2 text-warning" style="font-weight: bold;">
                                                     {{order.orderStatus}}
                                                 </div>
                                                 {{/if}}
                                                 {{#if outForDelivery}}
-                                                <div class="col-md-8 col-sm-12 btn btn-success text-dark">
+                                                <div class="col-md-8 col-sm-12 mt-2 text-warning" style="font-weight: bold;">
                                                     {{order.orderStatus}}
                                                 </div>
                                                 {{/if}}

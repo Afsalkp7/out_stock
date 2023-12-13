@@ -149,7 +149,9 @@
             </div>
           </a>
 
-          <div class="card mb-4 mb-xl-0">
+          <a onclick="deleteUser()" style="cursor: pointer;">
+
+            <div class="card mb-4 mb-xl-0">
             <div class="card-body text-center">
 
               <img class="img-account-profile rounded-circle float-start me-3 mb-2" src="/img/delete.png" alt="DELETE">
@@ -160,6 +162,9 @@
               <br>
             </div>
           </div>
+
+          </a>
+          
 
         </div>
         <div class="col-xl-8">
@@ -327,6 +332,24 @@
   </div>
   </div>
 
+          <div class="modal fade" id="userDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="userTitle"></h5>
+                        <a href="#" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                    </div>
+                    <div class="modal-body" id="userDetails">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  <script src="/js/validation.js"></script>
   <script src="/js/index_user.js"></script>
 </body>
 

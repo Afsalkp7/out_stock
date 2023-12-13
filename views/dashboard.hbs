@@ -11,9 +11,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="Content-Language" content="en" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="description" content="This is an example dashboard created using build-in elements and components."/>
+  <meta name="description" content="This is an example dashboard created using build-in elements and components." />
   <meta name="msapplication-tap-highlight" content="no" />
-  <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"/>
+  <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet" />
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,8 +22,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/style2.css">
 </head>
@@ -102,10 +102,11 @@
 
       <div class="app-main">
 
-          <div class="app-main__inner">
-            
-            <div class="row">
-              <div class="col-md-6 col-xl-6">
+        <div class="app-main__inner">
+
+          <div class="row">
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/orders">
                 <div class="card mb-3 widget-content bg-premium-dark">
                   <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
@@ -119,8 +120,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-xl-6">
+              </a>
+
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/users">
                 <div class="card mb-3 widget-content bg-premium-dark">
                   <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
@@ -134,8 +138,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-xl-6">
+              </a>
+
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/orders">
                 <div class="card mb-3 widget-content bg-premium-dark">
                   <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
@@ -149,8 +156,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-xl-6">
+              </a>
+
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/products">
                 <div class="card mb-3 widget-content bg-premium-dark">
                   <div class="widget-content-wrapper text-white">
                     <div class="widget-content-left">
@@ -164,398 +174,200 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
+
             </div>
-            <div class="row">
-              <div class="col-md-12 col-lg-6">
-                <div class="mb-3 card">
-                  <div
-                    class="card-header-tab card-header-tab-animation card-header"
-                  >
-                    <div class="card-header-title">
-                      <i
-                        class="header-icon lnr-apartment icon-gradient bg-love-kiss"
-                      >
-                      </i>
-                      Sales Report
-                    </div>
-                    
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-lg-6">
+              <div class="mb-3 card">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                  <div class="card-header-title">
+                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss">
+                    </i>
+                    Sales Report
                   </div>
-                  <div class="card-body">
-                    <div class="tab-content">
-                      <div class="tab-pane fade show active" id="tabs-eg-77">
-                        <div
-                          class="card mb-3 widget-chart widget-chart2 text-left w-100"
-                        >
-                          <div class="widget-chat-wrapper-outer">
-                            <div
-                              class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0"
-                            >
-                              <canvas id="myChart"></canvas>
-                            </div>
-                          </div>
-                        </div>
-                        <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">
-                          Order Status
-                        </h6>
-                        <div class="scroll-area-sm">
-                          <div class="scrollbar-container">
-                            <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
-                              <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                  <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                      <div class="widget-heading">
-                                        Orders
-                                      </div>
-                                      <div class="widget-subheading">
-                                        Total number of orders
-                                      </div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                      <div class="font-size-xlg text-muted">
-                                        <span>{{orderCount}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                  <div class="widget-content-wrapper">
-                                    
-                                    <div class="widget-content-left">
-                                      <div class="widget-heading">
-                                        Placed
-                                      </div>
-                                      <div class="widget-subheading">
-                                        Just order placed
-                                      </div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                      <div class="font-size-xlg text-muted">
-                                        <span>{{orderPlaceCount}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                  <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                      <div class="widget-heading">
-                                        Shipped
-                                      </div>
-                                      <div class="widget-subheading">
-                                        Number of shipped orders 
-                                      </div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                      <div class="font-size-xlg text-muted">
-                                        <span>{{orderShippedCount}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                  <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                      <div class="widget-heading">
-                                        Out For Delivery
-                                      </div>
-                                      <div class="widget-subheading">
-                                        Orders outed for delivery
-                                      </div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                      <div class="font-size-xlg text-muted">
-                                        <span>{{orderOutForDeliveryCount}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                  <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                      <div class="widget-heading">
-                                        Delivered
-                                      </div>
-                                      <div class="widget-subheading">
-                                        Completed orders
-                                      </div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                      <div class="font-size-xlg text-muted">
-                                        <span>{{orderDeliveredCount}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                  <div class="widget-content-wrapper">
-                                    <div class="widget-content-left">
-                                      <div class="widget-heading">
-                                        Cancelled
-                                      </div>
-                                      <div class="widget-subheading">
-                                        Number of cancelled orders
-                                      </div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                      <div class="font-size-xlg text-muted">
-                                        <span>{{orderCancelledCount}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
-              </div>
-              <div class="col-md-12 col-lg-6">
-                <div class="mb-3 card">
-                  <div class="card-header-tab card-header">
-                    <div class="card-header-title">
-                      <i
-                        class="header-icon lnr-rocket icon-gradient bg-tempting-azure"
-                      >
-                      </i>
-                      Bandwidth Reports
-                    </div>
-                    <div class="btn-actions-pane-right">
-                      
-                    </div>
-                  </div>
+                <div class="card-body">
                   <div class="tab-content">
-                    <div class="tab-pane fade active show" id="tab-eg-55">
-                      <div class="widget-chart p-3">
-                        <div>
-                          <canvas id="line-chart"></canvas>
+                    <div class="tab-pane fade show active" id="tabs-eg-77">
+                      <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                        <div class="widget-chat-wrapper-outer">
+                          <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                            <canvas id="myChart"></canvas>
+                          </div>
                         </div>
                       </div>
-                      <div class="pt-2 card-body">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="widget-content">
-                              <div class="widget-content-outer">
+                      <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">
+                        Order Status
+                      </h6>
+                      <div class="scroll-area-sm">
+                        <div class="scrollbar-container">
+                          <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
+                            <li class="list-group-item">
+                              <div class="widget-content p-0">
                                 <div class="widget-content-wrapper">
                                   <div class="widget-content-left">
-                                    <div class="text-drak">
-                                      Today's sale
+                                    <div class="widget-heading">
+                                      Orders
+                                    </div>
+                                    <div class="widget-subheading">
+                                      Total number of orders
                                     </div>
                                   </div>
                                   <div class="widget-content-right">
-                                    <div
-                                      class="widget-numbers fsize-3 text-success"
-                                    >
-                                     ₹ {{todayOrder}} /-
+                                    <div class="font-size-xlg text-muted">
+                                      <span>{{orderCount}}</span>
                                     </div>
                                   </div>
                                 </div>
-                                
                               </div>
+                            </li>
+                            <li class="list-group-item">
+                              <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+
+                                  <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                      Placed
+                                    </div>
+                                    <div class="widget-subheading">
+                                      Just order placed
+                                    </div>
+                                  </div>
+                                  <div class="widget-content-right">
+                                    <div class="font-size-xlg text-muted">
+                                      <span>{{orderPlaceCount}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item">
+                              <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                  <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                      Shipped
+                                    </div>
+                                    <div class="widget-subheading">
+                                      Number of shipped orders
+                                    </div>
+                                  </div>
+                                  <div class="widget-content-right">
+                                    <div class="font-size-xlg text-muted">
+                                      <span>{{orderShippedCount}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item">
+                              <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                  <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                      Out For Delivery
+                                    </div>
+                                    <div class="widget-subheading">
+                                      Orders outed for delivery
+                                    </div>
+                                  </div>
+                                  <div class="widget-content-right">
+                                    <div class="font-size-xlg text-muted">
+                                      <span>{{orderOutForDeliveryCount}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item">
+                              <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                  <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                      Delivered
+                                    </div>
+                                    <div class="widget-subheading">
+                                      Completed orders
+                                    </div>
+                                  </div>
+                                  <div class="widget-content-right">
+                                    <div class="font-size-xlg text-muted">
+                                      <span>{{orderDeliveredCount}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item">
+                              <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                  <div class="widget-content-left">
+                                    <div class="widget-heading">
+                                      Cancelled
+                                    </div>
+                                    <div class="widget-subheading">
+                                      Number of cancelled orders
+                                    </div>
+                                  </div>
+                                  <div class="widget-content-right">
+                                    <div class="font-size-xlg text-muted">
+                                      <span>{{orderCancelledCount}}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-6">
+              <div class="mb-3 card">
+                <div class="card-header-tab card-header">
+                  <div class="card-header-title">
+                    <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure">
+                    </i>
+                    Bandwidth Reports
+                  </div>
+                  <div class="btn-actions-pane-right">
+
+                  </div>
+                </div>
+                <div class="tab-content">
+                  <div class="tab-pane fade active show" id="tab-eg-55">
+                    <div class="widget-chart p-3">
+                      <div>
+                        <canvas id="line-chart"></canvas>
+                      </div>
+                    </div>
+                    <div class="pt-2 card-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="widget-content">
+                            <div class="widget-content-outer">
+                              <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                  <div class="text-drak">
+                                    Today's sale
+                                  </div>
+                                </div>
+                                <div class="widget-content-right">
+                                  <div class="widget-numbers fsize-3 text-success">
+                                    ₹ {{todayOrder}} /-
+                                  </div>
+                                </div>
+                              </div>
+
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 col-xl-6">
-                <div class="card mb-3 widget-content">
-                  <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left">
-                        <div class="widget-heading">Total category</div>
-                        <div class="widget-subheading">Number of categories</div>
-                      </div>
-                      <div class="widget-content-right">
-                        <div class="widget-numbers text-focus">{{categoryCount}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-xl-6">
-                <div class="card mb-3 widget-content">
-                  <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left">
-                        <div class="widget-heading">Brands</div>
-                        <div class="widget-subheading">Number of brands</div>
-                      </div>
-                      <div class="widget-content-right">
-                        <div class="widget-numbers text-dark">{{brandsCount}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-xl-6">
-                <div class="card mb-3 widget-content">
-                  <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left">
-                        <div class="widget-heading">Banners</div>
-                        <div class="widget-subheading">Number of banners</div>
-                      </div>
-                      <div class="widget-content-right">
-                        <div class="widget-numbers text-dark">{{bannerCount}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-xl-6">
-                <div class="card mb-3 widget-content">
-                  <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                      <div class="widget-content-left">
-                        <div class="widget-heading">Coupons</div>
-                        <div class="widget-subheading">Number of active coupons</div>
-                      </div>
-                      <div class="widget-content-right">
-                        <div class="widget-numbers text-focus">{{couponCount}}</div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="main-card mb-3 card">
-                  <div class="card-header">
-                    New Orders 
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table table-striped table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Ordered date</th>
-                                <th scope="col">Except delivery</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each last5Orders}}
-                            <tr>
-                                <td>-</td>
-                                <td>{{this.totalAmount}}</td>
-                                <td>{{this.orderStatus}}</td>
-                                <td>{{this.orderedDate}}</td>
-                                <td>{{this.deliveryDate}}</td>
-                                <td><a href="/admin/orders/{{this._id}}" class="showOrder btn btn-light ms-2"
-                                        data-user-id='{{this._id}}'><img src="/img/eye.png" width="15px" alt=""></a>
-                                </td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 col-lg-3">
-                <div
-                  class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card"
-                >
-                  <div class="widget-content">
-                    <div class="widget-content-outer">
-                      <div class="widget-content-wrapper">
-                        <div class="widget-content-left pr-2 fsize-1">
-                          <div class="widget-numbers mt-0 fsize-3 text-success">
-                            ₹ {{earings}} /-
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <div class="widget-content-left fsize-1">
-                        <div class="text-muted opacity-6">Total income</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div
-                  class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card"
-                >
-                  <div class="widget-content">
-                    <div class="widget-content-outer">
-                      <div class="widget-content-wrapper">
-                        <div class="widget-content-left pr-2 fsize-1">
-                          <div class="widget-numbers mt-0 fsize-3 text-dark">
-                            ₹ {{cashOnDeliveryAmount}} /-
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <div class="widget-content-left fsize-1">
-                        <div class="text-muted opacity-6">Cash on delivery</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div
-                  class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card"
-                >
-                  <div class="widget-content">
-                    <div class="widget-content-outer">
-                      <div class="widget-content-wrapper">
-                        <div class="widget-content-left pr-2 fsize-1">
-                          <div class="widget-numbers mt-0 fsize-3 text-dark">
-                            ₹ {{onlinePayment}} /-
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <div class="widget-content-left fsize-1">
-                        <div class="text-muted opacity-6">Online payments</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-3">
-                <div
-                  class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card"
-                >
-                  <div class="widget-content">
-                    <div class="widget-content-outer">
-                      <div class="widget-content-wrapper">
-                        <div class="widget-content-left pr-2 fsize-1">
-                          <div class="widget-numbers mt-0 fsize-3 text-danger">
-                            ₹ {{couponDeduction}} /-
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <div class="widget-content-left fsize-1">
-                        <div class="text-muted opacity-6">Loss trough coupon</div>
                       </div>
                     </div>
                   </div>
@@ -563,12 +375,200 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/categories">
+                <div class="card mb-3 widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left">
+                        <div class="widget-heading text-dark">Total category</div>
+                        <div class="widget-subheading text-dark">Number of categories</div>
+                      </div>
+                      <div class="widget-content-right">
+                        <div class="widget-numbers text-focus">{{categoryCount}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/brands">
+                <div class="card mb-3 widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left">
+                        <div class="widget-heading text-dark">Brands</div>
+                        <div class="widget-subheading text-dark">Number of brands</div>
+                      </div>
+                      <div class="widget-content-right">
+                        <div class="widget-numbers text-dark">{{brandsCount}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/banners">
+                <div class="card mb-3 widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left">
+                        <div class="widget-heading text-dark">Banners</div>
+                        <div class="widget-subheading text-dark">Number of banners</div>
+                      </div>
+                      <div class="widget-content-right">
+                        <div class="widget-numbers text-dark">{{bannerCount}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a href="/admin/coupons">
+                <div class="card mb-3 widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left">
+                        <div class="widget-heading text-dark">Coupons</div>
+                        <div class="widget-subheading text-dark">Number of active coupons</div>
+                      </div>
+                      <div class="widget-content-right">
+                        <div class="widget-numbers text-focus">{{couponCount}}</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="main-card mb-3 card">
+                <div class="card-header">
+                  New Orders
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped table-responsive">
+                    <thead>
+                      <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ordered date</th>
+                        <th scope="col">Except delivery</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{#each last5Orders}}
+                      <tr>
+                        <td>-</td>
+                        <td>{{this.totalAmount}}</td>
+                        <td>{{this.orderStatus}}</td>
+                        <td>{{this.orderedDate}}</td>
+                        <td>{{this.deliveryDate}}</td>
+                        <td><a href="/admin/orders/{{this._id}}" class="showOrder btn btn-light ms-2"
+                            data-user-id='{{this._id}}'><img src="/img/eye.png" width="15px" alt=""></a>
+                        </td>
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-3">
+              <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+                <div class="widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left pr-2 fsize-1">
+                        <div class="widget-numbers mt-0 fsize-3 text-success">
+                          ₹ {{earings}} /-
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="widget-content-left fsize-1">
+                      <div class="text-muted opacity-6">Total income</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+                <div class="widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left pr-2 fsize-1">
+                        <div class="widget-numbers mt-0 fsize-3 text-dark">
+                          ₹ {{cashOnDeliveryAmount}} /-
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="widget-content-left fsize-1">
+                      <div class="text-muted opacity-6">Cash on delivery</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+                <div class="widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left pr-2 fsize-1">
+                        <div class="widget-numbers mt-0 fsize-3 text-dark">
+                          ₹ {{onlinePayment}} /-
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="widget-content-left fsize-1">
+                      <div class="text-muted opacity-6">Online payments</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
+                <div class="widget-content">
+                  <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left pr-2 fsize-1">
+                        <div class="widget-numbers mt-0 fsize-3 text-danger">
+                          ₹ {{couponDeduction}} /-
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="widget-content-left fsize-1">
+                      <div class="text-muted opacity-6">Loss trough coupon</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
       </div>
     </div>
 
-    </div>
+  </div>
   </div>
 
   {{!-- modal --}}
@@ -656,43 +656,43 @@
     </div>
   </div>
 
-    <script>
+  <script>
 
-        const xValues = ["DAY1", "DAY2", "DAY3", "DAY4", "DAY5", "DAY6", "DAY7"];
-        const yValues = [{{ weekOrdersAmount }}];
-        const barColors = ["black", "gray", "black", "gray", "black", "gray", "black"];
+    const xValues = ["DAY1", "DAY2", "DAY3", "DAY4", "DAY5", "DAY6", "DAY7"];
+    const yValues = [{{ weekOrdersAmount }}];
+    const barColors = ["black", "gray", "black", "gray", "black", "gray", "black"];
 
-        new Chart("myChart", {
-            type: "bar",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    backgroundColor: barColors,
-                    data: yValues
-                }]
-            },
-            options: {
-                legend: { display: false },
-                title: {
-                    display: true
-                }
-            }
-        });
-    </script>
-    <script>
-  const ctx = document.getElementById('line-chart');
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: true
+        }
+      }
+    });
+  </script>
+  <script>
+    const ctx = document.getElementById('line-chart');
 
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun' ,'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec'],
-      datasets: [{
-        label: 'sales on this year',
-        data: [{{YearOrdersAmount}}],
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'sales on this year',
+          data: [{{ YearOrdersAmount }}],
         borderWidth: 1
       }]
     },
-    options: {
+      options: {
       scales: {
         y: {
           beginAtZero: true
@@ -700,7 +700,7 @@
       }
     }
   });
-</script>
+  </script>
 
 
   <script src="/js/index.js"></script>

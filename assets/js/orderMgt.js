@@ -167,7 +167,7 @@ function deleteOrder() {
 const button = document.getElementById("cancelBtn");
 button.addEventListener("click", async (event) => {
   const orderId = await event.target.getAttribute("data-order-id");
-  console.log(orderId);
+  
   try {
     const response = await fetch(`/myOrders/cancel/${orderId}`);
     if (response.ok) {

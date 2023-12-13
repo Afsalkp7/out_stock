@@ -23,7 +23,7 @@ const dotenv = require("dotenv").config({ path: "config.env" });
 const { config } = require("dotenv");
 const Banner = require("../../model/bannerModel")
 const Product = require("../../model/productModel")
-
+const Order = require("../../model/oraderModel")
 
 
 const transporter = nodemailer.createTransport({
@@ -437,5 +437,15 @@ router.post("/confirmPass",urlencodedParser,[check("password", "password must ne
       return res.send(error)
     }
 });
+
+router.get("/delete",auth,async(req,res)=>{
+  const userId = req.userId
+  res.json(userId)
+})
+
+router.delete("/delete",auth,async(req,res)=>{
+  // const userId = req.userId;
+  // await Order.findAndRemove({userId}) 
+})
 
 module.exports = router;
