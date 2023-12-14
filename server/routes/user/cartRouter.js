@@ -8,6 +8,10 @@ const { authCart } = require("../../middlewere/user_auth");
 
 
 router.get("/",authCart,async(req,res)=>{
+    if(req.cookies.buynowPrduct){
+        res.clearCookie("buynowPrduct");
+        res.clearCookie("buynowQuantity");
+    }
     const userId = req.userId
     const cartItems = await CartItem.find({userId})
     if (cartItems.length == 0){
@@ -41,8 +45,9 @@ router.post('/',authCart,async(req,res)=>{
     const cartItem = new CartItem({
         userId,
         productId:itemId,
-        quantity
+        quantity,
     })
+    console.log(cartItem);
     const cartAdded = await cartItem.save()
     if (cartAdded) {
         return res.json(cartAdded)

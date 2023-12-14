@@ -150,7 +150,7 @@
                     data-mdb-ripple-color="dark">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <input type="text" id="quantity" class="form-control text-center border border-secondary"
+                  <input type="text" id="quantity" readonly class="form-control text-center border border-secondary"
                     aria-label="Example text with button addon" aria-describedby="button-addon1" value="1" />
                   <button class="btn btn-white border border-secondary px-3" type="button" id="increment"
                     data-mdb-ripple-color="dark">
@@ -159,7 +159,8 @@
                 </div>
               </div>
             </div>
-            <a href="#" class="btn btn-dark shadow-0"> Buy now </a>
+            
+            <button class="btn btn-dark shadow-0" id="buyNowButton" data-item-id="{{item._id}}"> Buy now </button>
             <button class="btn btn-dark shadow-0" id="addToCartButton" data-item-id="{{item._id}}"> <i
                 class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
             <buton id="addToWishButton" data-item-id="{{item._id}}"

@@ -86,7 +86,7 @@ async function deleteUserData() {
   })
   .then((data) => {
     console.log("Success:", data);
-    window.location.reload("/")
+    window.location.href = "/user"
   })
   .catch((error) => {
     console.error("Error:", error);

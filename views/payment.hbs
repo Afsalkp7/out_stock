@@ -80,8 +80,9 @@
                         var qty = parseInt("{{../quantity}}");
                         var grand = price * qty;
                         document.getElementById("total{{this._id}}").textContent = grand;
-                        console.log()
-                        grandTotal += grand
+                        
+                        grandTotal += grand;
+                        console.log(grandTotal)
                     </script>
                     {{/each}}
                     {{/each}}
@@ -130,6 +131,7 @@
                             document.getElementById("discound").innerHTML = discound
                         }
                         document.getElementById("grandTotal").innerHTML = total
+                        grandTotal=total
                     }
                 </script>
                 {{/if}}

@@ -195,3 +195,25 @@ function updateQuantity(id,change){
   } 
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const buyNowButton = document.getElementById('buyNowButton');
+  if(buyNowButton){
+    buyNowButton.addEventListener('click', () => {
+      const itemId = addToWishButton.getAttribute('data-item-id');
+      const quantity = document.getElementById("quantity").value;
+        fetch(`/checkout/buynow/${itemId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ quantity }),
+        })
+        .then((response)=>{
+          if(response.ok) {
+            window.location.href="/checkout"
+          }
+        })
+      });
+  }
+
+  });

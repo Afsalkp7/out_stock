@@ -23,7 +23,10 @@ const dotenv = require("dotenv").config({ path: "config.env" });
 const { config } = require("dotenv");
 const Banner = require("../../model/bannerModel")
 const Product = require("../../model/productModel")
-const Order = require("../../model/oraderModel")
+const Order = require("../../model/oraderModel");
+const Cart = require("../../model/cartModel");
+const WishItem = require("../../model/wishModel");
+const PlaceOrder = require("../../model/orderPlaceModel");
 
 
 const transporter = nodemailer.createTransport({
@@ -444,8 +447,15 @@ router.get("/delete",auth,async(req,res)=>{
 })
 
 router.delete("/delete",auth,async(req,res)=>{
-  // const userId = req.userId;
-  // await Order.findAndRemove({userId}) 
+  const userId = req.userId;
+  await Order.deleteMany({userId})
+  await Cart.deleteMany({userId})
+  await WishItem.deleteMany({userId})
+  await PlaceOrder.deleteMany({userId})
+  const deleteUser = await userCollection.findOneAndRemove({_id:userId})
+  console.log(deleteUser);
+  res.clearCookie("usersession");
+  res.json(deleteUser)
 })
 
 module.exports = router;
