@@ -1,23 +1,38 @@
-@media only screen and (max-width: 991px){
-    #toReg{
-        position: absolute;
-        top: 200px;
+
+body{
+    background: #c9ccd1; 
     }
-}
-@media only screen and (max-width: 768px){
-    #logImg{
-        display: none;
+    .form-style input{
+        border:0;
+        height:50px;
+        border-radius:0;
+    border-bottom:1px solid #ebebeb;	
     }
-    #heading{
-        font-size:  5vw;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bolder;
-        position: unset;
-        top:0;
-        left: 0;
-    } 
-    #toReg{
-        position: unset;
-        top: 200px;
+    .form-style input:focus{
+    border-bottom:1px solid #007bff;	
+    box-shadow:none;
+    outline:0;
+    background-color:#ebebeb;	
     }
-}
+    .sideline {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color:#ccc;
+    }
+    button{
+    height:50px;	
+    }
+    .sideline:before,
+    .sideline:after {
+        content: '';
+        border-top: 1px solid #ebebeb;
+        margin: 0 20px 0 0;
+        flex: 1 0 20px;
+    }
+    
+    .sideline:after {
+        margin: 0 0 0 20px;
+    }

@@ -196,10 +196,10 @@
                     </div>
 
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small">{{this.orderData.orderedDate}}</p>
+                      <p class="text-dark mb-0 small" id="orderDate{{this.orderData._id}}"></p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small"> {{this.orderData.deliveryDate}}</p>
+                      <p class="text-dark mb-0 small" id="deliveryDate{{this.orderData._id}}"></p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                      <p class="text-dark mb-0 small"> {{this.orderData.orderStatus}}</p>
@@ -210,6 +210,24 @@
                   </div>
                 </div>
               </div>
+              <script>
+                var orderDate = "{{this.orderData.orderedDate}}"
+                var dateArr = orderDate.split(" ")
+                var text = ""
+                text+=dateArr[0]
+                text+="<br>"
+                text+=dateArr.slice(1,4).join(" ")
+                document.getElementById("orderDate{{this.orderData._id}}").innerHTML = text
+              </script>
+              <script>
+                var deliveryDate = "{{this.orderData.deliveryDate}}"
+                var dateArr = deliveryDate.split(" ")
+                var text = ""
+                text+=dateArr[0]
+                text+="<br>"
+                text+=dateArr.slice(1,4).join(" ")
+                document.getElementById("deliveryDate{{this.orderData._id}}").innerHTML = text
+              </script>   
               {{/each}}
             </div>
           </div>

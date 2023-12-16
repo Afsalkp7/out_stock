@@ -22,10 +22,16 @@ route.get("/:userId", async (req, res) => {
 
   try {
     const user = await userCollection.findOne({ _id: userId });
-    const address = await Order.find({userId});
-    const orders = await PlaceOrder.find({userId})
+    const orderDatas = await PlaceOrder.find({userId:user._id})
+    let orders = []
+        for (orderData of orderDatas){
+            let address = await Order.findOne({_id:orderData.addressId})
+
+            orders.push({name:address.firstName,orderData})
+
+        }
     if (user) {
-      res.json(user);
+      res.render("adminSingleUser",{user,orders});
     } else {
       res.status(404).json({ error: "User not found" });
     }
@@ -59,7 +65,7 @@ route.put("/update/:userId", async (req, res) => {
     { $set: { status } }
   );
   if (updatedStatus) {
-    res.redirect(303, "/admin/users");
+    res.redirect(303, "/admin/users/");
   }
 });
 

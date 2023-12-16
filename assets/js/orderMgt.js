@@ -49,7 +49,6 @@ document.querySelectorAll(".editOrder").forEach((btn) => {
                   <option>Shipped</option>
                   <option>Out for delivery</option>
                   <option>Delivered</option>
-                  <option>Canceled</option>
                 </select>
                 <input type="text" class="form-control" id="floatingPassword" hidden value="${Date.now()}" name="updatedAt">
                 <input type="hidden" name="_id" value="${orderData._id}">

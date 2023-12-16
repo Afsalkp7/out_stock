@@ -80,7 +80,7 @@
                         var qty = parseInt("{{../quantity}}");
                         var grand = price * qty;
                         document.getElementById("total{{this._id}}").textContent = grand;
-                        
+
                         grandTotal += grand;
                         console.log(grandTotal)
                     </script>
@@ -103,7 +103,7 @@
                     document.getElementById("grandTotal").innerHTML = grandTotal
                     var total;
                 </script>
-                
+
                 {{#if couponApplied}}
                 <script>
                     let couponType = `{{coupon.couponType}}`
@@ -131,7 +131,7 @@
                             document.getElementById("discound").innerHTML = discound
                         }
                         document.getElementById("grandTotal").innerHTML = total
-                        grandTotal=total
+                        grandTotal = total
                     }
                 </script>
                 {{/if}}
@@ -210,11 +210,18 @@
                             <label for="razorPay"
                                 style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">RAZORPAY</label><br>
                         </div>
-                        
+
+                        {{!-- <div class="mt-5 mb-5">
+                            <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+                            <label for="paypal"
+                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">PAYPAL</label><br>
+                        </div> --}}
+
                         <div class="mt-5 mb-5">
                             <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cash on delivery">
                             <label for="cashOnDelivery"
-                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">CASH ON DELEVERY
+                                style="font-size: 18px; font-weight: lighter; font-family: Arial, Helvetica, sans-serif;">CASH
+                                ON DELEVERY
                             </label><br><br>
                         </div>
 
@@ -291,7 +298,7 @@
                                         const formData = new FormData(form);
                                         let formItem = Object.fromEntries(formData)
                                         formItem.paymentMethod = response.razorpay_payment_id
-                                        
+
                                         fetch("/placeOrder", {
                                             method: "POST",
                                             body: JSON.stringify(formItem),
@@ -352,16 +359,22 @@
                         console.log(orderId);
                         $("button").show();
                     });
-                }else if(selectedPaymentMethod === "paypal") {
+                } else if (selectedPaymentMethod === "paypal") {
                     fetch('/placeOrder/paypal', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ amount }), // Adjust the payload as needed
+                        body: JSON.stringify({ amount }),
+                    }).then(response => {
+                        // Handle response
                     })
+                        .catch(error => {
+                            console.error('Fetch error:', error);
+                            // Handle error: log it or display a message to the user
+                        })
                 }
-                 else {
+                else {
                     return true
                 }
             }

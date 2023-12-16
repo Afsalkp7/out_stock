@@ -40,53 +40,8 @@ label{
     left: 4.392386530014641vw;
 }
 
-@media only screen and (max-width: 1199px)   {
 
-    #mobile{
-        top:-4.8vw;
-        left: 400px;
-    }
-    #email{
-        top:-4.8vw;
-    }
-    #password{
-        top:-9.6vw;
-        left: 400px;
-    }
-    #confirm{
-        top: -9.6vw;
-    }
-    #fillingForm{
-        left : 6vw;
-    }
-    #heading{
-        left: 300px;
-    }
-    .create{
-        position: absolute;
-        top: 200px;
-    }
-    #already{
-        position: absolute;
-        top: 240px;
-    }
-}
-@media only screen and (max-width: 991px){
-    .create{
-        position: absolute;
-        top: 150px;
-        left: 0;
-    }
-    #already{
-        position: absolute;
-        top: 190px;
-    }
-    #confirm{
-        top: -9.6vw;
-        left: 400px;
-    }
-}
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 1199px){
     #image{
         display: none;
 

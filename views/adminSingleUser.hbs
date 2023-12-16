@@ -16,6 +16,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/style2.css">
+   <link rel="stylesheet" href="/css/payment.css">
 
 </head>
 
@@ -92,32 +93,92 @@
           </div>
         </div>
       </nav>
-      <div class="container" id="totalBody">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">User Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone Number</th>
-              <th>Status</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each users}}
-            <tr>
-              <td>-</td>
-              <td>{{this.userName}}</td>
-              <td>{{this.email}}</td>
-              <td>{{this.phone}}</td>
-              <td>{{this.status}}</td>
-              <td><a href="/admin/users/{{this._id}}" class="btn btn-light ms-2"><img src="/img/eye.png" width="15px" alt=""></a><a class="deleteUser btn btn-light ms-2" data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a></td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
+     
+        <a href="/admin/users"><button class="btn btn-dark" style="margin:10px;radius:30px;">Back</button></a>
+        <div class="row">
+        
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <h4 class="mb-3">User Details</h4>
+
+            <div class="form">
+
+            <label class="field">
+                <span class="field__label" for="firstname">First name</span>
+                <input class="field__input" type="text" id="firstname" value="{{user.userName}}" readonly />
+            </label>
+
+            <label class="field">
+                <span class="field__label" for="address">Address</span>
+                <input class="field__input" type="text" id="address" value="{{user.email}}" readonly/>
+            </label>
+            <label class="field">
+                <span class="field__label" for="phone">Phone number</span>
+                <input class="field__input" type="text" id="phone" value="{{user.phone}}" readonly/>
+            </label>
+            <label class="field">
+                <span class="field__label" for="status">Status</span>
+                <input class="field__input" type="text" id="status" value="{{user.status}}" readonly/>
+            </label>
+            <button class="btn btn-dark" onclick="startEdit()">Edit status</button>
+            <form id="updateUserForm" style="display:none">
+              <label class="field">
+                
+              <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio1" name="status" value="active" checked>
+              <label class="form-check-label" for="radio1">Active</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="radio2" name="status" value="block">
+              <label class="form-check-label" for="radio2">Block</label>
+            </div>
+            <input type="hidden" name="user_id" value="{{user._id}}">
+            <button type="button" onclick="submitStatus()" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-dark text-light mt-3">Submit Status</button>
+        
+              </label>
+            </form>
+        </div>
+            <br>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+            <div class="card-header">User orders</div>
+            <div class="card-body ">
+
+              {{#each orders}}
+
+              <div class="card shadow-0 border ">
+                <div class="card-body">
+                  <div class="row">
+                   
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-dark mb-0">{{this.name}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-dark mb-0 small">{{this.orderData.totalAmount}}</p>
+                    </div>
+
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-dark mb-0 small">{{this.orderData.orderedDate}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-dark mb-0 small"> {{this.orderData.deliveryDate}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                     <p class="text-dark mb-0 small"> {{this.orderData.orderStatus}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <a class="btn btn-dark" href="/admin/orders/{{this.orderData._id}}">show</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+            </div>
+          </div>
+    </div>
+   
+
     </div>
   </div>
 
@@ -223,8 +284,9 @@
 </div>  
 
 
-  <script src="/js/userupdate.js"></script>
+
   <script src="/js/index.js"></script>
+    <script src="/js/userupdate.js"></script>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/popper.js"></script>
   <script src="/js/bootstrap.min.js"></script>
