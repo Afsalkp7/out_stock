@@ -94,6 +94,7 @@ route.get("/index", auth, async (req, res) => {
         },
       },
     ]);
+    console.log("totalEarnings",totalEarnings);
     const earings = totalEarnings[0].total;
 
     //find amount online payment

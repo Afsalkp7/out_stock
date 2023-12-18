@@ -111,9 +111,13 @@ route.get("/", auth, async (req, res) => {
     }
     YearOrdersAmount.push(grandTotalSum);
   }
+  //find last 5 orders
 
   const lastOrders = await PlaceOrder.find();
   const last5Orders = lastOrders.slice(0, 5);
+
+  //find current month orders
+
   const currentMonthOrders = await PlaceOrder.aggregate([
     {
       $match: {
@@ -132,12 +136,16 @@ route.get("/", auth, async (req, res) => {
       },
     },
   ]);
+
+
   const monthOrdersAmount = [];
+
   const daysInMonth = new Date(
     new Date().getFullYear(),
     new Date().getMonth() + 1,
     0
   ).getDate();
+
   for (let i = 1; i <= daysInMonth; i++) {
     const filteredData = currentMonthOrders.filter((obj) => {
       return new Date(obj.orderedDate).getDate() === i;

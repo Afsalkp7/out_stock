@@ -46,14 +46,6 @@
     </nav>
   </div>
 
-  {{#if alert}}
-  <div class="container">
-    <div class="alert alert-dark alert-dismissible fade show" role="alert">
-      {{alert.msg}}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  </div>
-  {{/if}}
 
   <div id="mainDiv" class="container mt-5">
 
@@ -67,27 +59,32 @@
     <span id="heading">Create Account</span>
 
 
-    <form id="fillingForm" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 mt-3" action="/register"
+    <form id="fillingForm" name="userRegistrationForm"  onsubmit="return registerValidation()" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 mt-3" action="/register"
       method="POST">
       <div class="form-floating" id="userName">
         <input type="text" class="form-control" id="userName" placeholder="Enter userName" name="userName">
         <label for="userName">User Name</label>
+        <small style="font-weight: bolder;" id="userNameAlert"></small>
       </div>
       <div class="form-floating" id="mobile">
         <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone">
         <label for="phone">Mobile Number</label>
+        <small style="font-weight: bolder;" id="phoneAlert"></small>
       </div>
       <div class="form-floating" id="email">
         <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
         <label for="email">Email</label>
+        <small style="font-weight: bolder;" id="emailAlert"></small>
       </div>
       <div class="form-floating" id="password">
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
         <label for="pwd">Password</label>
+        <small style="font-weight: bolder;" id="passAlert"></small>
       </div>
       <div class="form-floating mb-3" id="confirm">
         <input type="password" class="form-control" id="cpwd" placeholder="Enter password" name="cpassword">
         <label for="cpwd">Confirm Password</label>
+        <small style="font-weight: bolder;" id="confirmPassAlert"></small>
       </div>
       <input type="text" name="status" value="active" hidden>
       <input type="text" name="verified" value="false" hidden>
@@ -104,7 +101,7 @@
   </div>
 
 
-  <script src="/js/validation"></script>
+  <script src="/js/validation.js"></script>
 
 </body>
 

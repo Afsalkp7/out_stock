@@ -203,32 +203,7 @@ router.get("/registration", (req, res) => {
 //   }
 // );
 
-router.post(
-  "/register",
-  urlencodedParser,
-  [
-    check("userName", "User name must be 3 characters")
-      .exists()
-      .isLength({ min: 3 }),
-    check("email", "Email is not valid").exists().isEmail().normalizeEmail(),
-    check("phone", "entered phone number is not valid")
-      .exists()
-      .isLength({ min: 10, max: 10 })
-      .isMobilePhone()
-      .isNumeric(),
-    check("password", "password must need alphanumeic,regex,and 8 character")
-      .exists()
-      .isLength({ min: 8, max: 25 })
-      .isAlphanumeric(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const errorArray = errors.array();
-      const alert = errorArray[0];
-      console.log(alert);
-      return res.render("userregister", { alert: alert });
-    }
+router.post("/register", async (req, res) => {
     try {
       const password = req.body.password;
       const cpassword = req.body.cpassword;

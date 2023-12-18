@@ -1,3 +1,60 @@
+function registerValidation(){
+  let userName = document.forms["userRegistrationForm"]["userName"].value;
+  let phone = document.forms["userRegistrationForm"]["phone"].value;
+  let email = document.forms["userRegistrationForm"]["email"].value;
+  let password = document.forms["userRegistrationForm"]["password"].value;
+  let cpassword = document.forms["userRegistrationForm"]["cpassword"].value;
+  let containsOnlyDigits = /^\d+$/.test(phone);
+  let isValidEmail = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+  const hasAlphabets = /[a-zA-Z]/.test(password);
+  const hasNumerics = /\d/.test(password);
+  const hasSpecialChars = /[!@#$%]/.test(password);
+  if (userName == ""||null){
+    document.getElementById("userNameAlert").innerHTML="Please fill user name"
+    return false
+  }else if(userName.length<3){
+    document.getElementById("userNameAlert").innerHTML="User name must be need 3 characters minimum"
+    return false
+  }else if(phone == "" || null){
+    document.getElementById("phoneAlert").innerHTML="Fill Phone number "
+    return false
+  }else if(!containsOnlyDigits){
+    document.getElementById("phoneAlert").innerHTML="Phone number only contain numbers only"
+    return false
+  }else if(phone.length !== 10){
+    document.getElementById("phoneAlert").innerHTML="Phone number must contain 10 digits"
+    return false
+  }else if(email==""||null){
+    document.getElementById("emailAlert").innerHTML="Fill a email"
+    return false
+  }else if(!isValidEmail){
+    document.getElementById("emailAlert").innerHTML="Put a valid email"
+    return false
+  }else if(password==""||null){
+    document.getElementById("passAlert").innerHTML="Fill password"
+    return false
+  }else if(password.length < 8){
+    document.getElementById("passAlert").innerHTML="Password minimum contain 8 characters"
+    return false
+  }else if(password.length > 16) {
+    document.getElementById("passAlert").innerHTML="Password maximum contain only 16 characters"
+    return false
+  }else if(!(hasAlphabets && hasNumerics && hasSpecialChars)){
+    document.getElementById("passAlert").innerHTML="Password should contain alphabets, numerics, and at least one special character (!@#$%)."
+    return false
+  }else if(cpassword==""||null){
+    document.getElementById("confirmPassAlert").innerHTML="Fill confirm password"
+    return false
+  }else if(cpassword === password){
+    document.getElementById("confirmPassAlert").innerHTML="Password and confirm password not match"
+    return false
+  }else{
+    return true
+  }
+
+}
+
+
 function validateForm() {
   let brand = document.forms["myForm"]["brandName"].value;
   let logo = document.forms["myForm"]["brandLogo"].value;
@@ -16,6 +73,8 @@ function validateForm() {
     return true;
   }
 }
+
+
 
 function validateBannerForm() {
   let bannerName = document.forms["bannerForm"]["bannerName"].value;
@@ -102,28 +161,7 @@ function validateProductForm() {
   }
 }
 
-function registerValidation() {
-  let password = document.forms["fillingForm"]["password"].value;
-  let userName = document.forms["fillingForm"]["userName"].value;
-  let phone = document.forms["fillingForm"]["phone"].value;
-  let email = document.forms["fillingForm"]["email"].value;
 
-  if (email == "") {
-    alert("email Name must be filled out");
-    return false;
-  } else if (phone == "") {
-    alert("phone must be filled out");
-    return false;
-  } else if (userName == "") {
-    alert("userName must be filled out");
-    return false;
-  } else if (password == "") {
-    alert("password must be filled out");
-    return false;
-  } else {
-    return true;
-  }
-}
 
 function checkValidation(){
   let firstName = document.forms["checkForm"]["firstName"].value
