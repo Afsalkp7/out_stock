@@ -21,13 +21,13 @@ const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv").config({ path: "config.env" });
 const { config } = require("dotenv");
-const Banner = require("../../model/bannerModel")
-const Product = require("../../model/productModel")
+const Banner = require("../../model/bannerModel");
+const Product = require("../../model/productModel");
 const Order = require("../../model/oraderModel");
 const Cart = require("../../model/cartModel");
 const WishItem = require("../../model/wishModel");
 const PlaceOrder = require("../../model/orderPlaceModel");
-
+const otpCollection = require("../../model/userOtpModel");
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -37,13 +37,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendOTPByEmail = (email, otp) => {
+const sendOTPByEmail = (email, otp, subject) => {
   return new Promise((resolve, reject) => {
     const mailOptions = {
       from: "afsalkpmanu31@gmail.com",
       to: email,
-      subject: "Your OTP for Registration",
-      text: `Your OTP is: ${otp}`,
+      subject: "OTP FROM OUTSTOCK",
+      text: `HI , Your One Time Password (OTP) for ${subject} is ${otp}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -58,7 +58,7 @@ const sendOTPByEmail = (email, otp) => {
   });
 };
 
-const serviseSid = process.env.serviceSid
+const serviseSid = process.env.serviceSid;
 const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
 // console.log("authToken",authToken);
@@ -66,19 +66,25 @@ const authToken = process.env.authToken;
 // console.log("accountSid",accountSid);
 const client = new twilio(accountSid, authToken);
 
-router.get("/", async(req, res) =>{ 
-  const topBanner = await Banner.find({place:"top",status:"Enable"})
-  const centerBanner = await Banner.find({place:"center",status:"Enable"})
+router.get("/", async (req, res) => {
+  const topBanner = await Banner.find({ place: "top", status: "Enable" });
+  const centerBanner = await Banner.find({ place: "center", status: "Enable" });
   const sortProduct = await Product.find().sort({ quantity: 1 });
   const productArray = sortProduct.slice(0, 4);
   const descentSort = await Product.find().sort({ quantity: -1 });
   const trendingArray = descentSort.slice(0, 8);
   const newArrivalSort = await Product.find().sort({ dateCreated: -1 });
   const arrivalArray = newArrivalSort.slice(0, 8);
-  if(topBanner.length>0){
-    return res.render("index",{topBanner,productArray,centerBanner,trendingArray,arrivalArray})
+  if (topBanner.length > 0) {
+    return res.render("index", {
+      topBanner,
+      productArray,
+      centerBanner,
+      trendingArray,
+      arrivalArray,
+    });
   }
-   res.render("index")
+  res.render("index");
 });
 
 router.get(
@@ -204,35 +210,58 @@ router.get("/registration", (req, res) => {
 // );
 
 router.post("/register", async (req, res) => {
-    try {
-      const password = req.body.password;
-      const cpassword = req.body.cpassword;
-      if (password === cpassword) {
-        const phoneNumber = req.body.phone;
-        const parsedPhoneNumber = phoneUtil.parse(phoneNumber, "IN");
-          const phone = phoneUtil.format(
-            parsedPhoneNumber,
-            libphonenumber.PhoneNumberFormat.E164
-          );
-        const userData = new userCollection({
-          userName: req.body.userName,
-          email: req.body.email,
-          phone,
-          password: req.body.password,
-          cpassword: req.body.cpassword,
-          status: req.body.status,
-          verified: req.body.verified,
-        });
-        await userData.save();
-        res.render("userlogin");
-      } else {
-        res.render("userregister", { notMatch: true });
-      }
-    } catch (error) {
-      res.send(error);
-    }
+  const allreadyUser = await userCollection.findOne({ email: req.body.email });
+  if (allreadyUser) {
+    return res.render("userregister", { allready: true });
   }
-);
+  try {
+    const password = req.body.password;
+    const cpassword = req.body.cpassword;
+    if (password === cpassword) {
+      const phoneNumber = req.body.phone;
+      const parsedPhoneNumber = phoneUtil.parse(phoneNumber, "IN");
+      const phone = phoneUtil.format(
+        parsedPhoneNumber,
+        libphonenumber.PhoneNumberFormat.E164
+      );
+      const generateOTP = () => {
+        return Math.floor(100000 + Math.random() * 900000);
+      };
+      const email = req.body.email;
+      const otp = generateOTP();
+      const userData = new otpCollection({
+        userName: req.body.userName,
+        email,
+        phone,
+        password: req.body.password,
+        cpassword: req.body.cpassword,
+        status: req.body.status,
+        otp: "",
+      });
+      await userData.save();
+      const subject = "For registration on OUTSTOCK furniture";
+      const getOtp = sendOTPByEmail(email, otp, subject);
+      if (getOtp) {
+        const otpUpdate = await otpCollection.findOneAndUpdate(
+          { email },
+          { $set: { otp: otp } }
+        );
+        if (otpUpdate) {
+          const email = await otpUpdate.email;
+          return res.render("otpcolumnForRegistration", { email });
+        } else {
+          console.log("otp not updated");
+        }
+      } else {
+        return res.render("userregister", { notValid: true });
+      }
+    } else {
+      res.render("userregister", { notMatch: true });
+    }
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 router.get("/user_data", auth, async (req, res) => {
   const token = req.cookies.usersession;
@@ -246,47 +275,31 @@ router.get("/user_data", auth, async (req, res) => {
   }
 });
 
-router.post(
-  "/user_login",
-  urlencodedParser,
-  [
-    check("email", "Email is not valid").exists().isEmail().normalizeEmail(),
-    check("password", "password must need alphanumeic,regex,and 8 character")
-      .exists()
-      .isLength({ min: 8, max: 25 })
-      .isAlphanumeric(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const errorArray = errors.array();
-      const alert = errorArray[0];
-      console.log(alert);
-      return res.render("userlogin", { alert: alert });
-    }
-    const { email, password } = req.body;
-
-    try {
-      const userProfile = await userCollection.findOne({ email });
-      if (userProfile.status == "active") {
-        if (
-          userProfile &&
-          (await bcrypt.compare(password, userProfile.password))
-        ) {
-          const token = jwt.sign({ userId: userProfile._id }, secretKey);
-          res.cookie("usersession", token);
-          return res.redirect("/");
-        } else {
-          res.render("userlogin", { valid: true });
-        }
-      } else {
-        res.render("userlogin", { blocked: true });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+router.post("/user_login", async (req, res) => {
+  const { email, password } = req.body;
+  const userProfile = await userCollection.findOne({ email });
+  if(!userProfile){
+    return res.render("userlogin", { notExist: true });
   }
-);
+  try {
+    if (userProfile.status == "active") {
+      if (
+        userProfile &&
+        (await bcrypt.compare(password, userProfile.password))
+      ) {
+        const token = jwt.sign({ userId: userProfile._id }, secretKey);
+        res.cookie("usersession", token);
+        return res.redirect("/");
+      } else {
+        res.render("userlogin", { valid: true });
+      }
+    } else {
+      res.render("userlogin", { blocked: true });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 router.put("/update", auth, async (req, res) => {
   const user_id = req.body._id;
@@ -342,8 +355,8 @@ router.put("/change_password", auth, async (req, res) => {
 });
 
 router.get("/forgot", (req, res) => {
-  if(req.cookies.usersession){
-    return res.redirect("/")
+  if (req.cookies.usersession) {
+    return res.redirect("/");
   }
   return res.render("forgot");
 });
@@ -352,13 +365,14 @@ router.post("/forgot", async (req, res) => {
   const email = req.body.email;
   try {
     const userProfile = await userCollection.findOne({ email });
-    if (userProfile){
+    if (userProfile) {
       if (userProfile.status == "active") {
         const generateOTP = () => {
-          return Math.floor(1000 + Math.random() * 900000);
+          return Math.floor(100000 + Math.random() * 900000);
         };
         const otp = generateOTP();
-        const getOtp = sendOTPByEmail(email, otp);
+        const subject = "For recovering your password";
+        const getOtp = sendOTPByEmail(email, otp, subject);
         if (getOtp) {
           const otpUpdate = await userCollection.findOneAndUpdate(
             { email },
@@ -369,8 +383,7 @@ router.post("/forgot", async (req, res) => {
             return res.render("otpcolumn", { email });
           }
         }
-    }
-    
+      }
     } else {
       res.render("userlogin", { valid: true });
     }
@@ -384,23 +397,29 @@ router.post("/otp", async (req, res) => {
   const reqUser = await userCollection.findOne({ email });
   if (otp == reqUser.otp) {
     res.render("changeForm", { id: reqUser._id });
-  }else{
+  } else {
     console.log(email);
-    res.render("otpcolumn",{email, notMatch:true})
+    res.render("otpcolumn", { email, notMatch: true });
   }
 });
 
-router.post("/confirmPass",urlencodedParser,[check("password", "password must need alphanumeic,regex,and 8 character")
-.exists()
-.isLength({ min: 8, max: 25 })
-.isAlphanumeric(),], async (req, res) => {
-  const { password, confirmPassword, _id } = req.body;
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const errorArray = errors.array();
-    const alert = errorArray[0];
-    console.log(alert);
-    return res.render("changeForm", { id:_id , alert: alert });
+router.post(
+  "/confirmPass",
+  urlencodedParser,
+  [
+    check("password", "password must need alphanumeic,regex,and 8 character")
+      .exists()
+      .isLength({ min: 8, max: 25 })
+      .isAlphanumeric(),
+  ],
+  async (req, res) => {
+    const { password, confirmPassword, _id } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorArray = errors.array();
+      const alert = errorArray[0];
+      console.log(alert);
+      return res.render("changeForm", { id: _id, alert: alert });
     }
     try {
       if (password === confirmPassword) {
@@ -408,29 +427,51 @@ router.post("/confirmPass",urlencodedParser,[check("password", "password must ne
         user.password = password;
         await user.save();
         return res.render("userlogin");
-      }else{
-        return res.render("changeForm",{id : _id,incorrect : true})
+      } else {
+        return res.render("changeForm", { id: _id, incorrect: true });
       }
     } catch (error) {
-      return res.send(error)
+      return res.send(error);
     }
+  }
+);
+
+router.get("/delete", auth, async (req, res) => {
+  const userId = req.userId;
+  res.json(userId);
 });
 
-router.get("/delete",auth,async(req,res)=>{
-  const userId = req.userId
-  res.json(userId)
-})
-
-router.delete("/delete",auth,async(req,res)=>{
+router.delete("/delete", auth, async (req, res) => {
   const userId = req.userId;
-  await Order.deleteMany({userId})
-  await Cart.deleteMany({userId})
-  await WishItem.deleteMany({userId})
-  await PlaceOrder.deleteMany({userId})
-  const deleteUser = await userCollection.findOneAndRemove({_id:userId})
+  await Order.deleteMany({ userId });
+  await Cart.deleteMany({ userId });
+  await WishItem.deleteMany({ userId });
+  await PlaceOrder.deleteMany({ userId });
+  const deleteUser = await userCollection.findOneAndRemove({ _id: userId });
   console.log(deleteUser);
   res.clearCookie("usersession");
-  res.json(deleteUser)
-})
+  res.json(deleteUser);
+});
+
+router.post("/registerOtp", async (req, res) => {
+  const { email, otp } = req.body;
+  const reqUser = await otpCollection.findOne({ email });
+  if (otp == reqUser.otp) {
+    const userData = new userCollection({
+      userName: reqUser.userName,
+      email: reqUser.email,
+      phone: reqUser.phone,
+      password: reqUser.password,
+      cpassword: reqUser.cpassword,
+      status: reqUser.status,
+    });
+    await userData.save();
+    await otpCollection.findOneAndRemove({ email });
+    res.render("userlogin");
+  } else {
+    console.log(email);
+    res.render("otpcolumnForRegistration", { email, notMatch: true });
+  }
+});
 
 module.exports = router;

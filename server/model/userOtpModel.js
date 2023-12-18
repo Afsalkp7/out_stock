@@ -1,20 +1,28 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-// const otpVerifySchema = new mongoose.Schema({
-//     otp : {
-//         type : String
-//     },
-//     createdAt : {
-//         type : Date
-//     },
-//     expiresAt : {
-//         type : Date
-//     }
-// })
+const otpSchema = new mongoose.Schema({
+  userName: {
+    type: String,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+  },
+  password: {
+    type: String,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+  otp:{
+    type : String,
+  }
+});
 
-// const userOtpVerification = mongoose.model(
-//     "userOtpVerification",
-//     otpVerifySchema
-// )
+const otpCollection = new mongoose.model("otpCollection", otpSchema);
 
-// module.exports = userOtpVerification;
+module.exports = otpCollection;

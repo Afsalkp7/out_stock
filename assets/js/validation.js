@@ -45,13 +45,44 @@ function registerValidation(){
   }else if(cpassword==""||null){
     document.getElementById("confirmPassAlert").innerHTML="Fill confirm password"
     return false
-  }else if(cpassword === password){
+  }else if(cpassword != password){
     document.getElementById("confirmPassAlert").innerHTML="Password and confirm password not match"
     return false
   }else{
     return true
   }
 
+}
+
+function loginValidation(){
+  let email = document.forms["userLoginForm"]["email"].value;
+  let password = document.forms["userLoginForm"]["password"].value;
+  let isValidEmail = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+  const hasAlphabets = /[a-zA-Z]/.test(password);
+  const hasNumerics = /\d/.test(password);
+  const hasSpecialChars = /[!@#$%]/.test(password);
+
+  if(email==""||null){
+    document.getElementById("emailAlert").innerHTML="Fill a email"
+    return false
+  }else if(!isValidEmail){
+    document.getElementById("emailAlert").innerHTML="Put a valid email"
+    return false
+  }else if(password==""||null){
+    document.getElementById("passAlert").innerHTML="Fill password"
+    return false
+  }else if(password.length < 8){
+    document.getElementById("passAlert").innerHTML="Password minimum contain 8 characters"
+    return false
+  }else if(password.length > 16) {
+    document.getElementById("passAlert").innerHTML="Password maximum contain only 16 characters"
+    return false
+  }else if(!(hasAlphabets && hasNumerics && hasSpecialChars)){
+    document.getElementById("passAlert").innerHTML="Password should contain alphabets, numerics, and at least one special character (!@#$%)."
+    return false
+  }else{
+    return true
+  }
 }
 
 

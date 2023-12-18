@@ -18,9 +18,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  verified: {
-    type: Boolean,
-  },
   displayName: {
     type: String,
   },
