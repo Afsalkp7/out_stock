@@ -60,7 +60,7 @@ function loginValidation(){
   let isValidEmail = /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
   const hasAlphabets = /[a-zA-Z]/.test(password);
   const hasNumerics = /\d/.test(password);
-  const hasSpecialChars = /[!@#$%]/.test(password);
+  // const hasSpecialChars = /[!@#$%]/.test(password);
 
   if(email==""||null){
     document.getElementById("emailAlert").innerHTML="Fill a email"
@@ -84,7 +84,66 @@ function loginValidation(){
     return true
   }
 }
+function changeFormValidation(){
+  let password = document.forms["passChangeForm"]["password"].value;
+  let confirmPassword = document.forms["passChangeForm"]["confirmPassword"].value;
+  const hasAlphabets = /[a-zA-Z]/.test(password);
+  const hasNumerics = /\d/.test(password);
+  const hasSpecialChars = /[!@#$%]/.test(password);
 
+  if(password==""||null){
+    document.getElementById("passAlert").innerHTML="Fill password"
+    return false
+  }else if(password.length < 8){
+    document.getElementById("passAlert").innerHTML="Password minimum contain 8 characters"
+    return false
+  }else if(password.length > 16) {
+    document.getElementById("passAlert").innerHTML="Password maximum contain only 16 characters"
+    return false
+  }else if(!(hasAlphabets && hasNumerics && hasSpecialChars)){
+    document.getElementById("passAlert").innerHTML="Password should contain alphabets, numerics, and at least one special character (!@#$%)."
+    return false
+  }else if(password!=confirmPassword){
+    document.getElementById("conPassAlert").innerHTML="Confirm password and Password is not match "
+    return false
+  }else{
+    return true
+  }
+}
+
+function changePassForm(){
+  let oldPass = document.forms["passChange"]["oldPass"].value;
+  let newPass = document.forms["passChange"]["newPass"].value;
+  let rePass = document.forms["passChange"]["rePass"].value;
+  const hasAlphabets = /[a-zA-Z]/.test(newPass);
+  const hasNumerics = /\d/.test(newPass);
+  const hasSpecialChars = /[!@#$%]/.test(newPass);
+  const hasAlphabetsOld = /[a-zA-Z]/.test(oldPass);
+  const hasNumericsOld = /\d/.test(oldPass);
+
+
+  if(oldPass==""||null){
+    document.getElementById("oldAlert").innerHTML="Fill password"
+    return false
+  }else if(oldPass.length < 8){
+    document.getElementById("oldAlert").innerHTML="Password minimum contain 8 characters"
+    return false
+  }else if(oldPass.length > 16) {
+    document.getElementById("oldAlert").innerHTML="Password maximum contain only 16 characters"
+    return false
+  }else if(!hasNumericsOld && hasAlphabetsOld ){
+    document.getElementById("oldAlert").innerHTML="Password maximum contain only 16 characters"
+    return false
+  }else if(!(hasAlphabets && hasNumerics && hasSpecialChars)){
+    document.getElementById("newAlert").innerHTML="Password should contain alphabets, numerics, and at least one special character (!@#$%)."
+    return false
+  }else if(newPass!=rePass){
+    document.getElementById("reAlert").innerHTML="Confirm password and Password is not match "
+    return false
+  }else{
+    return true
+  }
+}
 
 function validateForm() {
   let brand = document.forms["myForm"]["brandName"].value;

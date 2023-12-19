@@ -69,12 +69,67 @@ const client = new twilio(accountSid, authToken);
 router.get("/", async (req, res) => {
   const topBanner = await Banner.find({ place: "top", status: "Enable" });
   const centerBanner = await Banner.find({ place: "center", status: "Enable" });
-  const sortProduct = await Product.find().sort({ quantity: 1 });
-  const productArray = sortProduct.slice(0, 4);
-  const descentSort = await Product.find().sort({ quantity: -1 });
-  const trendingArray = descentSort.slice(0, 8);
   const newArrivalSort = await Product.find().sort({ dateCreated: -1 });
   const arrivalArray = newArrivalSort.slice(0, 8);
+  const mostSelled = await PlaceOrder.aggregate([
+    {
+      $unwind: {
+        path: "$orderItems",
+      },
+    },
+    {
+      $group: {
+        _id: "$orderItems.productId",
+        totalSold: {
+          $sum: 1,
+        },
+      },
+    },
+    {
+      $sort: {
+        totalSold: -1,
+      },
+    },
+    {
+      $limit: 4,
+    },
+  ]);
+  const productArray=[]
+  for (let i=0 ; i<mostSelled.length ; i++ ) {
+    var product = await Product.findById(mostSelled[i]._id)
+    productArray.push(product)
+  }
+
+  const mostOrdered = await PlaceOrder.aggregate([
+    {
+      $unwind: {
+        path: "$orderItems",
+      },
+    },
+    {
+      $group: {
+        _id: "$orderItems.productId",
+        totalSold: {
+          $sum: 1,
+        },
+      },
+    },
+    {
+      $sort: {
+        totalSold: -1,
+      },
+    },
+    {
+      $limit: 8,
+    },
+  ]);
+
+
+  const dateCreated=[]
+  for (let i=0 ; i<mostOrdered.length ; i++ ) {
+    var product = await Product.findById(mostOrdered[i]._id)
+  }
+  const trendingArray = dateCreated.slice(4)
   if (topBanner.length > 0) {
     return res.render("index", {
       topBanner,

@@ -6,6 +6,8 @@ const PlaceOrder = require("../../model/orderPlaceModel");
 const { order } = require("paypal-rest-sdk");
 const Order = require("../../model/oraderModel");
 const Product = require("../../model/productModel")
+
+
 const isSameDay = (date1, date2) => {
   const day1 = new Date(date1);
   const day2 = new Date(date2);
@@ -15,6 +17,7 @@ const isSameDay = (date1, date2) => {
     day1.getUTCDate() === day2.getUTCDate()
   );
 };
+
 
 route.get("/", auth, async (req, res) => {
   const _id = req.adminId;

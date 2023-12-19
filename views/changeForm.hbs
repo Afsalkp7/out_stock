@@ -43,8 +43,10 @@
         <img id="logImg" src="/img/slide13.jpg" width="100%" alt="login.jpg">
         <span id="heading">Reset Password</span>
     <div class="container">
-      <form id="fillingForm"  
+      <form 
+        name="passChangeForm"
         class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
+        onsubmit="return changeFormValidation()"
         action="/confirmPass"
         method="POST"
       >
@@ -58,6 +60,7 @@
             name="password"
           />
           <label for="pass">New Password</label>
+          <p id="passAlert"></p>
         </div>
         <div class="form-floating mb-3 mt-3">
           <input
@@ -68,8 +71,9 @@
             name="confirmPassword"
           />
           <label for="con">Confirm Password</label>
+          <p id="conPassAlert"></p>
         </div>
-        <p id="pwdMsg1"></p>
+        
         <input type="hidden" name="_id" value="{{id}}" />
         <button type="submit" class="btn btn-dark">confirm password</button>
 
@@ -90,6 +94,6 @@
         document.getElementById("pwdMsg1").innerHTML = "{{alert.msg}}"
       </script>
     {{/if}}
-
+  <script src="/js/validation.js"></script>
   </body>
 </html>
