@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  {{!-- <script>
+  {{!--
+  <script>
     const options = {
       bottom: '0px',
       right: '0px',
@@ -56,7 +57,7 @@
               style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Home</a>
             <a href="/shop" class="nav-item nav-link  ms-5"
               style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Shop</a>
-            <a href="#" class="nav-item nav-link  ms-5"
+            <a href="/about" class="nav-item nav-link  ms-5"
               style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">About</a>
             <a href="/contact" class="nav-item nav-link  ms-5"
               style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
@@ -158,7 +159,7 @@
                     ₹{{this.price}}/-</h5>
                   <small class="float-end  rounded-pill text-danger"
                     style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
-                  
+
                 </div>
 
               </div>
@@ -181,7 +182,7 @@
     <div class="row">
       {{#each centerBanner}}
       <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-        <img src="{{this.bannerImage}}" alt="banner2" width="100%">
+        <img src="{{this.bannerImage}}" alt="banner2" width="100%"  style="border-radius: 10px;">
       </div>
       {{/each}}
     </div>
@@ -211,7 +212,7 @@
                   ₹{{this.price}}/-</h5>
                 <small class="float-end  rounded-pill text-danger"
                   style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
-               
+
               </div>
 
             </div>
@@ -258,6 +259,51 @@
   </div>
   <br>
   <br>
+  <div class="container-fluid mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 text-center mb-3">
+          <img src="/img/web.png" alt="web"><br>
+          <span class="text-secondery" style="font-weight: bold;">Free World Wide Shipping</span><br>
+          <span
+            style="font-family: Arial, Helvetica, sans-serif; line-height: 12px; font-weight: lighter; margin-top: 15px;">All
+            order of ₹1999/- or more eligible items acrross any product
+            category qualify</span>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 text-center mb-3">
+          <img src="/img/24hrs.png" alt="24"><br>
+          <span class="text-secondery" style="font-weight: bold;">24/7 Customer Service</span><br>
+          <span
+            style="font-family: Arial, Helvetica, sans-serif; line-height: 12px; font-weight: lighter; margin-top: 15px;">Please
+            contact us if you have any questions about the purchase and
+            warranty.</span>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 text-center mb-3">
+          <img src="/img/moneyPot.png" alt="money"><br>
+          <span class="text-secondery" style="font-weight: bold;">Free All India Shipping</span><br>
+          <span
+            style="font-family: Arial, Helvetica, sans-serif; line-height: 12px; font-weight: lighter; margin-top: 15px;">You
+            can return any item purchased on puik within 20 dats of the
+            delivery date.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  {{#if bottomBanner}}
+  <div class="container mt-5" >
+    <div class="row">
+      {{#each bottomBanner}}
+      <div class="col-12 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
+        <img src="{{this.bannerImage}}" alt="banner3" width="100%" style="border-radius: 10px;">
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+  <br>
+  <br>
   <section class="contact-area" id="contact">
     <div class="container">
       <div class="row">
@@ -271,8 +317,10 @@
             <h6>+91 8089 8088 47<span>|</span>+91 8089 4788 47</h6>
             <div class="contact-social">
               <ul>
-                <li><a class="hover-target" href="https://www.facebook.com/afsal.manu.370/"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a class="hover-target" href="www.linkedin.com/in/afsal-kp"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a class="hover-target" href="https://www.facebook.com/afsal.manu.370/"><i
+                      class="fab fa-facebook-f"></i></a></li>
+                <li><a class="hover-target" href="www.linkedin.com/in/afsal-kp"><i class="fab fa-linkedin-in"></i></a>
+                </li>
                 <li><a class="hover-target" href="https://github.com/Afsalkp7"><i class="fab fa-github"></i></a></li>
                 <li><a class="hover-target" href="https://codepen.io/Afsalkp7"><i class="fab fa-codepen"></i></a></li>
               </ul>

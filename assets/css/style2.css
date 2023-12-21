@@ -46,9 +46,7 @@
         padding-top: 70px;
     }
 }
-.Shopimg{
-    /* margin-top: 80px; */
-}
+
 @media only screen and (max-width: 1330px) {
     .Shopimg{
         margin-top: 80px;
@@ -65,18 +63,10 @@
         position: unset;
         padding-top: 250px;
     }
-    .shopHead{
-        
-    }
+
 }
 @media only screen and (max-width: 375px) {
     
-    .Shopimg{
-        /* display: none; */
-    }
-    .shopHead{
-        /* position: unset; */
-    }
     .mainShop{
         /* position: unset; */
         padding-top: 300px;

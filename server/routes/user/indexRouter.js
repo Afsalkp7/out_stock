@@ -69,6 +69,7 @@ const client = new twilio(accountSid, authToken);
 router.get("/", async (req, res) => {
   const topBanner = await Banner.find({ place: "top", status: "Enable" });
   const centerBanner = await Banner.find({ place: "center", status: "Enable" });
+  const bottomBanner = await Banner.find({ place: "bottom", status: "Enable" });
   const newArrivalSort = await Product.find().sort({ dateCreated: -1 });
   const arrivalArray = newArrivalSort.slice(0, 8);
   const mostSelled = await PlaceOrder.aggregate([
@@ -128,18 +129,20 @@ router.get("/", async (req, res) => {
   const dateCreated=[]
   for (let i=0 ; i<mostOrdered.length ; i++ ) {
     var product = await Product.findById(mostOrdered[i]._id)
+    dateCreated.push(product)
   }
+
   const trendingArray = dateCreated.slice(4)
-  if (topBanner.length > 0) {
+
     return res.render("index", {
       topBanner,
       productArray,
       centerBanner,
       trendingArray,
       arrivalArray,
+      bottomBanner
     });
-  }
-  res.render("index");
+
 });
 
 router.get(
