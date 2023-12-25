@@ -254,3 +254,20 @@ Centered text
     font-weight: 500;
     color: #000!important;
 }
+
+#options{
+    position: sticky; 
+    top:70px;
+    height: 800px
+}
+@media only screen and (max-width: 576px) {
+    #options{
+        position: unset;
+    }
+}
+@media (max-width: 349px) {
+    .custom-col {
+        flex: 0 0 100%; /* Set the column width to 100% below 350px */
+        max-width: 100%;
+    }
+}

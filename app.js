@@ -46,6 +46,7 @@ app.use("/orderSummery",(require("./server/routes/user/orderSummeryRouter")))
 app.use("/myOrders",(require("./server/routes/user/myOrdersRouter")))
 app.use("/myAddresses",(require("./server/routes/user/myAddressesRouter")))
 app.use("/contact",(require("./server/routes/user/contactRouter")))
+app.use("/about",(require("./server/routes/user/aboutRouter")))
 app.use("/admin", require("./server/routes/admin/router"));
 app.use("/admin/users", require("./server/routes/admin/userRouter"));
 app.use("/admin/products", require("./server/routes/admin/productRouter"));
