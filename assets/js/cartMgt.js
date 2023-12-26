@@ -23,7 +23,7 @@ if (addToCartButton){
           Toastify({
             text: "Item Added to cart successfully",
             duration: 1000,
-            destination: "https://github.com/apvarun/toastify-js",
+            destination: "/cart",
             newWindow: true,
             close: true,
             gravity: "top", 
@@ -112,12 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           body: JSON.stringify(wishItem)
         })
-        .then((response)=>{
+        .then(async(response)=>{
           if(response.ok) {
+            const message = await response.json()
             Toastify({
-              text: "Item Added to wishlist successfully",
+              text: message.msg,
               duration: 1000,
-              destination: "https://github.com/apvarun/toastify-js",
+              destination: "/cart",
               newWindow: true,
               close: true,
               gravity: "top", 
@@ -175,7 +176,24 @@ function updateQuantity(id,change){
   let newTotal = parseInt(total.textContent) + (parseInt(amount.textContent)*change)
   let newQuantity = parseInt(product.value) + change;
   newQuantity = Math.max(0, newQuantity);
+  newQuantity = Math.min(11, newQuantity);
   if(newQuantity === 0){
+    return
+  }else if (newQuantity === 11){
+    Toastify({
+      text: "Only 10 pcs can purchase at a time",
+      duration: 1000,
+      destination: "/cart",
+      newWindow: true,
+      close: true,
+      gravity: "top", 
+      position: "center", 
+      stopOnFocus: true, 
+      style: {
+        background: "black",
+      },
+      
+    }).showToast();
     return
   }else{
     fetch('/cart/updateQuantity', {

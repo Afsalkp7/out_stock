@@ -85,8 +85,14 @@ router.get("/delete/:id",authCart,async(req,res)=>{
     router.put("/updateQuantity",authCart,async (req,res)=>{
         const userId =  req.userId;
         const {productId,newQuantity} =  req.body;
-        const updateQuantity = await CartItem.findOneAndUpdate({ userId, productId },{$set:{quantity:newQuantity}})
-        res.json(updateQuantity)
+        const product = await Product.findById(productId)
+        if(newQuantity <= product.quantity){
+            const updateQuantity = await CartItem.findOneAndUpdate({ userId, productId },{$set:{quantity:newQuantity}})
+            res.json(updateQuantity)
+        }else{
+            
+        }
+        
     })
 
 module.exports = router;
