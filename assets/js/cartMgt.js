@@ -18,10 +18,11 @@ if (addToCartButton){
         },
         body: JSON.stringify(cartItem)
       })
-      .then((response)=>{
+      .then(async(response)=>{
         if(response.ok) {
+          const message = await response.json();
           Toastify({
-            text: "Item Added to cart successfully",
+            text: message.msg,
             duration: 1000,
             destination: "/cart",
             newWindow: true,
@@ -165,9 +166,9 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
-
 function updateQuantity(id,change){
   const product = document.querySelector(`input.qty[data-user-id="${id}"]`);
+  const stock = document.querySelector(`input.stock[data-user-id="${id}"]`).value;
   const sum = document.querySelector(`.sum[data-user-id="${id}"]`)
   const amount = document.querySelector(`.price1[data-user-id="${id}"]`)
   const total = document.getElementById("total");
@@ -177,11 +178,28 @@ function updateQuantity(id,change){
   let newQuantity = parseInt(product.value) + change;
   newQuantity = Math.max(0, newQuantity);
   newQuantity = Math.min(11, newQuantity);
+
   if(newQuantity === 0){
     return
   }else if (newQuantity === 11){
     Toastify({
       text: "Only 10 pcs can purchase at a time",
+      duration: 1000,
+      destination: "/cart",
+      newWindow: true,
+      close: true,
+      gravity: "top", 
+      position: "center", 
+      stopOnFocus: true, 
+      style: {
+        background: "black",
+      },
+      
+    }).showToast();
+    return
+  }else if(newQuantity > stock){
+    Toastify({
+      text: `Only ${stock} pcs available in stock`,
       duration: 1000,
       destination: "/cart",
       newWindow: true,

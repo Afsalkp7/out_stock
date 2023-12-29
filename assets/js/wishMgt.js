@@ -17,12 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify(cartItem)
       })
-      .then((response)=>{
+      .then(async(response)=>{
         if(response.ok) {
+          const message = await response.json();
           Toastify({
-            text: "Item Added to cart successfully",
+            text: message.msg,
             duration: 1000,
-            destination: "https://github.com/apvarun/toastify-js",
+            destination: "/wish",
             newWindow: true,
             close: true,
             gravity: "top", 

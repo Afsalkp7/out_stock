@@ -157,6 +157,7 @@ router.post("/", authCart, async (req, res) => {
           discound: discound,
         });
         await orderData.save();
+        
         const deleteCart = await CartItem.deleteMany({ userId });
         if (deleteCart) {
           res.json(orderData);
@@ -201,6 +202,19 @@ router.get("/:id", async (req, res) => {
     const productData = await Product.findById(productId);
     let newQty = productData.quantity - qty;
     await Product.updateOne({ _id: productId }, { $set: { quantity: newQty } });
+    const updatedProduct = await Product.findById(productId);
+    if(updatedProduct.quantity<=0){
+      await CartItem.deleteMany({productId:updatedProduct._id})
+    }else{
+      const productsInCart = await CartItem.find({productId:updatedProduct._id})
+      for (let productInCart of productsInCart){
+        if(productInCart.quantity>updatedProduct.quantity){
+          await CartItem.updateOne({_id:productInCart._id},{$set:{quantity:updatedProduct.quantity}})
+        }else{
+          continue;
+        }
+      }
+    }
     sum = sum + productData.price * qty;
     orders.push({ productData, qty });
   }

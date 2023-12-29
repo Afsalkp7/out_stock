@@ -173,6 +173,8 @@
             <button class="btn btn-dark shadow-0" id="buyNowButton" data-item-id="{{item._id}}"> Buy now </button>
             <button class="btn btn-dark shadow-0" id="addToCartButton" data-item-id="{{item._id}}"> <i
                 class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
+            <button style="display: none;" class="btn btn-dark shadow-0" id="outOfStockBuyNow" onclick="outOfStock()" > Buy now </button>
+            <button style="display: none;" class="btn btn-dark shadow-0" id="outOfStockAddToCart"  onclick="outOfStock()"  > <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
             <buton id="addToWishButton" data-item-id="{{item._id}}"
               class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i>
               Save </buton>
@@ -182,10 +184,26 @@
     </div>
   </section>
   <!-- content -->
-
+<script>
+  function outOfStock(){
+    Toastify({
+            text: "Item is out of stock",
+            duration: 1000,
+            newWindow: true,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "black",
+            },
+            
+          }).showToast();
+  }
+</script>
 
   <script>
-    if({{item.quantity}} > 5){
+    if({{item.quantity}} >= 5){
       document.getElementById("availableStock").innerHTML=""
       document.getElementById("stockAlert").innerHTML="In stock"
       document.getElementById("stockAlert").style.color="green"
@@ -196,6 +214,10 @@
     }else{
       document.getElementById("stockAlert").innerHTML="Out of stock"
       document.getElementById("stockAlert").style.color="red"
+      document.getElementById("outOfStockAddToCart").style.display="block"
+      document.getElementById("outOfStockBuyNow").style.display="block"
+      document.getElementById("buyNowButton").style.display="none"
+      document.getElementById("addToCartButton").style.display="none"
     }
   </script>
 
@@ -233,7 +255,6 @@
         Toastify({
         text: "Only 10 pcs can purchase at a time",
         duration: 1000,
-        destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
         close: true,
         gravity: "top",
