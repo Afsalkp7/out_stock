@@ -29,36 +29,36 @@ const {
   AuthRegistrationsCredentialListMappingContext,
 } = require("twilio/lib/rest/api/v2010/account/sip/domain/authTypes/authRegistrationsMapping/authRegistrationsCredentialListMapping");
 
-route.get("/",(req,res)=>{
-    res.render('adminSignup')
-})
-route.post("/admin_login",async(req,res)=>{
-    try {
-        const {password,cpassword} = req.body
-        if(password === cpassword){
-            const outstockAdminData = new adminCollection({
-                userName : req.body.name,
-                email : req.body.email,
-                phone : req.body.phone,
-                password : req.body.password,
-                cpassword : req.body.cpassword
-            })
-            const adminData = await outstockAdminData.save()
-            res.render("adminLog")
-        }else{
-            res.render("adminSignup")
-        }
-    } catch (error) {
-        res.send(error)
-    }
-})
+// route.get("/",(req,res)=>{
+//     res.render('adminSignup')
+// })
+// route.post("/admin_login",async(req,res)=>{
+//     try {
+//         const {password,cpassword} = req.body
+//         if(password === cpassword){
+//             const outstockAdminData = new adminCollection({
+//                 userName : req.body.name,
+//                 email : req.body.email,
+//                 phone : req.body.phone,
+//                 password : req.body.password,
+//                 cpassword : req.body.cpassword
+//             })
+//             const adminData = await outstockAdminData.save()
+//             res.render("adminLog")
+//         }else{
+//             res.render("adminSignup")
+//         }
+//     } catch (error) {
+//         res.send(error)
+//     }
+// })
 
-// route.get("/", (req, res) => {
-//   const token = req.cookies.session;
-//   if (token) {
-//     res.redirect("/admin/index");
-//   } else res.render("adminlog");
-// });
+route.get("/", (req, res) => {
+  const token = req.cookies.session;
+  if (token) {
+    res.redirect("/admin/index");
+  } else res.render("adminlog");
+});
 
 route.get("/index", auth, async (req, res) => {
   if (req.cookies.session) {
