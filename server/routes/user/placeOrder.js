@@ -16,7 +16,7 @@ var razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_ID_KEY,
   key_secret: process.env.RAZORPAY_SECRET_KEY,
 });
-console.log();
+
 paypal.configure({
   'mode': 'sandbox',
   'client_id': process.env.CLIENT_ID_PAYPAL,
@@ -397,6 +397,7 @@ router.get('/success', (req, res) => {
     });
     
     });
+
 router.get('/cancel', (req, res) => res.send('Cancelled'));
 
 
