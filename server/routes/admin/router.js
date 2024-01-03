@@ -29,7 +29,7 @@ const {
   AuthRegistrationsCredentialListMappingContext,
 } = require("twilio/lib/rest/api/v2010/account/sip/domain/authTypes/authRegistrationsMapping/authRegistrationsCredentialListMapping");
 
-// route.get("/admin",(req,res)=>{
+// route.get("/",(req,res)=>{
 //     res.render('adminSignup')
 // })
 // route.post("/admin_login",async(req,res)=>{
