@@ -66,6 +66,7 @@ route.get("/index", auth, async (req, res) => {
     const admin = await adminCollection.findOne({ _id });
     //find order count
     const orderCount = await PlaceOrder.countDocuments({});
+    console.log("orderCount : " , orderCount);
     const orderPlaceCount = await PlaceOrder.countDocuments({
       orderStatus: "Order Placed",
     });
