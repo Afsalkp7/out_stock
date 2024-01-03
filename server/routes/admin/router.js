@@ -57,7 +57,7 @@ route.get("/", (req, res) => {
   const token = req.cookies.session;
   if (token) {
     res.redirect("/admin/index");
-  } else res.render("adminlog");
+  } else {res.render("adminlog");}
 });
 
 route.get("/index", auth, async (req, res) => {
@@ -267,7 +267,7 @@ route.post("/admin_login", async (req, res) => {
       res.render("adminlog", { emailMatch: true });
     }
   } catch (error) {
-    console.log(error);
+    res.send(error)
   }
 });
 
