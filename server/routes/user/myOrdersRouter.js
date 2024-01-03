@@ -57,7 +57,7 @@ router.get("/:id",authCart,async (req,res)=>{
     }else{
         cancelled = true
     }
-    return res.render("myOrderSingle",{order,address,orderedProducts,orderPlaced,delivered,cancelled,outForDelivery,shipped})
+    res.render("myOrderSingle",{order,address,orderedProducts,orderPlaced,delivered,cancelled,outForDelivery,shipped})
 })
 
 router.get("/cancel/:id",authCart,async (req,res)=>{
