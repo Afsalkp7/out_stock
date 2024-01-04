@@ -9,7 +9,11 @@ const Coupon = require("../../model/couponModel");
 
 router.get("/", authCart, async (req, res) => {
   const userId = req.userId;
-  const orderAddress = await Order.find({ userId });
+  var orderAddress = await Order.find({ userId });
+  if (orderAddress) {
+    const clearCoupon = await Order.updateMany({userId},{$set:{couponId:""}})
+    orderAddress = await Order.find({ userId });
+  }
 
   if (req.cookies.buynowPrduct) {
     const cartProducts = [];
