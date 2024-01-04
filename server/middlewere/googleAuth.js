@@ -1,6 +1,4 @@
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
-const secretKey = process.env.secretKey;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const userCollection = require("../model/userModel");
 require("dotenv").config();
@@ -9,7 +7,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://outstockfurniture.world/auth/google/callback",
+      callbackURL: "http://localhost:3900/auth/google/callback",
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
