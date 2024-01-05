@@ -1,5 +1,5 @@
 function registerValidation(){
-  let userName = document.forms["userRegistrationForm"]["userName"].value;
+  let userName = document.forms["userRegistrationForm"]["userName"].value.trim();
   let phone = document.forms["userRegistrationForm"]["phone"].value;
   let email = document.forms["userRegistrationForm"]["email"].value;
   let password = document.forms["userRegistrationForm"]["password"].value;
@@ -14,6 +14,9 @@ function registerValidation(){
     return false
   }else if(userName.length<3){
     document.getElementById("userNameAlert").innerHTML="User name must be need 3 characters minimum"
+    return false
+  }else if(userName.length>10){
+    document.getElementById("userNameAlert").innerHTML="User name only contain maximum 10 characters"
     return false
   }else if(phone == "" || null){
     document.getElementById("phoneAlert").innerHTML="Fill Phone number "
