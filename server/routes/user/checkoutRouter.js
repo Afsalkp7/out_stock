@@ -11,7 +11,10 @@ router.get("/", authCart, async (req, res) => {
   const userId = req.userId;
   var orderAddress = await Order.find({ userId });
   if (orderAddress) {
-    const clearCoupon = await Order.updateMany({userId},{$set:{couponId:""}})
+    const clearCoupon = await Order.updateMany(
+      { userId },
+      { $unset: { couponId: 1 } }
+    );
     orderAddress = await Order.find({ userId });
   }
 
@@ -241,18 +244,12 @@ router.get("/coupon/:code", authCart, async (req, res) => {
 //   const couponId = req.params.id;
 // });
 
-router.post("/buynow/:id", authCart,(req, res) => {
-  try {
-    const productId = req.params.id;
-    const quantity = parseInt(req.body.quantity);
-    res.cookie("buynowQuantity", quantity);
-    res.cookie("buynowPrduct", productId);
-    res.json(productId);
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-  
+router.post("/buynow/:id", authCart, async (req, res) => {
+  const productId = req.params.id;
+  const quantity = parseInt(req.body.quantity);
+  res.cookie("buynowQuantity", quantity);
+  res.cookie("buynowPrduct", productId);
+  res.json(productId);
 });
 
 module.exports = router;
