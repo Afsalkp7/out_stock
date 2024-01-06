@@ -241,7 +241,7 @@ router.get("/coupon/:code", authCart, async (req, res) => {
 //   const couponId = req.params.id;
 // });
 
-router.post("/buynow/:id", authCart, async (req, res) => {
+router.post("/buynow/:id", authCart,(req, res) => {
   try {
     const productId = req.params.id;
     const quantity = parseInt(req.body.quantity);
