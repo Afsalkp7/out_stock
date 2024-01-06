@@ -242,11 +242,17 @@ router.get("/coupon/:code", authCart, async (req, res) => {
 // });
 
 router.post("/buynow/:id", authCart, async (req, res) => {
-  const productId = req.params.id;
-  const quantity = parseInt(req.body.quantity);
-  res.cookie("buynowQuantity", quantity);
-  res.cookie("buynowPrduct", productId);
-  res.json(productId);
+  try {
+    const productId = req.params.id;
+    const quantity = parseInt(req.body.quantity);
+    res.cookie("buynowQuantity", quantity);
+    res.cookie("buynowPrduct", productId);
+    res.json(productId);
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
 });
 
 module.exports = router;
