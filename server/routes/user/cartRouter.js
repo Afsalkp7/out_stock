@@ -15,7 +15,7 @@ router.get("/", authCart, async (req, res) => {
     const userId = req.userId;
     const cartItems = await CartItem.find({ userId });
     if (cartItems.length == 0) {
-      res.render("cart", { noItem: true });
+      return res.render("cart", { noItem: true });
     }else{
       const cartProducts = [];
       for (let cartItem of cartItems) {
@@ -31,7 +31,7 @@ router.get("/", authCart, async (req, res) => {
           }
         }
       }
-      res.render("cart", { cartProducts });
+      return res.render("cart", { cartProducts });
     }
 
   } catch (error) {
