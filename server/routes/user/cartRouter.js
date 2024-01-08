@@ -6,32 +6,36 @@ const CartItem = require("../../model/cartModel");
 const { authCart } = require("../../middlewere/user_auth");
 
 router.get("/", authCart, async (req, res) => {
-  if (req.cookies.buynowPrduct) {
-    res.clearCookie("buynowPrduct");
-    res.clearCookie("buynowQuantity");
-  }
-  const userId = req.userId;
-  const cartItems = await CartItem.find({ userId });
-  if (cartItems.length == 0) {
-    res.render("cart", { noItem: true });
-  }
-  const cartProducts = [];
-
-  for (let cartItem of cartItems) {
-    const productId = cartItem.productId;
-    const quantity = cartItem.quantity;
-
-    const cartContent = await Product.find({ _id: productId });
-    if (cartContent) {
-        if (cartContent[0].quantity > 0){
-            cartProducts.push({ cartContent, quantity});
-        }else{
-            cartProducts.push({ cartContent, quantity});
-        }
+  try {
+    if (req.cookies.buynowPrduct) {
+      res.clearCookie("buynowPrduct");
+      res.clearCookie("buynowQuantity");
     }
+    const userId = req.userId;
+    const cartItems = await CartItem.find({ userId });
+    if (cartItems.length == 0) {
+      res.render("cart", { noItem: true });
+    }
+    const cartProducts = [];
+
+    for (let cartItem of cartItems) {
+      const productId = cartItem.productId;
+      const quantity = cartItem.quantity;
+
+      const cartContent = await Product.find({ _id: productId });
+      if (cartContent) {
+        if (cartContent[0].quantity > 0) {
+          cartProducts.push({ cartContent, quantity });
+        } else {
+          cartProducts.push({ cartContent, quantity });
+        }
+      }
+    }
+    res.render("cart", { cartProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while processing the request");
   }
-  console.log(cartProducts);
-  res.render("cart", { cartProducts });
 });
 
 router.post("/", authCart, async (req, res) => {
@@ -49,10 +53,12 @@ router.post("/", authCart, async (req, res) => {
         parseInt(existingCartItem.quantity) + parseInt(quantity);
       if (existingCartItem.quantity <= product.quantity) {
         const updatedCartItem = await existingCartItem.save();
-        const message = {msg:"Item Added to cart successfully"}
+        const message = { msg: "Item Added to cart successfully" };
         return res.json(message);
-      }else{
-        const message = {msg:`Only ${product.quantity} stocks are available`}
+      } else {
+        const message = {
+          msg: `Only ${product.quantity} stocks are available`,
+        };
         return res.json(message);
       }
     }
