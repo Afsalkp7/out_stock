@@ -7,17 +7,15 @@ const { authCart } = require("../../middlewere/user_auth");
 
 router.get("/", authCart, async (req, res) => {
   try {
-    // if (req.cookies.buynowPrduct) {
-    //   res.clearCookie("buynowPrduct");
-    //   res.clearCookie("buynowQuantity");
-    // }
-    if (req.cookies.buynowPrduct || req.cookies.buynowQuantity) {
-      res.clearCookie(["buynowPrduct", "buynowQuantity"]);
+    if (req.cookies.buynowPrduct) {
+      res.clearCookie("buynowPrduct");
+      res.clearCookie("buynowQuantity");
     }
+
     const userId = req.userId;
     const cartItems = await CartItem.find({ userId });
     if (cartItems.length == 0) {
-      res.render("cart", { noItem: true });
+      return res.render("cart", { noItem: true });
     }
     const cartProducts = [];
 
