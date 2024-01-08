@@ -8,8 +8,7 @@ const { authCart } = require("../../middlewere/user_auth");
 router.get("/", authCart, async (req, res) => {
   try {
     if (req.cookies.buynowPrduct) {
-      res.clearCookie("buynowPrduct");
-      res.clearCookie("buynowQuantity");
+      res.clearCookie(["buynowPrduct", "buynowQuantity"]);
     }
 
     const userId = req.userId;
@@ -31,7 +30,7 @@ router.get("/", authCart, async (req, res) => {
           }
         }
       }
-      return res.render("cart", { cartProducts });
+      res.render("cart", { cartProducts });
     }
 
   } catch (error) {
