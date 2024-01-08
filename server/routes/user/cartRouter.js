@@ -14,7 +14,7 @@ router.get("/", authCart, async (req, res) => {
     const userId = req.userId;
     const cartItems = await CartItem.find({ userId });
     if (cartItems.length == 0) {
-      return res.render("cart", { noItem: true });
+      res.render("cart", { noItem: true });
     }else{
       const cartProducts = [];
       for (let cartItem of cartItems) {
