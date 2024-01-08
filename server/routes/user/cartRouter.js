@@ -15,24 +15,25 @@ router.get("/", authCart, async (req, res) => {
     const userId = req.userId;
     const cartItems = await CartItem.find({ userId });
     if (cartItems.length == 0) {
-      return res.render("cart", { noItem: true });
-    }
-    const cartProducts = [];
-
-    for (let cartItem of cartItems) {
-      const productId = cartItem.productId;
-      const quantity = cartItem.quantity;
-
-      const cartContent = await Product.find({ _id: productId });
-      if (cartContent) {
-        if (cartContent[0].quantity > 0) {
-          cartProducts.push({ cartContent, quantity });
-        } else {
-          cartProducts.push({ cartContent, quantity });
+      res.render("cart", { noItem: true });
+    }else{
+      const cartProducts = [];
+      for (let cartItem of cartItems) {
+        const productId = cartItem.productId;
+        const quantity = cartItem.quantity;
+  
+        const cartContent = await Product.find({ _id: productId });
+        if (cartContent) {
+          if (cartContent[0].quantity > 0) {
+            cartProducts.push({ cartContent, quantity });
+          } else {
+            cartProducts.push({ cartContent, quantity });
+          }
         }
       }
+      res.render("cart", { cartProducts });
     }
-    res.render("cart", { cartProducts });
+
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while processing the request");
