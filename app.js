@@ -10,6 +10,9 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 dotenv.config({ path: "config.env" });
+const createError = require("http-errors")
+
+
 
 app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,6 +61,19 @@ app.use("/admin/coupons",require("./server/routes/admin/couponRouter"))
 app.use("/admin/messages",require("./server/routes/admin/messageRouter"))
 app.use("/admin/report",require("./server/routes/admin/reportRouter"))
 
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('404');
+});
 
 app.listen(PORT, () => console.log(`server is running on ${PORT}...`));
