@@ -467,7 +467,7 @@ router.post("/confirmPass", async (req, res) => {
       console.log(user);
       user.password = password;
       await user.save();
-      res.render("userlogin");
+      return res.render("userlogin");
     } else {
       res.render("changeForm", { id: _id, incorrect: true });
     }
