@@ -95,10 +95,10 @@ router.get("/", async (req, res) => {
       $limit: 4,
     },
   ]);
-  const productArray=[]
-  for (let i=0 ; i<mostSelled.length ; i++ ) {
-    var product = await Product.findById(mostSelled[i]._id)
-    productArray.push(product)
+  const productArray = [];
+  for (let i = 0; i < mostSelled.length; i++) {
+    var product = await Product.findById(mostSelled[i]._id);
+    productArray.push(product);
   }
 
   const mostOrdered = await PlaceOrder.aggregate([
@@ -125,24 +125,22 @@ router.get("/", async (req, res) => {
     },
   ]);
 
-
-  const dateCreated=[]
-  for (let i=0 ; i<mostOrdered.length ; i++ ) {
-    var product = await Product.findById(mostOrdered[i]._id)
-    dateCreated.push(product)
+  const dateCreated = [];
+  for (let i = 0; i < mostOrdered.length; i++) {
+    var product = await Product.findById(mostOrdered[i]._id);
+    dateCreated.push(product);
   }
 
-  const trendingArray = dateCreated.slice(4)
+  const trendingArray = dateCreated.slice(4);
 
-    return res.render("index", {
-      topBanner,
-      productArray,
-      centerBanner,
-      trendingArray,
-      arrivalArray,
-      bottomBanner
-    });
-
+  return res.render("index", {
+    topBanner,
+    productArray,
+    centerBanner,
+    trendingArray,
+    arrivalArray,
+    bottomBanner,
+  });
 });
 
 router.get(
@@ -336,7 +334,7 @@ router.get("/user_data", auth, async (req, res) => {
 router.post("/user_login", async (req, res) => {
   const { email, password } = req.body;
   const userProfile = await userCollection.findOne({ email });
-  if(!userProfile){
+  if (!userProfile) {
     return res.render("userlogin", { notExist: true });
   }
   try {
@@ -461,38 +459,22 @@ router.post("/otp", async (req, res) => {
   }
 });
 
-router.post(
-  "/confirmPass",
-  urlencodedParser,
-  [
-    check("password", "password must need alphanumeic,regex,and 8 character")
-      .exists()
-      .isLength({ min: 8, max: 25 })
-      .isAlphanumeric(),
-  ],
-  async (req, res) => {
-    const { password, confirmPassword, _id } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const errorArray = errors.array();
-      const alert = errorArray[0];
-      console.log(alert);
-      return res.render("changeForm", { id: _id, alert: alert });
+router.post("/confirmPass", async (req, res) => {
+  const { password, confirmPassword, _id } = req.body;
+  try {
+    if (password === confirmPassword) {
+      const user = await userCollection.findById(_id);
+      console.log(user);
+      user.password = password;
+      await user.save();
+      res.render("userlogin");
+    } else {
+      res.render("changeForm", { id: _id, incorrect: true });
     }
-    try {
-      if (password === confirmPassword) {
-        const user = await userCollection.findById(_id);
-        user.password = password;
-        await user.save();
-        return res.render("userlogin");
-      } else {
-        return res.render("changeForm", { id: _id, incorrect: true });
-      }
-    } catch (error) {
-      return res.send(error);
-    }
+  } catch (error) {
+    return res.send(error);
   }
-);
+});
 
 router.get("/delete", auth, async (req, res) => {
   const userId = req.userId;
