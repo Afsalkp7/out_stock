@@ -236,7 +236,11 @@ router.get("/coupon/:code", authCart, async (req, res) => {
     const validity = match.startDate > new Date() < match.endDate;
     if (validity) {
       res.json(match);
+    }else{
+      res.json({msg:"entered coupon's validity expired"})
     }
+  }else{
+    res.json({msg:"Entered coupon is not exist"})
   }
 });
 

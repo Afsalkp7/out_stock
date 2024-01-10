@@ -125,28 +125,13 @@ async function redeem(){
   try {
     const response = await fetch(`/checkout/coupon/${code}`);
     if (response.ok){
+      
       const couponData = await response.json();
       console.log(couponData);
-      let discound;
-      let grandToCheck;
-      if (couponData.couponType == "%"){
-        discound = parseInt((grandTotal*couponData.couponProfit)/100);
-        console.log(discound);
-        if (discound > couponData.maxDis){
-          grandToCheck = grandTotal - couponData.maxDis
-        }else{
-          grandToCheck = grandTotal - discound
-        }
-        console.log(grandToCheck);
-        document.getElementById("grandTotal").innerHTML = grandToCheck
-        document.getElementById("grandDiscound").innerHTML = discound
-        document.getElementById("couponBox").style.display="none"
-        document.getElementById("couponName").innerHTML = couponData.couponCode;
-        document.getElementById("couponId").value = couponData._id;
+      if(couponData.msg){
         Toastify({
-          text: "Coupon added in discound",
+          text: couponData.msg,
           duration: 1000,
-          destination: "https://github.com/apvarun/toastify-js",
           newWindow: true,
           close: true,
           gravity: "top", 
@@ -157,36 +142,69 @@ async function redeem(){
           },
           
         }).showToast();
-        
       }else{
-        discound = parseInt(couponData.couponProfit);
-        console.log(discound);
-        if (discound > grandTotal){
-          grandToCheck = grandTotal - parseInt((discound*50)/100)
-        }else{
-          grandToCheck = grandTotal - discound
-        }
-        console.log(grandToCheck);
-        document.getElementById("grandTotal").innerHTML = grandToCheck
-        document.getElementById("grandDiscound").innerHTML = discound
-        document.getElementById("couponBox").style.display="none"
-        document.getElementById("couponName").innerHTML = couponData.couponCode;
-        document.getElementById("couponId").value = couponData._id;
-        Toastify({
-          text: "Coupon added in discound",
-          duration: 1000,
-          destination: "https://github.com/apvarun/toastify-js",
-          newWindow: true,
-          close: true,
-          gravity: "top", 
-          position: "center", 
-          stopOnFocus: true, 
-          style: {
-            background: "black",
-          },
+        let discound;
+        let grandToCheck;
+        if (couponData.couponType == "%"){
+          discound = parseInt((grandTotal*couponData.couponProfit)/100);
+          console.log(discound);
+          if (discound > couponData.maxDis){
+            grandToCheck = grandTotal - couponData.maxDis
+          }else{
+            grandToCheck = grandTotal - discound
+          }
+          console.log(grandToCheck);
+          document.getElementById("grandTotal").innerHTML = grandToCheck
+          document.getElementById("grandDiscound").innerHTML = discound
+          document.getElementById("couponBox").style.display="none"
+          document.getElementById("couponName").innerHTML = couponData.couponCode;
+          document.getElementById("couponId").value = couponData._id;
+          Toastify({
+            text: "Coupon added in discound",
+            duration: 1000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "black",
+            },
+            
+          }).showToast();
           
-        }).showToast();
+        }else{
+          discound = parseInt(couponData.couponProfit);
+          console.log(discound);
+          if (discound > grandTotal){
+            grandToCheck = grandTotal - parseInt((discound*50)/100)
+          }else{
+            grandToCheck = grandTotal - discound
+          }
+          console.log(grandToCheck);
+          document.getElementById("grandTotal").innerHTML = grandToCheck
+          document.getElementById("grandDiscound").innerHTML = discound
+          document.getElementById("couponBox").style.display="none"
+          document.getElementById("couponName").innerHTML = couponData.couponCode;
+          document.getElementById("couponId").value = couponData._id;
+          Toastify({
+            text: "Coupon added in discound",
+            duration: 1000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", 
+            position: "center", 
+            stopOnFocus: true, 
+            style: {
+              background: "black",
+            },
+            
+          }).showToast();
+        }
       }
+      
 
     }
     
