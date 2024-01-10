@@ -38,7 +38,6 @@ app.use("/img", express.static(path.resolve(__dirname, "assets/img")));
 app.use("/js", express.static(path.resolve(__dirname, "assets/js")));
 
 
-
 app.use("/", require("./server/routes/user/indexRouter"));
 app.use("/shop", require("./server/routes/user/shop"));
 app.use("/cart",(require('./server/routes/user/cartRouter')))

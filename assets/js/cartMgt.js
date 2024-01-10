@@ -39,7 +39,7 @@ if (addToCartButton){
           window.location.reload="/"
         }
       })
-    });  
+    });
 }
 
 });
