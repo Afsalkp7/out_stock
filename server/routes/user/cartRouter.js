@@ -15,12 +15,12 @@ router.get("/", authCart, async (req, res) => {
     const cartItems = await CartItem.find({ userId });
     if (cartItems.length == 0) {
       res.render("cart", { noItem: true });
-    }else{
+    } else {
       const cartProducts = [];
       for (let cartItem of cartItems) {
         const productId = cartItem.productId;
         const quantity = cartItem.quantity;
-  
+
         const cartContent = await Product.find({ _id: productId });
         if (cartContent) {
           if (cartContent[0].quantity > 0) {
@@ -32,7 +32,6 @@ router.get("/", authCart, async (req, res) => {
       }
       res.render("cart", { cartProducts });
     }
-
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while processing the request");
@@ -53,12 +52,19 @@ router.post("/", authCart, async (req, res) => {
       existingCartItem.quantity =
         parseInt(existingCartItem.quantity) + parseInt(quantity);
       if (existingCartItem.quantity <= product.quantity) {
-        const updatedCartItem = await existingCartItem.save();
-        const message = { msg: "Item Added to cart successfully" };
-        return res.json(message);
+        if (existingCartItem.quantity <= 10) {
+          const updatedCartItem = await existingCartItem.save();
+          const message = { msg: "Item Added to cart successfully" };
+          return res.json(message);
+        } else {
+          const message = {
+            msg: `Only allow 10 pcs to buy at a time`,
+          };
+          return res.json(message);
+        }
       } else {
         const message = {
-          msg: `Only ${product.quantity} stocks are available`,
+          msg: `Only ${product.quantity} stocks are available, thats are in your cart`,
         };
         return res.json(message);
       }
@@ -104,29 +110,34 @@ router.delete("/delete", async (req, res) => {
     res.json(deleteProduct);
   } catch (error) {
     console.error(error);
-    res.status(500).send("An error occurred while processing the request on cart delete");
+    res
+      .status(500)
+      .send("An error occurred while processing the request on cart delete");
   }
-
 });
 
 router.put("/updateQuantity", authCart, async (req, res) => {
   try {
     const userId = req.userId;
-  const { productId, newQuantity } = req.body;
-  const product = await Product.findById(productId);
-  if (newQuantity <= product.quantity) {
-    const updateQuantity = await CartItem.findOneAndUpdate(
-      { userId, productId },
-      { $set: { quantity: newQuantity } }
-    );
-    res.json(updateQuantity);
-  } else {
-    const notUpdatedQuantity = await CartItem.findOne({ userId, productId });
-    res.json(notUpdatedQuantity);
-  }
+    const { productId, newQuantity } = req.body;
+    const product = await Product.findById(productId);
+    if (newQuantity <= product.quantity) {
+      const updateQuantity = await CartItem.findOneAndUpdate(
+        { userId, productId },
+        { $set: { quantity: newQuantity } }
+      );
+      res.json(updateQuantity);
+    } else {
+      const notUpdatedQuantity = await CartItem.findOne({ userId, productId });
+      res.json(notUpdatedQuantity);
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).send("An error occurred while processing the request on edit cart items");
+    res
+      .status(500)
+      .send(
+        "An error occurred while processing the request on edit cart items"
+      );
   }
 });
 
