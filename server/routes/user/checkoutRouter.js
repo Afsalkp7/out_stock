@@ -6,6 +6,7 @@ const CartItem = require("../../model/cartModel");
 const { authCart } = require("../../middlewere/user_auth");
 const Order = require("../../model/oraderModel");
 const Coupon = require("../../model/couponModel");
+const PlaceOrder = require("../../model/orderPlaceModel")
 
 router.get("/", authCart, async (req, res) => {
   const userId = req.userId;
@@ -224,6 +225,10 @@ router.get("/delete/:id", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   const addressId = req.body.adr_id;
+  const orders = await PlaceOrder.find({addressId})
+  if(orders.length>0){
+    const deleteOreders = await PlaceOrder.deleteMany({addressId})
+  }
   const deleteAddress = await Order.findByIdAndRemove(addressId);
   return res.json(deleteAddress);
 });
