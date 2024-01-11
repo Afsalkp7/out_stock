@@ -71,6 +71,10 @@ router.get("/delete/:id", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   const addressId = req.body.adr_id;
+  const orders = await PlaceOrder.find({addressId})
+  if(orders.length>0){
+    const deleteOreders = await PlaceOrder.deleteMany({addressId})
+  }
   const deleteAddress = await Order.findByIdAndRemove(addressId);
   return res.json(deleteAddress);
 });

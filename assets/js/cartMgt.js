@@ -22,7 +22,7 @@ if (addToCartButton){
         if(response.ok) {
           const message = await response.json();
           Toastify({
-            text: message.msg,
+            text: message.msg||"Item Added successfully",
             duration: 1000,
             destination: "/cart",
             newWindow: true,
