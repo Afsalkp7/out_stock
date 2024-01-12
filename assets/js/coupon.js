@@ -1,3 +1,5 @@
+const { FunctionPage } = require("twilio/lib/rest/serverless/v1/service/function");
+
 function editButton(){
     document.getElementById("editForm").style.display="block"
 }
@@ -10,7 +12,7 @@ function submitUpdatedCoupon(){
       body:JSON.stringify(Object.fromEntries(formData)),    
       headers : {'Content-Type': 'application/json',},
     })
-      .then(async(response) => {
+      .then(async(response) => {    
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

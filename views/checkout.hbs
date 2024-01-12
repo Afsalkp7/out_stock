@@ -104,11 +104,20 @@
                         {{/each}}
 
                         <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-dark">
+                                <h6 class="my-0">Actual Price</h6>
+                                <small>Before discound</small>
+                            </div>
+                            <span class="text-dark">₹ <span id="grandBefore">0</span> /-</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between bg-light">
                             <div class="text-danger">
                                 <h6 class="my-0">Promo code</h6>
                                 <small id="couponName">coupon name</small>
                             </div>
+                            <a class="text-danger" id="couponRemover" style="display: none; cursor: pointer;" onclick="couponRemove()">Remove</a>
                             <span class="text-danger">₹ <span id="grandDiscound">0</span> /-</span>
+                            
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span class="text-success">Total (INR)</span>
@@ -116,6 +125,7 @@
                         </li>
                     </ul>
                     <script>
+                        document.getElementById("grandBefore").textContent = grandTotal
                         document.getElementById("grandTotal").textContent = grandTotal
                     </script>
                     <div class="card p-2" id="couponBox">

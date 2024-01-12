@@ -150,10 +150,12 @@ async function redeem(){
           console.log(discound);
           if (discound > couponData.maxDis){
             grandToCheck = grandTotal - couponData.maxDis
+            discound = couponData.maxDis
           }else{
             grandToCheck = grandTotal - discound
           }
           console.log(grandToCheck);
+          document.getElementById("couponRemover").style.display="block"
           document.getElementById("grandTotal").innerHTML = grandToCheck
           document.getElementById("grandDiscound").innerHTML = discound
           document.getElementById("couponBox").style.display="none"
@@ -191,7 +193,6 @@ async function redeem(){
           Toastify({
             text: "Coupon added in discound",
             duration: 1000,
-            destination: "https://github.com/apvarun/toastify-js",
             newWindow: true,
             close: true,
             gravity: "top", 
@@ -242,3 +243,24 @@ async function saveAddress(){
   
 }
 
+function couponRemove(){
+  document.getElementById("couponBox").style.display="block";
+  document.getElementById("grandTotal").innerHTML = grandTotal;
+  document.getElementById("grandDiscound").innerHTML = 0;
+  document.getElementById("couponName").innerHTML = "coupon name";
+  document.getElementById("couponId").value = "";
+  document.getElementById("couponRemover").style.display="none"
+  Toastify({
+    text: "Coupon removed from checkout",
+    duration: 1000,
+    newWindow: true,
+    close: true,
+    gravity: "top", 
+    position: "center", 
+    stopOnFocus: true, 
+    style: {
+      background: "black",
+    },
+    
+  }).showToast();
+}
