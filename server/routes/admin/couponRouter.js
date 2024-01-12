@@ -35,11 +35,19 @@ router.post("/",async (req,res)=>{
     }
 })
 
-// router.get("/update/:id",async(req,res)=>{
-//     const couponId = req.params.id;
-//     const coupon = await Coupon.findById(couponId)
-//     console.log(coupon);
-//     return res.json(coupon)
-// })
+router.put("/update",async(req,res)=>{
+    console.log(req.body);
+    const couponId = req.body.id;
+    const { updateCouponCode,updateCouponType,updateCouponProfit,updateMaxDis,updateStartDate,updateEndDate } = req.body;
+    const coupon = await Coupon.updateOne({_id:couponId},{$set:{
+        couponCode:updateCouponCode,
+        couponProfit:updateCouponProfit,
+        couponType:updateCouponType,
+        maxDis:updateMaxDis,
+        startDate:updateStartDate,
+        endDate:updateEndDate,
+    }})
+    res.json(coupon)
+})
 
 module.exports = router

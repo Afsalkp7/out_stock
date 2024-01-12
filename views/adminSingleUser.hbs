@@ -43,7 +43,7 @@
           <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
         </li>
         <li class="active">
-          <a href="#"><span class="fa-solid fa-users"></span> Customers</a>
+          <a href="#"><span class="fa-solid fa-users mr-3"></span> Customers</a>
         </li>
         <li>
           <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -55,7 +55,7 @@
           <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
         </li>
         <li>
-          <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"> </span> Products</a>
+          <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"> </span> Products</a>
         </li>
         <li>
           <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -159,10 +159,10 @@
                     </div>
 
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small">{{this.orderData.orderedDate}}</p>
+                      <p class="text-dark mb-0 small" id="orderedDate{{this.orderData._id}}"></p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-dark mb-0 small"> {{this.orderData.deliveryDate}}</p>
+                      <p class="text-dark mb-0 small" id="deliveryDate{{this.orderData._id}}"></p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                      <p class="text-dark mb-0 small"> {{this.orderData.orderStatus}}</p>
@@ -173,6 +173,10 @@
                   </div>
                 </div>
               </div>
+              <script>
+                document.getElementById("orderedDate{{this.orderData._id}}").innerHTML="{{this.orderData.orderedDate}}".split(" ").slice(0,4).join(" ")
+                document.getElementById("deliveryDate{{this.orderData._id}}").innerHTML=" {{this.orderData.deliveryDate}}".split(" ").slice(0,5).join(" ")
+              </script>
               {{/each}}
             </div>
             </div>

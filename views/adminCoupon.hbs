@@ -41,7 +41,7 @@
                     <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
+                    <a href="/admin/users"><span class="fa-solid fa-users mr-3"></span> Customers</a>
                 </li>
                 <li>
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -53,7 +53,7 @@
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
-                    <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
+                    <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"></span> Products</a>
                 </li>
                 <li>
                     <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -120,13 +120,16 @@
                             <td>{{this.couponType}}</td>
                             <td>{{this.couponProfit}}</td>
                             <td>{{this.maxDis}}</td>
-                            <td>{{this.startDate}}</td>
-                            <td>{{this.endDate}}</td>
+                            <td id="start{{this._id}}"></td>
+                            <td id="end{{this._id}}"></td>
 
-                            <td><a class="showCoupon btn btn-light ms-2" href="/admin/coupons/{{this._id}}"><img src="/img/eye.png" width="15px" alt=""></a><a
-                                    class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                            <td><a class="showCoupon btn btn-light ms-2" href="/admin/coupons/{{this._id}}">SHOW</a><a
+                                    class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'>DELETE</a></td>
                         </tr>
+                        <script>
+                            document.getElementById("start{{this._id}}").innerHTML="{{this.startDate}}".split(" ").slice(0,4).join(" ")
+                            document.getElementById("end{{this._id}}").innerHTML="{{this.endDate}}".split(" ").slice(0,4).join(" ")
+                        </script>
                         {{/each}}
                     </tbody>
                 </table>

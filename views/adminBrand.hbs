@@ -49,7 +49,7 @@
                     <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
+                    <a href="/admin/users"><span class="fa-solid fa-users mr-3"></span> Customers</a>
                 </li>
                 <li>
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -61,7 +61,7 @@
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
-                    <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
+                    <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"></span> Products</a>
                 </li>
                 <li>
                     <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -122,13 +122,19 @@
                             <td><img src="{{this.logo}}" width="50px" alt="logo" style="border-radius: 10px;"></td>
                             <td>{{this.brandName}}</td>
                             <td>{{this.description}}</td>
-                            <td>{{this.date}}</td>
-                            <td>{{this.updateAt}}</td>
+                            <td id="date{{this._id}}"></td>
+                            <td id="upd{{this._id}}"></td>
 
                             <td><a href="/admin/brands/{{this._id}}" class=" btn btn-light ms-2"><img src="/img/eye.png" width="15px" alt=""></a><a
                                     class="deleteBrand btn btn-light ms-2" data-user-id='{{this._id}}'><img
                                         src="/img/delete.png" width="15px" alt=""></a></td>
                         </tr>
+                            <script>
+                                var date = "{{this.date}}"
+                                var upd = "{{this.updateAt}}"
+                                document.getElementById("date{{this._id}}").innerHTML=date.split(" ").slice(0,4).join(" ")
+                                document.getElementById("upd{{this._id}}").innerHTML=upd.split(" ").slice(0,4).join(" ")
+                            </script>
                         {{/each}}
                     </tbody>
                 </table>

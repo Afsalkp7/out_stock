@@ -222,7 +222,7 @@ route.get("/index", auth, async (req, res) => {
     const onlinePayment = earings-cashOnDeliveryAmount
     //find last 5 orders
     const lastOrders = await PlaceOrder.find();
-    const last5Orders = lastOrders.slice(0, 5);
+    const last5Orders = lastOrders.slice(-5).reverse();
     
     res.render("dashboard", {
       admin,

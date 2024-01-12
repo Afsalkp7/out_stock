@@ -347,6 +347,42 @@ function validateCouponForm(){
     return true
   }
 }
+
+
+function couponEditValidation(){
+  let couponCode = document.forms["editForm"]["updateCouponCode"].value;
+  let couponProfit = document.forms["editForm"]["updateCouponProfit"].value;
+  let couponType = document.forms["editForm"]["updateCouponType"].value;
+  let maxDis = document.forms["editForm"]["updateMaxDis"].value;
+  let start = document.forms["editForm"]["updateStartDate"].value;
+  let end = document.forms["editForm"]["updateEndDate"].value;
+  if (couponCode == ""||couponCode.length<5){
+    document.getElementById("codeAknowledgment").innerHTML="Code must contain 6 or more characters"
+    return false
+  }else if (couponProfit == ""){
+    document.getElementById("couponProfitAknowledgment").innerHTML="Please fill coupon profit column"
+    return false
+  }else if (start == ""){
+  }else if (maxDis == ""){
+    document.getElementById("maxDisAknowledgment").innerHTML="Please fill maximum discound column"
+    return false
+  }else if (start == ""){
+    document.getElementById("startAknowledgment").innerHTML="Select a starting date"
+    return false
+  }else if (end == ""){
+    document.getElementById("endAknowledgment").innerHTML="Select a ending date"
+    return false
+  }else  if (couponType != "₹" && couponType != "%"){
+    document.getElementById("typeAknowledgment").innerHTML="only ₹ and % is valid"
+    return false
+  }
+  else{
+    return true
+  }
+}
+
+
+
 function validContact(){
   let email = document.forms["contactForm"]["email"].value;
   let name = document.forms["contactForm"]["customerName"].value;

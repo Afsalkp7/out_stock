@@ -47,7 +47,7 @@
                     <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
+                    <a href="/admin/users"><span class="fa-solid fa-users mr-3"></span> Customers</a>
                 </li>
                 <li>
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -59,7 +59,7 @@
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
-                    <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
+                    <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"></span> Products</a>
                 </li>
                 <li>
                     <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -126,16 +126,18 @@
                             <td>{{this.description}}</td>
                             <td>{{this.place}}</td>
                             <td>{{this.status}}</td>
-                            <td>{{this.date}}</td>
-                            <td>{{this.expirationDate}}</td>
+                            <td id="date{{this._id}}"></td>
+                            <td id="exp{{this._id}}"></td>
 
-                            <td><a class="showBanner btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/eye.png" width="15px" alt=""></a><a
-                                    class="editBanner btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/editIcon.png" width="15px" alt=""></a><a
-                                    class="deleteBanner btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                            <td><a class="showBanner btn btn-light ms-2 mb-2" data-user-id='{{this._id}}'>SHOW</a><a
+                                    class="editBanner btn btn-light ms-2 mb-2" data-user-id='{{this._id}}'>EDIT</a><a
+                                    class="deleteBanner btn btn-light ms-2 mb-2" data-user-id='{{this._id}}'>DELETE</a></td>
                         </tr>
+
+                        <script>
+                            document.getElementById("date{{this._id}}").innerHTML="{{this.date}}".split(" ").slice(0,4).join(" ")
+                            document.getElementById("exp{{this._id}}").innerHTML="{{this.expirationDate}}   ".split(" ").slice(0,4).join(" ")
+                        </script>
                         {{/each}}
                     </tbody>
                 </table>

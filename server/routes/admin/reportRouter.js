@@ -117,7 +117,7 @@ route.get("/", auth, async (req, res) => {
   //find last 5 orders
 
   const lastOrders = await PlaceOrder.find();
-  const last5Orders = lastOrders.slice(0, 5);
+  const last5Orders = lastOrders.slice(-5).reverse();
 
   //find current month orders
 

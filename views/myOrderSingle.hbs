@@ -278,15 +278,15 @@
                                             <div class="form-group row">
                                                 <label for="orderStatus" class="col-md-4 col-form-label "><b>Ordered
                                                         Date</b></label>
-                                                <div class="col-md-8 col-sm-12">
-                                                    {{order.orderedDate}}
+                                                <div class="col-md-8 col-sm-12" id="orderedDate">
+                                                    
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="orderStatus" class="col-md-4 col-form-label "><b>Delivery
                                                         Date</b></label>
-                                                <div class="col-md-8 col-sm-12">
-                                                    {{order.deliveryDate}}
+                                                <div class="col-md-8 col-sm-12" id="deliveryDate">
+                                                    
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -332,6 +332,13 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <script>
+                                let orderedDate = "{{order.orderedDate}}"
+                                let deliveryDate = "{{order.deliveryDate}}"
+                                document.getElementById("orderedDate").innerHTML=orderedDate.split(" ").slice(0,5).join(" ")
+                                document.getElementById("deliveryDate").innerHTML=deliveryDate.split(" ").slice(0,5).join(" ")
+                            </script>
 
 
                             <div class="card-header collapsed" role="tab" id="headingTwo" data-toggle="collapse"

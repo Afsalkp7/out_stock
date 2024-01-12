@@ -41,7 +41,7 @@
                     <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
+                    <a href="/admin/users"><span class="fa-solid fa-users mr-3"></span> Customers</a>
                 </li>
                 <li>
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -53,7 +53,7 @@
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
-                    <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
+                    <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"></span> Products</a>
                 </li>
                 <li  class="active">
                     <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -112,13 +112,14 @@
                             <td>{{this.userName}}</td>
                             <td>{{this.totalAmount}}</td>
                             <td>{{this.orderStatus}}</td>
-                            <td>{{this.orderedDate}}</td>
-                            <td>{{this.deliveryDate}}</td>
-                            <td><a href="/admin/orders/{{this._id}}" class="showOrder btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/eye.png" width="15px" alt=""></a><a
-                                    class="deleteOrder btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                            <td id="ord{{this._id}}"></td>
+                            <td id="del{{this._id}}"></td>
+                            <td><a href="/admin/orders/{{this._id}}" class="showOrder btn btn-light ms-2" data-user-id='{{this._id}}'>SHOW</a></td>
                         </tr>
+                         <script>
+                                document.getElementById("ord{{this._id}}").innerHTML="{{this.orderedDate}}".split(" ").slice(0,4).reverse().join(" ")
+                                document.getElementById("del{{this._id}}").innerHTML="{{this.deliveryDate}}".split(" ").slice(0,4).reverse().join(" ")
+                            </script>
                         {{/each}}
                     </tbody>
                 </table>

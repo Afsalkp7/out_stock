@@ -41,7 +41,7 @@
                     <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
+                    <a href="/admin/users"><span class="fa-solid fa-users mr-3"></span> Customers</a>
                 </li>
                 <li class="active">
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -53,7 +53,7 @@
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
-                    <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
+                    <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"></span> Products</a>
                 </li>
                 <li>
                     <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -112,14 +112,16 @@
                             <td>-</td>
                             <td>{{this.name}}</td>
                             <td>{{this.description}}</td>
-                            <td>{{this.createdAt}}</td>
-                            <td>{{this.updatedAt}}</td>
-                            <td><a class="showCat btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/eye.png" width="15px" alt=""></a><a class="editCat btn btn-light ms-2"
-                                    data-user-id='{{this._id}}'><img src="/img/editIcon.png" width="15px" alt=""></a><a
-                                    class="deleteCategory btn btn-light ms-2" data-user-id='{{this._id}}'><img
-                                        src="/img/delete.png" width="15px" alt=""></a></td>
+                            <td id="creDate{{this._id}}"></td>
+                            <td id="updDate{{this._id}}"></td>
+                            <td><a class="showCat btn btn-light ms-2" data-user-id='{{this._id}}'>SHOW</a><a class="editCat btn btn-light ms-2"
+                                    data-user-id='{{this._id}}'>EDIT</a><a
+                                    class="deleteCategory btn btn-light ms-2 mt-2" data-user-id='{{this._id}}'>DELETE</a></td>
                         </tr>
+                        <script>
+                            document.getElementById("creDate{{this._id}}").innerHTML="{{this.createdAt}}".split(" ").slice(0,4).join(" ")
+                            document.getElementById("updDate{{this._id}}").innerHTML="{{this.updatedAt}}".split(" ").slice(0,4).join(" ")
+                        </script>
                         {{/each}}
                     </tbody>
                 </table>

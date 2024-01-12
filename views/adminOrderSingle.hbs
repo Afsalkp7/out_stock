@@ -47,7 +47,7 @@
                     <a href="/admin"><span class="fa fa-home mr-3"></span> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/admin/users"><span class="fa-solid fa-users"></span> Customers</a>
+                    <a href="/admin/users"><span class="fa-solid fa-users mr-3"></span> Customers</a>
                 </li>
                 <li>
                     <a href="/admin/categories"><span class="fa fa-gift mr-3"></span> Categories</a>
@@ -59,7 +59,7 @@
                     <a href="/admin/report"><span class="fa fa-cog mr-3"></span> Report</a>
                 </li>
                 <li>
-                    <a href="/admin/products"><span class="fa-solid fa-gem" style="color: #ffffff;"></span> Products</a>
+                    <a href="/admin/products"><span class="fa-solid fa-gem mr-3" style="color: #ffffff;"></span> Products</a>
                 </li>
                 <li class="active">
                     <a href="/admin/orders"><span class="fa fa-support mr-3"></span> Orders</a>
@@ -234,14 +234,14 @@
                                                 <div class="card-body">
                                                      <div class="form-group row">
                                                         <label for="esp" class="col-md-4 col-form-label ">Oredered date</label>
-                                                        <div class="col-md-8 col-sm-12">
-                                                            {{order.orderedDate}}
+                                                        <div class="col-md-8 col-sm-12" id="ordDate">
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="esp" class="col-md-4 col-form-label ">Except delivery date</label>
-                                                        <div class="col-md-8 col-sm-12">
-                                                            {{order.deliveryDate}}
+                                                        <div class="col-md-8 col-sm-12" id="delDate">
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -292,9 +292,9 @@
                                                 </dl>
                                                 <dl class="row">
                                                     <dd class="col-sm-4">Order date</dd>
-                                                    <dt class="col-sm-8">{{order.orderedDate}}</dt>
+                                                    <dt class="col-sm-8" id="ordeDate"></dt>
                                                     <dd class="col-sm-4">Expect delivery</dd>
-                                                    <dt class="col-sm-8">{{order.deliveryDate}}</dt>
+                                                    <dt class="col-sm-8" id="deliDate"></dt>
                                                     <dd class="col-sm-4">Payment status</dd>
                                                     <dt class="col-sm-8">{{order.paymentId}}</dt>
                                                 </dl>
@@ -469,6 +469,12 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById("ordDate").innerHTML="{{order.orderedDate}}".split(" ").slice(0,5).join(" ")
+        document.getElementById("ordeDate").innerHTML="{{order.orderedDate}}".split(" ").slice(0,5).join(" ")
+        document.getElementById("delDate").innerHTML="{{order.deliveryDate}}".split(" ").slice(0,5).join(" ")
+        document.getElementById("deliDate").innerHTML="{{order.deliveryDate}}".split(" ").slice(0,5).join(" ")
+    </script>
 
 
 
