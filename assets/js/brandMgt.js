@@ -120,8 +120,8 @@ document.querySelectorAll(".editBrand").forEach((btn) => {
           
           <div class=" mb-3">
           <img src="${brandData.logo}" width="100px"><br>
-          <label for="brandLogoInput">Logo</label>
-          <input type="file" class="form-control" id="brandLogoInput" name="brandLogoInput">
+          // <label for="brandLogoInput">Logo</label>
+          // <input type="file" class="form-control" id="brandLogoInput" name="brandLogoInput">
           </div>
           <div id="imageContainer">
             <img id="croppedBrandLogo" name="croppedBrandLogo" src="#" alt="Cropped Image" hidden>

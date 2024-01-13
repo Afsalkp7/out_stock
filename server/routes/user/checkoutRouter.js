@@ -3,7 +3,7 @@ const router = express.Router();
 const Product = require("../../model/productModel");
 const userCollection = require("../../model/userModel");
 const CartItem = require("../../model/cartModel");
-const { authCart } = require("../../middlewere/user_auth");
+const { authCart,addAuth } = require("../../middlewere/user_auth");
 const Order = require("../../model/oraderModel");
 const Coupon = require("../../model/couponModel");
 const PlaceOrder = require("../../model/orderPlaceModel")
@@ -253,7 +253,7 @@ router.get("/coupon/:code", authCart, async (req, res) => {
 //   const couponId = req.params.id;
 // });
 
-router.post("/buynow/:id", authCart, async (req, res) => {
+router.post("/buynow/:id", addAuth, async (req, res) => {
   const productId = req.params.id;
   const quantity = parseInt(req.body.quantity);
   res.cookie("buynowQuantity", quantity);

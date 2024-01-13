@@ -71,7 +71,57 @@
 
 {{else}}
 
-  <section class="bg-light">
+  <section class="bg-white">
+  <div class="container">
+    <div class="row" style="padding-top: 100px;">
+      <!-- cart -->
+      <div class="col-12 col-sm-12 col-lg-12">
+        <div class="card border shadow-0">
+          <div class="m-4">
+            <h4 class="card-title mb-4">Wishlist</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Details</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actual price</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each wishProducts}}
+                    {{#each wishContent}}
+                      <tr>
+                        <td>
+                          <img src="{{this.image}}" class="border rounded" style="width: 50px;" alt="{{this.productName}}" />
+                        </td>
+                        <td>
+                          <span style="font-weight: bold; font-size: 16px;">{{this.productName}}</span>
+                          <p class="text-muted">{{this.brand}}</p>
+                        </td>
+                        <td class="text-center text-success">₹{{this.price}}/-</td>
+                        <td class="text-center text-danger">₹{{this.net_price}}/-</td>
+                        <td class="text-center">
+                          <a class="deleteWishItem btn btn-light w-100" data-user-id='{{this._id}}'>Remove</a>
+                          <button class="addFromWishToCartButton btn btn-sm btn-dark mt-2 w-100" data-item-id="{{this._id}}">Add to cart</button>
+                        </td>
+                      </tr>
+                    {{/each}}
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  {{!-- <section class="bg-light">
     <div class="container ">
       <div class="row" style="padding-top: 100px;">
         <!-- cart -->
@@ -103,7 +153,7 @@
                       <p class="text-center text-danger ms-3 mt-2">₹{{this.net_price}}/-</p>  
 
                       <div class="ms-auto">
-                        <a class="deleteWishItem btn btn-light ms-5" data-user-id='{{this._id}}'><img src="/img/delete.png" width="15px" alt=""></a>
+                        <a class="deleteWishItem btn btn-light ms-5" data-user-id='{{this._id}}'>DELETE</a>
                       </div>
                       <div class="ms-auto">
                         <button class="addFromWishToCartButton btn btn-sm btn-dark ms-5 mt-2 w-100"  data-item-id="{{this._id}}">Add to cart</button>
@@ -122,7 +172,7 @@
       </div>
     </div>
     </div>
-  </section>
+  </section> --}}
     <div class="modal fade" id="productShow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">

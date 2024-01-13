@@ -244,8 +244,25 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           body: JSON.stringify({ quantity }),
         })
-        .then((response)=>{
+        .then(async(response)=>{
           if(response.ok) {
+            const message =await response.json()
+            if (message.length != 24){
+              Toastify({
+                text: message.msg || "Login first and try again",
+                duration: 1000,
+                newWindow: true,
+                close: true,
+                gravity: "top", 
+                position: "center", 
+                stopOnFocus: true, 
+                style: {
+                  background: "black",
+                },
+                
+              }).showToast();
+              return
+            }
             window.location.href="/checkout"
           }
         })

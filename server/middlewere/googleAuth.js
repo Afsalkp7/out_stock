@@ -12,9 +12,9 @@ passport.use(
     },
     async (request, accessToken, refreshToken, profile, done) => {
       const existingUser = await userCollection.findOne({
-        googleId: profile.id,
+        email: profile.emails[0].value,
       });
-      if (existingUser) {
+      if (existingUser.length>0) {
         return done(null, existingUser);
       }
       const userData = new userCollection({
@@ -22,7 +22,7 @@ passport.use(
         googleId: profile.id,
         displayName: profile.displayName,
         email: profile.emails[0].value,
-        status: "Active",
+        status: "active",
       });
       await userData.save();
       done(null, userData);

@@ -10,7 +10,7 @@ route.get("/", auth, async (req, res) => {
   if (req.cookies.session) {
     const _id = req.adminId;
     const admin = await adminCollection.findOne({ _id });
-    const users = await userCollection.find({deleted:false})
+    const users = await userCollection.find()
     res.render("admin_user", { admin, users });
   } else {
     res.redirect("/admin");
@@ -92,7 +92,11 @@ route.get("/delete/:id", async (req,res)=>{
 
 route.delete("/delete", async (req, res) => {
   const userId = req.body.user_id;
-  const deleteUser = await userCollection.updateOne({_id:userId},{$set:{deleted:true,status:"block"}});
+  await Order.deleteMany({ userId });
+  await Cart.deleteMany({ userId });
+  await WishItem.deleteMany({ userId });
+  await PlaceOrder.deleteMany({ userId });
+  const deleteUser = await userCollection.findOneAndRemove({ _id: userId });
   return res.json(deleteUser)
 });
 

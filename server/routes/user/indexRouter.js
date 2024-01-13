@@ -173,7 +173,13 @@ router.get("/user", (req, res) => {
   if (token) {
     res.redirect("/user_data");
   } else {
-    res.render("userlogin");
+    try {
+      res.render("userlogin");
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Internal Server Error");
+    }
+    
   }
 });
 
@@ -269,54 +275,56 @@ router.post("/register", async (req, res) => {
   const allreadyUser = await userCollection.findOne({ email: req.body.email });
   if (allreadyUser) {
     return res.render("userregister", { allready: true });
-  }
-  try {
-    const password = req.body.password;
-    const cpassword = req.body.cpassword;
-    if (password === cpassword) {
-      const phoneNumber = req.body.phone;
-      const parsedPhoneNumber = phoneUtil.parse(phoneNumber, "IN");
-      const phone = phoneUtil.format(
-        parsedPhoneNumber,
-        libphonenumber.PhoneNumberFormat.E164
-      );
-      const generateOTP = () => {
-        return Math.floor(100000 + Math.random() * 900000);
-      };
-      const email = req.body.email;
-      const otp = generateOTP();
-      const userData = new otpCollection({
-        userName: req.body.userName,
-        email,
-        phone,
-        password: req.body.password,
-        cpassword: req.body.cpassword,
-        status: req.body.status,
-        otp: "",
-      });
-      await userData.save();
-      const subject = "For registration on OUTSTOCK furniture";
-      const getOtp = sendOTPByEmail(email, otp, subject);
-      if (getOtp) {
-        const otpUpdate = await otpCollection.findOneAndUpdate(
-          { email },
-          { $set: { otp: otp } }
+  }else{
+    try {
+      const password = req.body.password;
+      const cpassword = req.body.cpassword;
+      if (password === cpassword) {
+        const phoneNumber = req.body.phone;
+        const parsedPhoneNumber = phoneUtil.parse(phoneNumber, "IN");
+        const phone = phoneUtil.format(
+          parsedPhoneNumber,
+          libphonenumber.PhoneNumberFormat.E164
         );
-        if (otpUpdate) {
-          const email = await otpUpdate.email;
-          return res.render("otpcolumnForRegistration", { email });
+        const generateOTP = () => {
+          return Math.floor(100000 + Math.random() * 900000);
+        };
+        const email = req.body.email;
+        const otp = generateOTP();
+        const userData = new otpCollection({
+          userName: req.body.userName,
+          email,
+          phone,
+          password: req.body.password,
+          cpassword: req.body.cpassword,
+          status: req.body.status,
+          otp: "",
+        });
+        await userData.save();
+        const subject = "For registration on OUTSTOCK furniture";
+        const getOtp = sendOTPByEmail(email, otp, subject);
+        if (getOtp) {
+          const otpUpdate = await otpCollection.findOneAndUpdate(
+            { email },
+            { $set: { otp: otp } }
+          );
+          if (otpUpdate) {
+            const email = await otpUpdate.email;
+            return res.render("otpcolumnForRegistration", { email });
+          } else {
+            console.log("otp not updated");
+          }
         } else {
-          console.log("otp not updated");
+          return res.render("userregister", { notValid: true });
         }
       } else {
-        return res.render("userregister", { notValid: true });
+        res.render("userregister", { notMatch: true });
       }
-    } else {
-      res.render("userregister", { notMatch: true });
+    } catch (error) {
+      res.send(error);
     }
-  } catch (error) {
-    res.send(error);
   }
+  
 });
 
 router.get("/user_data", auth, async (req, res) => {

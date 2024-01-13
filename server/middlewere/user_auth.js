@@ -30,7 +30,7 @@ function isLogged(req, res, next) {
 function authCart(req, res, next) {
   const token = req.cookies.usersession;
   if (!token) {
-     res.redirect("/user");
+    res.redirect("/user");
   } else {
     try {
       const decoded = jwt.verify(token, secretKey);
@@ -42,4 +42,19 @@ function authCart(req, res, next) {
   }
 }
 
-module.exports = { auth, isLogged, authCart };
+function addAuth(req, res, next) {
+  const token = req.cookies.usersession;
+  if (!token) {
+    res.json({msg:"Login first and try again.."});
+  } else {
+    try {
+      const decoded = jwt.verify(token, secretKey);
+      req.userId = decoded.userId;
+      next();
+    } catch (error) {
+      res.status(401).render("error", { error: error });
+    }
+  }
+}
+
+module.exports = { auth, isLogged, authCart,addAuth };
