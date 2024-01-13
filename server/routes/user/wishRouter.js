@@ -29,7 +29,7 @@ router.post("/", addAuth, async (req, res) => {
   try {
     const userId = req.userId;
     const { itemId } = req.body;
-    const exist = await WishItem.findOne({ productId: itemId });
+    const exist = await WishItem.findOne({ productId: itemId , userId});
     if (exist == null) {
       const wishItem = new WishItem({
         userId,
