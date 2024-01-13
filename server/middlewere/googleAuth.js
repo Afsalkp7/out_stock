@@ -15,7 +15,7 @@ passport.use(
         email: profile.emails[0].value,
       });
       if (existingUser.length>0) {
-        return done(null, existingUser);
+        return done(null, existingUser[0]);
       }else{
         const userData = new userCollection({
           userName: profile.displayName,
