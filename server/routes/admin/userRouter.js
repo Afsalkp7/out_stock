@@ -5,6 +5,8 @@ const adminCollection = require("../../model/adminModel");
 const auth = require("../../middlewere/auth");
 const PlaceOrder = require("../../model/orderPlaceModel");
 const Order = require("../../model/oraderModel")
+const Cart = require("../../model/cartModel");
+const WishItem = require("../../model/wishModel")
 
 route.get("/", auth, async (req, res) => {
   if (req.cookies.session) {
