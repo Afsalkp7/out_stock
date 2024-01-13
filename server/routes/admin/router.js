@@ -65,23 +65,23 @@ route.get("/index", auth, async (req, res) => {
     const _id = req.adminId;
     const admin = await adminCollection.findOne({ _id });
     //find order count
-    const orderCount = await PlaceOrder.countDocuments({});
+    const orderCount = await PlaceOrder.countDocuments({})||0;
     console.log("orderCount : " , orderCount);
     const orderPlaceCount = await PlaceOrder.countDocuments({
       orderStatus: "Order Placed",
-    });
+    })||0;
     const orderShippedCount = await PlaceOrder.countDocuments({
       orderStatus: "Shipped",
-    });
+    })||0;
     const orderOutForDeliveryCount = await PlaceOrder.countDocuments({
       orderStatus: "Out for delivery",
-    });
+    })||0;
     const orderDeliveredCount = await PlaceOrder.countDocuments({
       orderStatus: "Delivered",
-    });
+    })||0;
     const orderCancelledCount = await PlaceOrder.countDocuments({
       orderStatus: "cancelled",
-    });
+    })||0;
     // find user count
     const userount = await userCollection.countDocuments({});
     //find total earnings
