@@ -3,7 +3,7 @@ const router = express.Router();
 const Product = require("../../model/productModel");
 const userCollection = require("../../model/userModel");
 const WishItem = require("../../model/wishModel");
-const { authCart } = require("../../middlewere/user_auth");
+const { authCart,addAuth } = require("../../middlewere/user_auth");
 
 router.get("/", authCart, async (req, res) => {
   const userId = req.userId;
@@ -25,7 +25,7 @@ router.get("/", authCart, async (req, res) => {
   return res.render("wishlist", { wishProducts });
 });
 
-router.post("/", authCart, async (req, res) => {
+router.post("/", addAuth, async (req, res) => {
   try {
     const userId = req.userId;
     const { itemId } = req.body;
