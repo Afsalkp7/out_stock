@@ -11,21 +11,22 @@ passport.use(
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
-      const existingUser = await userCollection.findOne({
+      const existingUser = await userCollection.find({
         email: profile.emails[0].value,
       });
       if (existingUser.length>0) {
         return done(null, existingUser);
+      }else{
+        const userData = new userCollection({
+          userName: profile.displayName,
+          googleId: profile.id,
+          displayName: profile.displayName,
+          email: profile.emails[0].value,
+          status: "active",
+        });
+        await userData.save();
+        done(null, userData);
       }
-      const userData = new userCollection({
-        userName: profile.displayName,
-        googleId: profile.id,
-        displayName: profile.displayName,
-        email: profile.emails[0].value,
-        status: "active",
-      });
-      await userData.save();
-      done(null, userData);
     }
   )
 );
