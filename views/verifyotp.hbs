@@ -20,33 +20,40 @@
 </head>
 <body>
     <div id="content">
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-4 ">
-            <div class="container-fluid">
-                <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.jpg" width="200px"  id="mainLogo" 
-                        alt="logo"></a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-5">
-                        <a href="/" class="nav-item nav-link  ms-5"
-                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Home</a>
-                        <a href="#" class="nav-item nav-link  ms-5"
-                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Shop</a>
-                        <a href="#" class="nav-item nav-link  ms-5"
-                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">About</a>
-                        <a href="#" class="nav-item nav-link  ms-5"
-                            style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav ms-auto">
-                            <a href="/user"><img src="/img/person1.png" alt="admin" width="40px"></a>
-                        </div>
-                    </div>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 w-100 bg-light" style="position: fixed; z-index:5">
+      <div class="container-fluid">
+        <a href="/" class="navbar-brand"><img class="img-fluid" src="/img/logo.png" id="mainLogo" width="200px"
+            alt="logo"></a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-0 ms-sm-0 ms-md-0 ms-lg-5 ms-xl-5 ms-xxl-5">
+            <a href="/" class="nav-item nav-link  ms-5"
+              style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Home</a>
+            <a href="/shop" class="nav-item nav-link  ms-5"
+              style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Shop</a>
+            <a href="/about" class="nav-item nav-link  ms-5"
+              style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">About</a>
+            <a href="/contact" class="nav-item nav-link  ms-5"
+              style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">Contact</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
 
+            <div class="navbar-nav ms-auto me-3">
+              <a id="userIcons" href="/wish" class="ms-5 ms-sm-5 ms-lg-0 ms-xl-0 ms-xxl-0"><img src="/img/wishlist.png" alt="wishlist" width="30px"></a>
             </div>
-        </nav>
+            <div class="navbar-nav me-3">
+              <a id="userIcons" href="/cart" class="ms-5 ms-sm-5 ms-lg-0 ms-xl-0 ms-xxl-0"><img src="/img/cart.png" alt="cart" width="30px"></a>
+            </div>
+            <div class="navbar-nav me-3">
+              <a id="userIcons" href="/user" class="ms-5 ms-sm-5 ms-lg-0 ms-xl-0 ms-xxl-0"><img src="/img/person1.png" alt="admin" width="30px"></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </nav>
     </div>
     <div id="mainDiv" class="container mt-5">
         {{!-- <img id="logImg" src="/img/slide13.jpg" width="100%" alt="login.jpg"> --}}
