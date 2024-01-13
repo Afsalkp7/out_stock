@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OUTSTOCK</title>
-  <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dzvvpbnai/image/upload/v1704860410/Screenshot_2024-01-10_094916_ny2sxf.jpg">
+    <link rel="icon" type="image/x-icon"
+        href="https://res.cloudinary.com/dzvvpbnai/image/upload/v1704860410/Screenshot_2024-01-10_094916_ny2sxf.jpg">
     <link rel="stylesheet" href="/css/style2.css">
     <link rel="stylesheet" href="/css/productCard.css">
     <link rel="stylesheet" href="/css/footerStyle.css">
@@ -15,13 +16,13 @@
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <style>
-    @media only screen and (max-width: 475px) {
-      #mainLogo {
-        width: 100px;
-      }
-    }
-  </style>
+    <style>
+        @media only screen and (max-width: 475px) {
+            #mainLogo {
+                width: 100px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 w-100 bg-light"
             style="position: fixed; z-index:5">
             <div class="container-fluid">
-                <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.png" width="200px" id="mainLogo" 
+                <a href="#" class="navbar-brand"><img class="img-fluid" src="/img/logo.png" width="200px" id="mainLogo"
                         alt="logo"></a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -121,75 +122,87 @@
                     <div class="row">
                         <div class="container-fluid cont-box bg-trasparent my-4 p-3" style="position: relative">
                             <div class="row row-top row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
-                                
 
 
 
-                                    {{#each products}}
-                                    <div class="col hp" data-category="{{this.category}}" data-brand="{{this.brand}}"
-                                        data-price="{{this.price}}">
-                                        <div class="card shadow-sm">
-                                            <a href="/shop/{{this._id}}">
-                                                <img src="{{this.image}}" id="shopImage" data-product-id="{{this._id}}"
-                                                    class="card-img-top" style="background-color: white;" alt="title" />
-                                                <div class="card-body bg-light">
-                                                    <div class="clearfix">
-                                                        <span
-                                                            class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
-                                                        <h5 class="float-start badge rounded-pill text-dark">
-                                                            ₹{{this.price}}/-</h5>
-                                                        <small class="float-end  rounded-pill text-danger"
-                                                            style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
-                                                    </div>
 
+                                {{#each products}}
+                                <div class="col hp" data-category="{{this.category}}" data-brand="{{this.brand}}"
+                                    data-price="{{this.price}}">
+                                    <div class="card shadow-sm">
+                                        <p id="noStock{{this._id}}" class="text-light bg-danger"
+                                            style="position: absolute; left:4px; top:4px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bolder; display: none;">
+                                            Not available</p>
+                                        <a href="/shop/{{this._id}}">
+                                            <img src="{{this.image}}" id="shopImage" data-product-id="{{this._id}}"
+                                                class="card-img-top" style="background-color: white;" alt="title" />
+                                            <div class="card-body bg-light">
+                                                <div class="clearfix">
+                                                    <span
+                                                        class="float-start badge rounded-pill text-dark">{{this.productName}}</span><br>
+                                                    <h5 class="float-start badge rounded-pill text-dark">
+                                                        ₹{{this.price}}/-</h5>
+                                                    <small class="float-end  rounded-pill text-danger"
+                                                        style="opacity: .5;"><del>₹{{this.net_price}}/-</del></small><br>
                                                 </div>
-                                            </a>
-                                        </div>
+
+                                            </div>
+                                        </a>
                                     </div>
-                                    {{/each}}
                                 </div>
+                                <script>
+                                    if ({{ this.quantity }} == 0) {
+                                        document.getElementById("noStock{{this._id}}").style.display = "block"
+                                    }
+                                </script>
+                                {{/each}}
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
     {{!-- footer --}}
 
-      <section class="contact-area" id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-          <div class="contact-content text-center">
-            <a href="#"><img src="/img/logo.png" class="img-fluid ms-5" alt="logo"></a>
-            <p>Subscribe to the Outstock Store mailing list to receive updates on new arrivals, special offers and
-              other discount information. </p>
-            <div class="hr"></div>
-            <h6>1120 Hi-lite busiiness park, CLT 673016, KOZHIKODE, KERALA.</h6>
-            <h6>+91 8089 8088 47<span>|</span>+91 8089 4788 47</h6>
-            <div class="contact-social">
-              <ul>
-                <li><a class="hover-target" href="https://www.facebook.com/afsal.manu.370/"><i
-                      class="fab fa-facebook-f"></i></a></li>
-                <li><a class="hover-target" href="www.linkedin.com/in/afsal-kp"><i class="fab fa-linkedin-in"></i></a>
-                </li>
-                <li><a class="hover-target" href="https://github.com/Afsalkp7"><i class="fab fa-github"></i></a></li>
-                <li><a class="hover-target" href="https://codepen.io/Afsalkp7"><i class="fab fa-codepen"></i></a></li>
-              </ul>
+    <section class="contact-area" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="contact-content text-center">
+                        <a href="#"><img src="/img/logo.png" class="img-fluid ms-5" alt="logo"></a>
+                        <p>Subscribe to the Outstock Store mailing list to receive updates on new arrivals, special
+                            offers and
+                            other discount information. </p>
+                        <div class="hr"></div>
+                        <h6>1120 Hi-lite busiiness park, CLT 673016, KOZHIKODE, KERALA.</h6>
+                        <h6>+91 8089 8088 47<span>|</span>+91 8089 4788 47</h6>
+                        <div class="contact-social">
+                            <ul>
+                                <li><a class="hover-target" href="https://www.facebook.com/afsal.manu.370/"><i
+                                            class="fab fa-facebook-f"></i></a></li>
+                                <li><a class="hover-target" href="www.linkedin.com/in/afsal-kp"><i
+                                            class="fab fa-linkedin-in"></i></a>
+                                </li>
+                                <li><a class="hover-target" href="https://github.com/Afsalkp7"><i
+                                            class="fab fa-github"></i></a></li>
+                                <li><a class="hover-target" href="https://codepen.io/Afsalkp7"><i
+                                            class="fab fa-codepen"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- =============== 1.9 Contact Area End ====================-->
-  <!-- =============== 1.9 Footer Area Start ====================-->
-  <footer>
-    <p>Copyright &copy; 2023 <img src="/img/logo.png" alt="logo"> All Rights Reserved.</p>
-  </footer>
+    </section>
+    <!-- =============== 1.9 Contact Area End ====================-->
+    <!-- =============== 1.9 Footer Area Start ====================-->
+    <footer>
+        <p>Copyright &copy; 2023 <img src="/img/logo.png" alt="logo"> All Rights Reserved.</p>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/shopItem.js"></script>

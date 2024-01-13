@@ -148,9 +148,11 @@
     <div class="container">
       <div class="row">
         {{#each productArray}}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-5 mb-sm-3 ">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-5 mb-sm-3 " style="position: relative;">
           <div class="card shadow-sm">
+             <p id="noStock{{this._id}}" class="text-light bg-danger" style="position: absolute; left:4px; top:4px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bolder; display: none;">Not available</p>
             <a href="/shop/{{this._id}}">
+           
               <img src="{{this.image}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
                 style="background-color: white;" alt="title" />
               <div class="card-body bg-light">
@@ -167,6 +169,13 @@
             </a>
           </div>
         </div>
+
+        <script>
+          if({{this.quantity}} == 0){
+            document.getElementById("noStock{{this._id}}").style.display="block"
+          }
+        </script>
+
         {{/each}}
       </div>
     </div>
@@ -203,6 +212,7 @@
       {{#each trendingArray}}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-3">
         <div class="card shadow-sm">
+          <p id="noStockTr{{this._id}}" class="text-light bg-danger" style="position: absolute; left:4px; top:4px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bolder; display: none;">Not available</p>
           <a href="/shop/{{this._id}}">
             <img src="{{this.image}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
               style="background-color: white;" alt="title" />
@@ -220,6 +230,11 @@
           </a>
         </div>
       </div>
+      <script>
+          if({{this.quantity}} == 0){
+            document.getElementById("noStockTr{{this._id}}").style.display="block"
+          }
+        </script>
       {{/each}}
     </div>
   </div>
@@ -238,6 +253,7 @@
       {{#each arrivalArray}}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-3">
         <div class="card shadow-sm">
+          <p id="noStockNew{{this._id}}" class="text-light bg-danger" style="position: absolute; left:4px; top:4px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bolder; display: none;">Not available</p>
           <a href="/shop/{{this._id}}">
             <img src="{{this.image}}" id="shopImage" data-product-id="{{this._id}}" class="card-img-top"
               style="background-color: white;" alt="title" />
@@ -255,6 +271,11 @@
           </a>
         </div>
       </div>
+      <script>
+          if({{this.quantity}} == 0){
+            document.getElementById("noStockNew{{this._id}}").style.display="block"
+          }
+        </script>
       {{/each}}
     </div>
   </div>
