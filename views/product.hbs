@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>OUTSTOCK</title>
+  <title>OUTSTOCK</title>
   <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dzvvpbnai/image/upload/v1704860410/Screenshot_2024-01-10_094916_ny2sxf.jpg">
   <link rel="stylesheet" href="/css/style2.css">
   <link rel="stylesheet" href="/css/productCard.css">
@@ -28,11 +28,15 @@
         width: 100px;
       }
     }
+    @media only screen and (max-width: 576px) {
+      #mainSection {
+        padding-left: 10px  !important ;
+
+      }
+    }
   </style>
-
 </head>
-
-<body>
+<body >
 
   <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 w-100 bg-light" style="position: fixed; z-index:5">
@@ -70,14 +74,17 @@
 
 
   <!-- content -->
-  <section class="py-5">
-    <div class="container pt-5">
+
+
+ 
+  <section class="pt-5 ms-3 bg-light">
+    <div class="container pt-5" style="padding: 0px 0px 0px 0px ;" id="mainSection">
       <div class="row gx-5">
         <aside class="col-lg-6">
             <div class="border rounded-4 mb-3 d-flex justify-content-center">
               <div class="zoom">
                 <div class="original">
-                  <img style="max-width: 100%; max-height: 100vh; margin: auto;" id="mainImg" class="rounded-4 fit"
+                  <img style="max-width: 100%; max-height: 100vh; margin: auto;" id="mainImg" class="img-fluid "
                     src="{{item.image}}" />
                 </div>
                 <div class="viewer" style="z-index: 3;">
@@ -88,25 +95,25 @@
 
             </div>
 
-          <div class="d-flex justify-content-center mb-3">
+          <div class="d-flex justify-content-center mb-3 img-fluid">
             {{#if item.image}}
-            <img id="img1" onclick="change1()" width="100" height="100" class="rounded-2" src="{{item.image}}" />
+            <img id="img1" onclick="change1()" width="100" height="100" class="rounded-2 img-fluid ps-2" src="{{item.image}}" />
             {{/if}}
             {{#if item.secondImage}}
-            <img id="img2" onclick="change2()" width="100" height="100" class="rounded-2" src="{{item.secondImage}}" />
+            <img id="img2" onclick="change2()" width="100" height="100" class="rounded-2 img-fluid ps-2" src="{{item.secondImage}}" />
             {{/if}}
             {{#if item.thirdImage}}
-            <img id="img3" onclick="change3()" width="100" height="100" class="rounded-2" src="{{item.thirdImage}}" />
+            <img id="img3" onclick="change3()" width="100" height="100" class="rounded-2 img-fluid ps-2" src="{{item.thirdImage}}" />
             {{/if}}
             {{#if item.fourthImage}}
-            <img id="img4" onclick="change4()" width="100" height="100" class="rounded-2" src="{{item.fourthImage}}" />
+            <img id="img4" onclick="change4()" width="100" height="100" class="rounded-2 img-fluid ps-2" src="{{item.fourthImage}}" />
             {{/if}}
           </div>
           <!-- thumbs-wrap.// -->
           <!-- gallery-wrap .end// -->
         </aside>
         <main class="col-lg-6">
-          <div class="ps-lg-3">
+          <div class="ps-lg-6">
             <h4 class="title text-dark">
               {{item.productName}}<br />
               {{item.category}}
@@ -169,14 +176,18 @@
 
             <button class="btn btn-dark shadow-0" id="buyNowButton" data-item-id="{{item._id}}"> Buy now </button>
             <button class="btn btn-dark shadow-0" id="addToCartButton" data-item-id="{{item._id}}"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
-            <button style="display: none;" class="btn btn-dark shadow-0" id="outOfStockBuyNow" onclick="outOfStock()" > Buy now </button>
-            <button style="display: none;" class="btn btn-dark shadow-0" id="outOfStockAddToCart"  onclick="outOfStock()"  > <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
+            <button style="display: none;" class="btn btn-dark shadow-0 mb-2" id="outOfStockBuyNow" onclick="outOfStock()" > Buy now </button>
+            <button style="display: none;" class="btn btn-dark shadow-0 mb-2" id="outOfStockAddToCart"  onclick="outOfStock()"  > <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
             <buton id="addToWishButton" data-item-id="{{item._id}}" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Save </buton>
           </div>
         </main>
       </div>
     </div>
   </section>
+  <p id="len" style="display: none;">0</p>
+  <p id="total" style="display: none;"></p>
+  <p id="discound" style="display: none;">0</p>
+  <p id="grandTotal" style="display: none;"></p>
   <!-- content -->
 <script>
   function outOfStock(){
