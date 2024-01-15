@@ -174,3 +174,4 @@ function deleteProduct() {
       console.error("Error:", error);
     });
 }
+

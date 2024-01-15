@@ -13,12 +13,15 @@ function registerValidation(){
     document.getElementById("userNameAlert").innerHTML="Please fill user name"
     return false
   }else if(userName.length<3){
+    document.getElementById("userNameAlert").innerHTML=""
     document.getElementById("userNameAlert").innerHTML="User name must be need 3 characters minimum"
     return false
   }else if(userName.length>10){
+    document.getElementById("userNameAlert").innerHTML=""
     document.getElementById("userNameAlert").innerHTML="User name only contain maximum 10 characters"
     return false
   }else if(phone == "" || null){
+    document.getElementById("userNameAlert").innerHTML=""
     document.getElementById("phoneAlert").innerHTML="Fill Phone number "
     return false
   }else if(!containsOnlyDigits){
@@ -28,12 +31,14 @@ function registerValidation(){
     document.getElementById("phoneAlert").innerHTML="Phone number must contain 10 digits"
     return false
   }else if(email==""||null){
+    document.getElementById("phoneAlert").innerHTML=""
     document.getElementById("emailAlert").innerHTML="Fill a email"
     return false
   }else if(!isValidEmail){
     document.getElementById("emailAlert").innerHTML="Put a valid email"
     return false
   }else if(password==""||null){
+    document.getElementById("emailAlert").innerHTML=""
     document.getElementById("passAlert").innerHTML="Fill password"
     return false
   }else if(password.length < 8){
@@ -46,6 +51,7 @@ function registerValidation(){
     document.getElementById("passAlert").innerHTML="Password should contain alphabets, numerics, and at least one special character (!@#$%)."
     return false
   }else if(cpassword==""||null){
+    document.getElementById("passAlert").innerHTML=""
     document.getElementById("confirmPassAlert").innerHTML="Fill confirm password"
     return false
   }else if(cpassword != password){
@@ -213,43 +219,43 @@ function validateCategoryForm() {
 
 function validateProductForm() {
   let productName = document.forms["ProductForm"]["productName"].value;
-  let category = document.forms["ProductForm"]["category"].value;
-  let image = document.forms["ProductForm"]["image"].value;
   let price = document.forms["ProductForm"]["price"].value;
   let netPrice = document.forms["ProductForm"]["netPrice"].value;
-  let brand = document.forms["ProductForm"]["brand"].value;
   let quantity = document.forms["ProductForm"]["quantity"].value;
   let description = document.forms["ProductForm"]["description"].value;
-  let additional = document.forms["ProductForm"]["additional"].value;
 
   if (productName == "") {
-    alert("product Name must be filled out");
-    return false;
-  } else if (category == "") {
-    alert("category must be filled out");
-    return false;
-  } else if (image == "") {
-    alert("image must be filled out");
+    document.getElementById("nameAlert").innerHTML = "! product Name must be filled out"
     return false;
   } else if (price == "") {
-    alert("price must be filled out");
+    document.getElementById("nameAlert").innerHTML = ""
+    document.getElementById("priceAlert").innerHTML="Price must be fill"
+    return false;
+  } else if (!price.match(/^\d+/)) {
+    document.getElementById("priceAlert").innerHTML="price only contain numbers"
     return false;
   } else if (netPrice == "") {
-    alert("netPrice must be filled out");
+    document.getElementById("priceAlert").innerHTML=""
+    document.getElementById("netPriceAlert").innerHTML="netPrice must be filled out"
     return false;
-  } else if (brand == "") {
-    alert("brand must be filled out");
+  }  else if (!netPrice.match(/^\d+/)) {
+    document.getElementById("netPriceAlert").innerHTML="Netprice only contain numbers"
     return false;
   } else if (quantity == "") {
-    alert("quantity must be filled out");
+    document.getElementById("netPriceAlert").innerHTML=""
+    document.getElementById("stockAlert").innerHTML="quantity must be filled out"
     return false;
-  } else if (description == "") {
-    alert("description must be filled out");
+  } else if (!quantity.match(/^\d+/)) {
+    document.getElementById("stockAlert").innerHTML="Quantity only contain numbers"
     return false;
-  } else if (additional == "") {
-    alert("additional must be filled out");
+  }  else if (description == "") {
+    document.getElementById("stockAlert").innerHTML=""
+    document.getElementById("desAlert").innerHTML="description must be filled out"
     return false;
-  } else {
+  } else if (description.length < 5){
+    document.getElementById("desAlert").innerHTML="Description must contain minimum 6 characters"
+    return false
+  }else {
     return true;
   }
 }

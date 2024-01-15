@@ -154,9 +154,6 @@
           <div class="spaceDiv pt-2"><span class="ms-3">{{admin.email}}</span></div>
           <span>Mobile Number</span>
           <div class="spaceDiv pt-2"><span class="ms-3">{{admin.phone}}</span></div>
-
-
-
         </div>
         <div class="modal-footer">
           <button class="btn btn-dark text-light" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
@@ -238,68 +235,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          {{!-- <form id="ProductForm" name="ProductForm" onsubmit="return validateProductForm()" method="post"
-            action="/admin/products" enctype="multipart/form-data">
+          <form id="ProductForm" name="ProductForm" action="/admin/products" method="POST" onsubmit="return validateProductForm()" 
+            enctype="multipart/form-data">
             <div class="mb-3 mt-3">
               <label for="productName"> Name</label>
               <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="productName"
                 name="productName">
-            </div>
-            <div class=" mb-3">
-              <label for="image">Product Images</label>
-              <input type="file" multiple class="form-control" style="background-color: rgb(226, 226, 226);;" id="image"
-                name="image">
-            </div>
-            <div class="mb-3 mt-3">
-              <label for="price"> Price</label>
-              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="price"
-                name="price">
-            </div>
-            <div class="mb-3 mt-3">
-              <label for="netPrice">Net Price</label>
-              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="netPrice"
-                name="net_price">
-            </div>
-            <div class="mb-3 mt-3">
-              <label for="category">Category</label>
-              <select class="form-control" style="background-color: rgb(226, 226, 226);" id="category" name="category">
-                {{#each categories}}
-                <option class="bg-dark text-light" value="{{this.name}}">{{this.name}}</option>
-                {{/each}}
-              </select>
-            </div>
-
-            <div class="mb-3 mt-3">
-              <label for="brand">Brand</label>
-              <select class="form-control" style="background-color: rgb(226, 226, 226);" id="brand" name="brand">
-                {{#each brands}}
-                <option class="bg-dark text-light" value="{{this.brandName}}">{{this.brandName}}</option>
-                {{/each}}
-              </select>
-            </div>
-            <div class="mb-3 mt-3">
-              <label for="quantity">Number of stock</label>
-              <input type="number" class="form-control" style="background-color: rgb(226, 226, 226);" id="quantity"
-                name="quantity">
-            </div>
-            <div class=" mb-3">
-              <label for="description">Description</label><br>
-              <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description"
-                rows="2"></textarea>
-            </div>
-            <div class=" mb-3">
-              <label for="additional">Any additional info</label><br>
-              <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;" name="additional"
-                rows="2"></textarea>
-            </div>
-            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO BRANDS</button>
-          </form> --}}
-          <form id="ProductForm" name="ProductForm" onsubmit="return validateProductForm()" method="post"
-            action="/admin/products" enctype="multipart/form-data">
-            <div class="mb-3 mt-3">
-              <label for="productName"> Name</label>
-              <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="productName"
-                name="productName">
+                <p id="nameAlert" class="text-danger"></p>
             </div>
             <div class=" mb-3">
               <label for="mainImage">Main image</label>
@@ -341,11 +283,13 @@
               <label for="price"> Price</label>
               <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="price"
                 name="price">
+                <p id="priceAlert" class="text-danger"></p>
             </div>
             <div class="mb-3 mt-3">
               <label for="netPrice">Net Price</label>
               <input type="text" class="form-control" style="background-color: rgb(226, 226, 226);" id="netPrice"
                 name="net_price">
+                <p id="netPriceAlert" class="text-danger"></p>
             </div>
             <div class="mb-3 mt-3">
               <label for="category">Category</label>
@@ -368,18 +312,20 @@
               <label for="quantity">Number of stock</label>
               <input type="number" class="form-control" style="background-color: rgb(226, 226, 226);" id="quantity"
                 name="quantity">
+                <p id="stockAlert" class="text-danger"></p>
             </div>
             <div class=" mb-3">
               <label for="description">Description</label><br>
               <textarea id="description" style="background-color: rgb(226, 226, 226);width: 100%;" name="description"
                 rows="2"></textarea>
+                <p id="nameAlert" class="text-danger"></p>
             </div>
             <div class=" mb-3">
               <label for="additional">Any additional info</label><br>
               <textarea id="additional" style="background-color: rgb(226, 226, 226);width: 100%;" name="additional"
                 rows="2"></textarea>
             </div>
-            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">ADD TO PRODUCTS</button>
+            <button type="submit" class="btn btn-dark">ADD TO PRODUCTS</button>
           </form>
 
         </div>
