@@ -17,7 +17,7 @@ route.get("/",auth,async(req,res)=>{
         const products = await Product.find();
         const brands = await Brand.find();
         const categories = await Category.find()
-        res.render("adminProduct",{admin,products,brands,categories})
+        res.render("adminProduct",{admin,products:products.reverse(),brands,categories})
     }else{
         res.redirect("/admin")
     }

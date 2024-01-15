@@ -57,7 +57,7 @@ router.get("/", async (req, res) => {
       order.userName = userName;
       ordersArray.push(order);
     }
-    res.render("adminOrder", { admin, orders: ordersArray });
+    res.render("adminOrder", { admin, orders: ordersArray.reverse() });
   } else {
     res.redirect("/admin");
   }

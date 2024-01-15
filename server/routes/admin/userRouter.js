@@ -12,8 +12,8 @@ route.get("/", auth, async (req, res) => {
   if (req.cookies.session) {
     const _id = req.adminId;
     const admin = await adminCollection.findOne({ _id });
-    const users = await userCollection.find()
-    res.render("admin_user", { admin, users });
+    const users = await userCollection.find() 
+    res.render("admin_user", { admin, users:users.reverse() });
   } else {
     res.redirect("/admin");
   }
