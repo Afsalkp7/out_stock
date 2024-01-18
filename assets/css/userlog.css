@@ -2,7 +2,11 @@
     margin: 0;
     padding: 0;
 }
- 
+#heading{
+    font-size:  2.9282576866764276vw;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}   
 
 .create{
     background-color: black;
