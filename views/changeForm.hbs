@@ -49,18 +49,18 @@
       </div>
     </nav>
   </div>
-  <div id="mainDiv" class="container mt-5">
+  <div id="mainDiv" style="position: unset;" class="container mt-5">
     <span id="heading">Reset Password</span>
     <div class="container">
       <form name="passChangeForm" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
         onsubmit="return changeFormValidation()" action="/confirmPass" method="POST">
 
-        <div class="form-floating mb-3 mt-3">
+        <div class="form-floating mb-3 mt-3" style="position: unset;">
           <input type="password" class="form-control" id="pass" placeholder="Enter password" name="password" />
           <label for="pass">New Password</label>
           <p id="passAlert"></p>
         </div>
-        <div class="form-floating mb-3 mt-3">
+        <div class="form-floating mb-3 mt-3" style="position: unset;">
           <input type="password" class="form-control" id="con" placeholder="Enter passowrd again" name="confirmPassword" />
           <label for="con">Confirm Password</label>
           <p id="conPassAlert"></p>
