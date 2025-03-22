@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pm2 start app.js --name outstock",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
